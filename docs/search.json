@@ -4,21 +4,21 @@
     "href": "index.html",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "",
-    "text": "This is the project website for Team HeeHaa’s submission to VAST Challenge 2026 Mini-Challenge 1. TenantThread, a property-technology company, runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our visual analytics tool surfaces the abnormal behaviour and traces it back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
+    "text": "This is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
   },
   {
     "objectID": "index.html#welcome",
     "href": "index.html#welcome",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "",
-    "text": "This is the project website for Team HeeHaa’s submission to VAST Challenge 2026 Mini-Challenge 1. TenantThread, a property-technology company, runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our visual analytics tool surfaces the abnormal behaviour and traces it back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
+    "text": "This is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
   },
   {
     "objectID": "index.html#explore-the-project",
     "href": "index.html#explore-the-project",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "Explore the project",
-    "text": "Explore the project\n\n\n\nSection\nWhat you’ll find\n\n\n\n\nProposal\nMotivation, problem, approach and prototype design\n\n\nMethodology\nData preparation, statistical analysis, and exploration\n\n\nFindings\nKey results and the story they tell\n\n\nPoster\nConference poster summarising the work\n\n\nMeeting Minutes\nRecord of team meetings and decisions\n\n\nThe Team\nWho we are and what we each did\n\n\nShiny App\nUser guide and link to the live application"
+    "text": "Explore the project\n\n\n\nSection\nWhat you’ll find\n\n\n\n\nProposal\nMotivation, problem, approach and prototype design\n\n\nMethodology\nHow the app was built, from data preparation through analytical computation, findings and the interactive presentation\n\n\nPoster\nConference poster summarising the work\n\n\nMeeting Minutes\nRecord of team meetings and decisions\n\n\nThe Team\nWho we are and what we each did\n\n\nShiny App\nUser guide and link to the live application"
   },
   {
     "objectID": "index.html#quick-links",
