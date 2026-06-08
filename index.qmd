@@ -11,7 +11,7 @@ toc: false
 This is the project website for **Team HeeHaa**'s submission to VAST Challenge 2026
 Mini-Challenge 1. TenantThread, a property-technology company, runs seven AI agents
 during a public-relations response while a merger sits under embargo. A compliance
-agent called the Judge is meant to watch for violations — yet embargoed information
+agent called the Judge is meant to watch for violations, yet embargoed information
 still reaches the outside world. Our visual analytics tool surfaces the abnormal
 behaviour and traces it back to the messages that prove it.
 

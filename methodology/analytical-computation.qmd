@@ -1,0 +1,181 @@
+---
+title: "Analytical Computation"
+subtitle: "Methodology · Phase 2 of 3"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+This is the second stage of the pipeline. It turns the prepared tables into three behavioural signals, one for each of the first three project objectives, all computed against a baseline the analyst chooses. The figures below are static versions of what the application renders interactively, computed from the real data with the baseline period set to rounds 1 to 20.
+
+```{r}
+#| label: setup
+#| message: false
+#| code-summary: "Shared setup: data, labels and palettes"
+library(tidyverse)
+
+messages <- read_csv("data/messages_clean.csv", show_col_types = FALSE)
+
+agent_labels <- c(
+  legal_agent = "Legal", quality_agent = "Platform Trust", pr_agent = "PR",
+  social_media_agent = "Social Media", pr_intern_agent = "PR Intern",
+  intern_agent = "Intern", judge_agent = "Judge")
+agent_palette <- c(
+  legal_agent = "#2C5282", quality_agent = "#2F855A", pr_agent = "#C05621",
+  social_media_agent = "#B83280", pr_intern_agent = "#D69E2E",
+  intern_agent = "#718096", judge_agent = "#9B2C2C")
+chan_levels <- c("comms_huddle","one_on_one_chat","side_huddle",
+                 "official_post","personal_post","anonymous_post")
+
+split <- 20   # end of the baseline period
+```
+
+## Defining the baseline
+
+The analyst sets a single round as the end of the baseline period. Rounds up to that point form the calm period and later rounds form the suspect period. Moving the boundary recomputes every signal, so the whole investigation can be re-run under a different definition of normal. A robustness check compares the count of flagged messages under the chosen baseline to the count under an earlier baseline, and reports the finding as robust when the two are close.
+
+## Objective 1, abnormality, defining normal and surfacing departures
+
+The abnormality signal measures how far each agent departs from its own habitual channel use. For the calm period, the share of an agent's messages that fell on each channel was computed. The unusualness of a channel for an agent is one minus that share, so a channel the agent never used in the calm period scores one. The grid below shades each agent-channel cell for round 22, the 5:00 PM round, by that unusualness. The number in a cell is the message count.
+
+```{r}
+#| label: abnormality-grid
+#| fig-height: 3.6
+#| code-summary: "Calm-period shares, then the abnormality grid for round 22"
+rnd <- 22
+
+share <- messages |>
+  filter(round_idx <= split) |>
+  count(agent_id, channel) |>
+  left_join(count(filter(messages, round_idx <= split), agent_id, name = "tot"),
+            by = "agent_id") |>
+  mutate(share = n / tot) |>
+  select(agent_id, channel, share)
+
+counts <- messages |> filter(round_idx == rnd) |> count(agent_id, channel, name = "msgs")
+
+grid <- expand_grid(agent_id = names(agent_labels), channel = chan_levels) |>
+  left_join(counts, by = c("agent_id","channel")) |>
+  left_join(share,  by = c("agent_id","channel")) |>
+  mutate(msgs = replace_na(msgs, 0L), share = replace_na(share, 0),
+         fill_val = if_else(msgs > 0, 1 - share, NA_real_))
+
+ggplot(grid, aes(x = factor(channel, levels = chan_levels),
+                 y = factor(agent_id, levels = rev(names(agent_labels))),
+                 fill = fill_val)) +
+  geom_tile(colour = "#E2E8F0", linewidth = 0.8) +
+  geom_text(aes(label = if_else(msgs > 0, as.character(msgs), "")), size = 3.4) +
+  scale_fill_gradient(low = "#EDF2F7", high = "#9B2C2C", limits = c(0, 1),
+                      na.value = "white", name = "Unusualness") +
+  scale_y_discrete(labels = agent_labels) +
+  labs(x = NULL, y = NULL, title = "Round 22 channel use, shaded by how unusual it is") +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1), panel.grid = element_blank())
+```
+
+The dark cells fall on the Legal agent and the Social Media agent reaching the personal and anonymous channels, both unmonitored, which neither used in the calm period.
+
+## Objective 2, bypass, detecting communication without oversight
+
+The bypass signal looks for moments an agent reached the outside world through a channel the Judge cannot see. Every post on an unmonitored public channel is examined. For each, the method checks whether the same agent left a trace on a monitored channel in the post's own round or within a chosen number of preceding rounds, defaulting to two. A post with no such trace nearby is a stronger bypass, and one with a trace nearby is likely explained. The timeline below counts the unmonitored public posts by round, coloured by agent.
+
+```{r}
+#| label: bypass-timeline
+#| fig-height: 3.2
+#| code-summary: "Posts reaching unmonitored public channels, by round and agent"
+public_unmon <- c("official_post","personal_post","anonymous_post")
+
+messages |>
+  filter(channel %in% public_unmon) |>
+  count(round_idx, agent_id, name = "posts") |>
+  ggplot(aes(round_idx, posts, fill = agent_id)) +
+  geom_col(width = 0.8) +
+  geom_vline(xintercept = 22.5, linetype = "dashed", colour = "#1A202C") +
+  annotate("text", x = 22.4, y = Inf, label = "embargo lifts (R23) ",
+           hjust = 1, vjust = 1.4, size = 3, colour = "#1A202C") +
+  scale_fill_manual(values = agent_palette, labels = agent_labels, name = NULL) +
+  scale_x_continuous(breaks = seq(1, 23, 2)) +
+  labs(x = "Round", y = "Posts", title = "Posts on unmonitored public channels") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
+```
+
+## Objective 3, network difference, showing how the structure changed
+
+The network signal treats communication as relationships rather than counts. Directed agent-to-agent edges were built from the recipient lists, weighted by message count. For any two rounds the analyst selects, the two edge sets are compared and every link is coloured green when new in the later round, red when dropped before it and grey when present in both. Node size is the agent's degree, the total number of links touching it. The comparison below sets round 18, when the Legal agent and the Judge were pulled into emergency calls, against round 22.
+
+```{r}
+#| label: network-difference
+#| fig-height: 4.2
+#| code-summary: "Two-round agent-to-agent comparison on a fixed circular layout"
+recipient_to_agent <- c(
+  legal = "legal_agent", platform_trust = "quality_agent", pr = "pr_agent",
+  social_manager = "social_media_agent", pr_intern = "pr_intern_agent",
+  intern = "intern_agent", judge = "judge_agent")
+
+agent_edges <- function(df) {
+  df |>
+    filter(!is.na(recipients_csv), recipients_csv != "", recipients_csv != "ALL") |>
+    separate_rows(recipients_csv, sep = ";") |>
+    mutate(to = unname(recipient_to_agent[recipients_csv])) |>
+    filter(!is.na(to)) |>
+    transmute(from = as.character(agent_id), to = to) |>
+    count(from, to, name = "weight")
+}
+
+r1 <- 18; r2 <- 22
+e1 <- agent_edges(filter(messages, round_idx == r1))
+e2 <- agent_edges(filter(messages, round_idx == r2))
+k1 <- paste(e1$from, e1$to); k2 <- paste(e2$from, e2$to)
+lab1 <- paste0("Round ", r1); lab2 <- paste0("Round ", r2)
+
+ag  <- names(agent_labels)
+ang <- seq(0, 2 * pi, length.out = length(ag) + 1)[seq_along(ag)]
+pos <- tibble(name = ag, x = cos(ang), y = sin(ang))
+
+deg_of <- function(e) {
+  tibble(name = ag) |>
+    left_join(bind_rows(e |> count(from, wt = weight) |> rename(name = from),
+                        e |> count(to,   wt = weight) |> rename(name = to)) |>
+                group_by(name) |> summarise(deg = sum(n), .groups = "drop"),
+              by = "name") |>
+    mutate(deg = replace_na(deg, 0))
+}
+nodes <- bind_rows(pos |> left_join(deg_of(e1), by = "name") |> mutate(panel = lab1),
+                   pos |> left_join(deg_of(e2), by = "name") |> mutate(panel = lab2)) |>
+  mutate(panel = factor(panel, levels = c(lab1, lab2)))
+
+build <- function(e, status_fun, lab) {
+  if (nrow(e) == 0) return(NULL)
+  e |> mutate(status = status_fun(paste(from, to)), panel = lab) |>
+    left_join(pos, by = c("from" = "name")) |> rename(x1 = x, y1 = y) |>
+    left_join(pos, by = c("to"   = "name")) |> rename(x2 = x, y2 = y)
+}
+seg <- bind_rows(
+  build(e1, function(k) if_else(k %in% k2, "Stayed", "Dropped"), lab1),
+  build(e2, function(k) if_else(k %in% k1, "Stayed", "New"),     lab2)) |>
+  mutate(panel = factor(panel, levels = c(lab1, lab2)))
+
+ggplot() +
+  geom_segment(data = seg,
+               aes(x = x1, y = y1, xend = x2, yend = y2,
+                   colour = status, linewidth = weight), alpha = 0.6,
+               arrow = arrow(length = unit(2.2, "mm"), type = "closed")) +
+  geom_point(data = nodes, aes(x, y, size = deg, fill = name),
+             shape = 21, colour = "white", stroke = 0.4) +
+  geom_text(data = nodes, aes(x * 1.2, y * 1.2, label = agent_labels[name]), size = 2.8) +
+  scale_fill_manual(values = agent_palette, guide = "none") +
+  scale_colour_manual(values = c(New = "#2F855A", Dropped = "#9B2C2C", Stayed = "#CBD5E0"),
+                      name = NULL) +
+  scale_size(range = c(3, 11), guide = "none") +
+  scale_linewidth(range = c(0.4, 2), guide = "none") +
+  coord_equal(xlim = c(-1.45, 1.45), ylim = c(-1.45, 1.45)) +
+  facet_wrap(~ panel) +
+  theme_void(base_size = 12) +
+  theme(legend.position = "bottom", strip.text = element_text(face = "bold"))
+```
+
+The later round is denser and centred on the Legal agent, which carries most of the new links as the crisis peaks.
+
+## Objective 4, topics, connecting signals to the text
+
+To connect the signals to subject matter, every message was tagged with each topic whose keyword pattern its content matches. The tags drive the topic and evidence views described in [Interactive Presentation](interactive-presentation.qmd), where an evidence table exposes each message's content and the agent's private reasoning. The output of this stage is the full set of signals ready to be presented.

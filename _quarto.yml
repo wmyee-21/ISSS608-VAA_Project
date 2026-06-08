@@ -1,6 +1,7 @@
 project:
   type: website
-  output-dir: docs   # GitHub Pages serves from /docs on the main branch
+  output-dir: docs       # GitHub Pages serves from /docs on the main branch
+  execute-dir: project   # run all code chunks from the project root so data/ paths resolve
 
 website:
   title: "Team HeeHaa"
@@ -18,12 +19,12 @@ website:
         menu:
           - href: methodology/data-prep.qmd
             text: "Data Preparation"
-          - href: methodology/stat-analysis.qmd
-            text: "Statistical Analysis"
-          - href: methodology/data-exploration.qmd
-            text: "Data Exploration & Visualisation"
-      - href: findings.qmd
-        text: Findings
+          - href: methodology/analytical-computation.qmd
+            text: "Analytical Computation"
+          - href: findings.qmd
+            text: "Findings"
+          - href: methodology/interactive-presentation.qmd
+            text: "Interactive Presentation"
       - href: poster.qmd
         text: Poster
       - href: minutes.qmd

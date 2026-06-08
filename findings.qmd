@@ -1,28 +1,121 @@
 ---
 title: "Findings"
+subtitle: "Methodology · Findings from the scenario"
 author: "Team HeeHaa"
 date: last-modified
 ---
 
-> *(placeholder)* Summarise what the analysis revealed and the evidence behind it.
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+messages <- read_csv("data/messages_clean.csv", show_col_types = FALSE)
+rounds   <- read_csv("data/rounds_clean.csv",   show_col_types = FALSE)
+agent_labels <- c(
+  legal_agent = "Legal", quality_agent = "Platform Trust", pr_agent = "PR",
+  social_media_agent = "Social Media", pr_intern_agent = "PR Intern",
+  intern_agent = "Intern", judge_agent = "Judge")
+public_unmon <- c("official_post","personal_post","anonymous_post")
+```
 
-## Summary of findings
+## Summary
 
-_State the headline conclusion: was the embargo breached by an agent bypassing the
-rules, or did the monitoring break down?_
+The embargo broke one round early. The Project HarborCrest embargo on the CivicLoom merger was due to lift at 6:00 PM on 5 June, the final round of the timeline. At 5:00 PM in the round before it, embargo-bearing merger content reached the unmonitored public channels. The Legal agent carried most of it, posting on both the anonymous and personal channels, with the Social Media agent posting on the personal channel as well. None of this early public content had an accountable path down the channel ladder, which is what the application is built to surface.
 
-## Finding 1 — _title_
+## The calm period and the crisis
 
-_Describe the signal, supporting visualisation, and interpretation._
+Behaviour falls into two regimes. The pre-crisis rounds from 17 May to 4 June carry a steady, mostly internal conversation on the two monitored channels, where governance debates, a merger briefing and the arrival of the Judge as compliance monitor all play out within view. The crisis day on 5 June advances hour by hour across the final ten rounds as a journalist's exposé breaks, the stock falls and a merger story builds toward the embargoed announcement. The signals reported here all concern that crisis day measured against the calm baseline.
 
-## Finding 2 — _title_
+## Finding 1 - agents drift onto channels they did not use before
 
-_..._
+Set against each agent's calm-period habits, the crisis day shows clear drift onto the unmonitored public channels. Channels that barely featured in the baseline carry a burst of late activity, and the agents responsible stand out against their own histories rather than against a fixed rule. Counting each agent's suspect-period messages that fell on a channel it used in under five percent of its calm-period traffic isolates the drift in a small number of agents.
 
-## Finding 3 — _title_
+```{r}
+#| label: drift
+#| fig-height: 2.8
+split <- 20
+share <- messages |>
+  filter(round_idx <= split) |>
+  count(agent_id, channel) |>
+  left_join(count(filter(messages, round_idx <= split), agent_id, name = "tot"),
+            by = "agent_id") |>
+  mutate(share = n / tot) |>
+  select(agent_id, channel, share)
 
-_..._
+messages |>
+  filter(round_idx > split) |>
+  left_join(share, by = c("agent_id","channel")) |>
+  mutate(share = replace_na(share, 0)) |>
+  filter(share < 0.05) |>
+  count(agent_id, name = "unusual") |>
+  mutate(agent = recode(agent_id, !!!agent_labels)) |>
+  ggplot(aes(x = unusual, y = reorder(agent, unusual))) +
+  geom_col(fill = "#9B2C2C") +
+  geom_text(aes(label = unusual), hjust = -0.3, size = 3.5) +
+  expand_limits(x = 0) +
+  labs(x = "Unusual suspect-period messages", y = NULL,
+       title = "Out-of-character messages by agent (baseline rounds 1-20)") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+## Finding 2 - embargoed content reaches the public channels an hour early
+
+This is the central finding. Tracking embargo-bearing content by round and channel shows almost nothing on the public channels through the whole calm period and crisis build-up, then a sharp appearance in round 22 at 5:00 PM, one full round before the official lift.
+
+```{r}
+#| label: early-leak
+#| fig-height: 3.4
+messages |>
+  filter(channel %in% public_unmon, embargo_keyword_count > 0) |>
+  mutate(agent = recode(agent_id, !!!agent_labels)) |>
+  count(round_idx, agent, name = "posts") |>
+  ggplot(aes(x = round_idx, y = posts, fill = agent)) +
+  geom_col(width = 0.7) +
+  geom_vline(xintercept = 22.5, linetype = "dashed", colour = "#9B2C2C") +
+  annotate("text", x = 22.4, y = Inf, label = "embargo lifts 6 PM (R23) ",
+           hjust = 1, vjust = 1.4, size = 3.1, colour = "#9B2C2C") +
+  scale_x_continuous(limits = c(1, 23), breaks = seq(1, 23, 2)) +
+  scale_fill_manual(values = c(Legal = "#2C5282", `Social Media` = "#B83280"),
+                    name = NULL) +
+  labs(x = "Round", y = "Embargo posts",
+       title = "Embargo-bearing content on unmonitored public channels") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(), legend.position = "top")
+```
+
+The round-22 posts sit on the anonymous and personal channels, both of which the Judge cannot see. The same merger content reaching an attributed official channel after the 6:00 PM lift would have been the legitimate path. Reaching the anonymous and personal channels an hour before that is the breach, and the Legal agent accounts for most of it.
+
+## Finding 3 - the monitored view goes quiet as the breach forms
+
+The communication structure reorganises around the crisis. The record shows the Legal agent and the Judge pulled into emergency calls and marked unavailable for the communications huddle in round 18, and the monitored internal channels carry less of the conversation through the late afternoon even as overall volume climbs. Tracking the share of each round's messages that fell on a monitored channel shows that visible share falling away across the closing rounds.
+
+```{r}
+#| label: monitored-share
+#| fig-height: 2.8
+messages |>
+  group_by(round_idx) |>
+  summarise(monitored = mean(channel %in% c("comms_huddle","one_on_one_chat"))) |>
+  ggplot(aes(round_idx, monitored)) +
+  geom_line(colour = "#2C5282", linewidth = 0.8) +
+  geom_point(colour = "#2C5282", size = 1.8) +
+  geom_vline(xintercept = 13.5, linetype = "dashed", colour = "#C05621") +
+  annotate("text", x = 13.5, y = 0.1, label = " crisis day", hjust = 0,
+           size = 3.2, colour = "#C05621") +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
+  scale_x_continuous(breaks = seq(1, 23, 2)) +
+  labs(x = "Round", y = "Share on monitored channels",
+       title = "The monitored view thins as the crisis peaks") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank())
+```
+
+The accountable, visible part of the network thins at the same time that the unmonitored public channels light up, so the breach forms in a period when the Judge's view of the relevant agents is at its weakest.
+
+## Finding 4 - the evidence is in the message text
+
+Every aggregate signal resolves to specific messages. Opening the round-22 public posts shows merger language on channels with no accountable path, and the agents' private reasoning fields recorded alongside each message let an analyst read the context behind the content rather than inferring it. This closes the path from an aggregate pattern down to the individual messages that stand as evidence of the early breach.
 
 ## Limitations
 
-_What the analysis cannot conclude, and caveats on the evidence._
+The findings rest on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning on other data. The bypass classification depends on the length of the look-back window and on where the baseline boundary is drawn, and the application exposes both controls precisely so that a reader can test how far the conclusion holds as those choices change. The topic tags come from a keyword vocabulary rather than a learned model, which is transparent and editable but will miss content phrased outside its patterns. The analysis describes what each agent did and where its content appeared, and it stops short of asserting intent.
