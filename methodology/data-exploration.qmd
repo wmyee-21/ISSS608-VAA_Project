@@ -1,0 +1,31 @@
+---
+title: "Data Exploration & Visualisation"
+subtitle: "Methodology · Part 3"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+> *(placeholder)* This page presents exploratory data analysis and the visualisation
+> designs that informed the Shiny application.
+
+## Exploratory data analysis
+
+_Initial distributions: messages per agent, per channel, per round; activity over time._
+
+```{r}
+#| label: eda
+#| eval: false
+
+# TODO: replace with your actual EDA / plotting code
+library(tidyverse)
+```
+
+## Visualisation design
+
+_Discuss the chart choices (abnormality grid, bypass time series, communication
+network, topic/evidence views) and the design principles behind them — clarity,
+data-ink ratio, pre-attentive attributes, Gestalt, accessibility._
+
+## From exploration to app
+
+_How these prototypes map onto the four tabs of the [Shiny App](../user-guide.qmd)._

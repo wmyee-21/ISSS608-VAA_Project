@@ -1,0 +1,29 @@
+---
+title: "Meeting Minutes"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+> *(placeholder)* A running record of team meetings, decisions and action items.
+
+## Meeting 1 — _date_
+
+**Present:** _names_
+
+**Agenda:** _topics_
+
+**Decisions:**
+
+- _decision_
+
+**Action items:**
+
+| Owner | Task | Due |
+|---|---|---|
+| _name_ | _task_ | _date_ |
+
+---
+
+## Meeting 2 — _date_
+
+_..._

@@ -1,0 +1,36 @@
+---
+title: "Data Preparation"
+subtitle: "Methodology · Part 1"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+> *(placeholder)* This page documents how the raw VAST Challenge 2026 MC1 data was
+> imported, cleaned and reshaped into the form used by the rest of the analysis.
+
+## Overview
+
+_Briefly describe the source files and the goal of the preparation step._
+
+## Loading the data
+
+```{r}
+#| label: load-data
+#| eval: false
+
+# TODO: replace with your actual data loading code
+library(tidyverse)
+library(jsonlite)
+
+# raw <- fromJSON("data/mc1_graph.json")
+```
+
+## Cleaning and transformation
+
+_Describe parsing, type conversion, handling of missing values, and how nodes/edges
+(agents, channels, messages, rounds) were extracted._
+
+## Output
+
+_Describe the tidy tables / objects that feed the [Statistical Analysis](stat-analysis.qmd)
+and [Data Exploration](data-exploration.qmd) pages._

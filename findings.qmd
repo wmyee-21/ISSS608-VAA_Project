@@ -1,0 +1,28 @@
+---
+title: "Findings"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+> *(placeholder)* Summarise what the analysis revealed and the evidence behind it.
+
+## Summary of findings
+
+_State the headline conclusion: was the embargo breached by an agent bypassing the
+rules, or did the monitoring break down?_
+
+## Finding 1 — _title_
+
+_Describe the signal, supporting visualisation, and interpretation._
+
+## Finding 2 — _title_
+
+_..._
+
+## Finding 3 — _title_
+
+_..._
+
+## Limitations
+
+_What the analysis cannot conclude, and caveats on the evidence._

@@ -1,0 +1,43 @@
+---
+title: "Shiny App — User Guide"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+> *(placeholder)* A walkthrough of the application and how to use each tab.
+
+::: {.callout-tip}
+## Launch the app
+👉 [Open the Team HeeHaa Shiny App](https://example.shinyapps.io/REPLACE-ME/){target="_blank"}
+*(placeholder link — replace once deployed)*
+:::
+
+## Getting started
+
+_How to open the app and what the landing tab shows._
+
+## The four tabs
+
+### 1. Activity & Abnormality
+_What it shows and the controls (date range, baseline slider, agent filters, time)._
+
+![](images/prototype_activity.png)
+
+### 2. The Bypass
+_..._
+
+![](images/prototype_bypass.png)
+
+### 3. Network
+_..._
+
+![](images/prototype_network.png)
+
+### 4. Topics & Evidence
+_..._
+
+![](images/prototype_evidence.png)
+
+## Tips
+
+_The baseline slider on the Activity tab affects every tab; all other inputs are local._

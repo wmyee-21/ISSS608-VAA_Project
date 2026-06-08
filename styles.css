@@ -1,0 +1,20 @@
+/* Team HeeHaa — site styles. Tweak freely. */
+
+.navbar-title {
+  font-weight: 600;
+}
+
+/* Slightly roomier content column */
+main.content {
+  max-width: 1000px;
+}
+
+/* Make placeholder callouts stand out a little less harshly */
+.callout-note {
+  border-left-color: #4582ec;
+}
+
+/* Tables: full width with light striping */
+table {
+  width: 100%;
+}

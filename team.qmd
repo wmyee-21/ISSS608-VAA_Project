@@ -1,0 +1,41 @@
+---
+title: "The Team"
+subtitle: "Team HeeHaa"
+date: last-modified
+toc: false
+---
+
+> *(placeholder)* Introduce the team members and their contributions.
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4}
+### Member 1
+_Role / focus_
+
+_Short bio and contributions._
+:::
+
+::: {.g-col-12 .g-col-md-4}
+### Member 2
+_Role / focus_
+
+_Short bio and contributions._
+:::
+
+::: {.g-col-12 .g-col-md-4}
+### Member 3
+_Role / focus_
+
+_Short bio and contributions._
+:::
+
+:::
+
+## Contributions
+
+| Member | Contribution |
+|---|---|
+| _name_ | _what they did_ |
+| _name_ | _what they did_ |
+| _name_ | _what they did_ |

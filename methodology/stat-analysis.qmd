@@ -1,0 +1,29 @@
+---
+title: "Statistical Analysis"
+subtitle: "Methodology · Part 2"
+author: "Team HeeHaa"
+date: last-modified
+---
+
+> *(placeholder)* This page documents the statistical methods used to define a
+> baseline of "normal" behaviour and to detect departures from it.
+
+## Defining the baseline
+
+_Describe the baseline period and how per-agent / per-channel norms are computed._
+
+## Abnormality scoring
+
+_Explain the metric used to score how unusual a channel is for an agent
+(e.g. deviation from baseline frequency), with formulas._
+
+```{r}
+#| label: stat-analysis
+#| eval: false
+
+# TODO: replace with your actual analysis code
+```
+
+## Robustness checks
+
+_Describe sensitivity to the baseline choice and any significance testing._

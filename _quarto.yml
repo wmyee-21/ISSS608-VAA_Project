@@ -1,0 +1,67 @@
+project:
+  type: website
+  output-dir: docs   # GitHub Pages serves from /docs on the main branch
+
+website:
+  title: "Team HeeHaa"
+  description: "VAST Challenge 2026 MC1 — Detecting Embargo Breach in a Multi-Agent AI Communication Network"
+  page-navigation: true
+  navbar:
+    background: primary
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: proposal.qmd
+        text: Proposal
+      - text: Methodology
+        menu:
+          - href: methodology/data-prep.qmd
+            text: "Data Preparation"
+          - href: methodology/stat-analysis.qmd
+            text: "Statistical Analysis"
+          - href: methodology/data-exploration.qmd
+            text: "Data Exploration & Visualisation"
+      - href: findings.qmd
+        text: Findings
+      - href: poster.qmd
+        text: Poster
+      - href: minutes.qmd
+        text: "Meeting Minutes"
+      - href: team.qmd
+        text: "The Team"
+      - text: "Shiny App"
+        menu:
+          - href: user-guide.qmd
+            text: "User Guide"
+          - text: "Launch Shiny App"
+            # TODO: replace with your live Shiny app URL (e.g. https://YOURNAME.shinyapps.io/teamheehaa/)
+            href: "https://example.shinyapps.io/REPLACE-ME/"
+            target: _blank
+    right:
+      - text: GitHub
+        icon: github
+        menu:
+          - text: "Project Site Repo"
+            href: "https://github.com/wmyee-21/ISSS608-VAA_Project"
+            target: _blank
+          - text: "Shiny App Repo"
+            # app.R / global.R live in this same repo; update if you split it out later
+            href: "https://github.com/wmyee-21/ISSS608-VAA_Project"
+            target: _blank
+  page-footer:
+    center: "Team HeeHaa · ISSS608 Visual Analytics & Applications · VAST Challenge 2026 MC1"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    css: styles.css
+    code-fold: true
+    code-tools: true
+
+execute:
+  warning: false
+  message: false
+  freeze: auto

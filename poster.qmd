@@ -1,0 +1,21 @@
+---
+title: "Poster"
+author: "Team HeeHaa"
+date: last-modified
+toc: false
+---
+
+> *(placeholder)* The conference poster summarising the project will appear here.
+
+## Poster
+
+_Once the poster is ready, save it to `images/` and embed it below. For a PDF you can
+also link to it for download._
+
+<!-- Image version -->
+<!-- ![Team HeeHaa project poster](images/poster.png) -->
+
+<!-- PDF embed -->
+<!-- <embed src="images/poster.pdf" type="application/pdf" width="100%" height="800px" /> -->
+
+[Download the poster (PDF)](#){.btn .btn-primary} <!-- TODO: point to images/poster.pdf -->

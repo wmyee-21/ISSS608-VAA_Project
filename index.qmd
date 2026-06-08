@@ -1,0 +1,38 @@
+---
+title: "Detecting Embargo Breach in a Multi-Agent AI Communication Network"
+subtitle: "VAST Challenge 2026 · Mini-Challenge 1"
+author: "Team HeeHaa"
+date: "June 10, 2026"
+toc: false
+---
+
+## Welcome
+
+This is the project website for **Team HeeHaa**'s submission to VAST Challenge 2026
+Mini-Challenge 1. TenantThread, a property-technology company, runs seven AI agents
+during a public-relations response while a merger sits under embargo. A compliance
+agent called the Judge is meant to watch for violations — yet embargoed information
+still reaches the outside world. Our visual analytics tool surfaces the abnormal
+behaviour and traces it back to the messages that prove it.
+
+::: {.callout-note}
+This site is a work in progress. Pages marked *(placeholder)* will be filled in as
+the project develops.
+:::
+
+## Explore the project
+
+| Section | What you'll find |
+|---|---|
+| [Proposal](proposal.qmd) | Motivation, problem, approach and prototype design |
+| [Methodology](methodology/data-prep.qmd) | Data preparation, statistical analysis, and exploration |
+| [Findings](findings.qmd) | Key results and the story they tell |
+| [Poster](poster.qmd) | Conference poster summarising the work |
+| [Meeting Minutes](minutes.qmd) | Record of team meetings and decisions |
+| [The Team](team.qmd) | Who we are and what we each did |
+| [Shiny App](user-guide.qmd) | User guide and link to the live application |
+
+## Quick links
+
+- 🚀 [Launch the Shiny App](https://example.shinyapps.io/REPLACE-ME/) *(placeholder)*
+- 💻 [Project repository on GitHub](https://github.com/wmyee-21/ISSS608-VAA_Project)
