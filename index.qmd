@@ -8,16 +8,12 @@ toc: false
 
 ## Welcome
 
-This is the project website for **Team HeeHaa**'s submission to VAST Challenge 2026
-Mini-Challenge 1. TenantThread, a property-technology company, runs seven AI agents
-during a public-relations response while a merger sits under embargo. A compliance
-agent called the Judge is meant to watch for violations, yet embargoed information
-still reaches the outside world. Our visual analytics tool surfaces the abnormal
-behaviour and traces it back to the messages that prove it.
+This is the project website for **Team HeeHaa**. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.
+
+The challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.
 
 ::: {.callout-note}
-This site is a work in progress. Pages marked *(placeholder)* will be filled in as
-the project develops.
+This site is a work in progress. Pages marked *(placeholder)* will be filled in as the project develops.
 :::
 
 ## Explore the project
@@ -25,8 +21,7 @@ the project develops.
 | Section | What you'll find |
 |---|---|
 | [Proposal](proposal.qmd) | Motivation, problem, approach and prototype design |
-| [Methodology](methodology/data-prep.qmd) | Data preparation, statistical analysis, and exploration |
-| [Findings](findings.qmd) | Key results and the story they tell |
+| [Methodology](methodology/data-prep.qmd) | How the app was built, from data preparation through analytical computation, findings and the interactive presentation |
 | [Poster](poster.qmd) | Conference poster summarising the work |
 | [Meeting Minutes](minutes.qmd) | Record of team meetings and decisions |
 | [The Team](team.qmd) | Who we are and what we each did |
