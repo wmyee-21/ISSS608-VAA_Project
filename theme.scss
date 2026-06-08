@@ -1,0 +1,193 @@
+/*-- scss:defaults --*/
+
+// ── Fonts ────────────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+// ── Palette: soft, clean, gently feminine ───────────────────────────────
+$rose:       #c4708f;   // accent / links
+$rose-soft:  #e8c4d4;   // borders, hover tints
+$plum:       #7d4a67;   // primary
+$plum-deep:  #5b3650;   // headings, hover
+$blush:      #fdf6f9;   // light surfaces
+$blush-2:    #f6e8f0;   // table headers, stripes
+$cream:      #fffdfe;   // page background
+$ink:        #312b32;   // body text
+$muted:      #6f6673;   // secondary text
+
+// ── Bootstrap variable overrides ────────────────────────────────────────
+$primary:            $plum;
+$secondary:          $rose;
+$body-bg:            $cream;
+$body-color:         $ink;
+$link-color:         $rose;
+$link-hover-color:   $plum-deep;
+$link-decoration:    none;
+
+$font-family-sans-serif: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$headings-font-family:   "Playfair Display", Georgia, "Times New Roman", serif;
+$headings-font-weight:   600;
+$headings-color:         $plum-deep;
+$font-size-root:         17px;
+$line-height-base:       1.65;
+
+$border-radius:       0.6rem;
+$border-radius-sm:    0.4rem;
+$border-radius-lg:    0.85rem;
+
+$navbar-bg:           $plum;
+$navbar-fg:           #fbeef4;
+
+$table-border-color:  $rose-soft;
+
+$code-color:          $plum-deep;
+
+/*-- scss:rules --*/
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+// ── Headings ─────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 { letter-spacing: 0.2px; }
+
+// Display headings use the serif; smaller ones return to the clean sans
+h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif;
+  font-weight: 700;
+  color: $plum-deep;
+}
+
+h2 {
+  margin-top: 2.1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid $blush-2;
+}
+
+// Title block on each page
+.quarto-title-block .quarto-title .title {
+  font-weight: 700;
+  color: $plum-deep;
+  line-height: 1.15;
+}
+.quarto-title-block .subtitle {
+  color: $rose;
+  font-family: $headings-font-family;
+  font-style: italic;
+  font-weight: 500;
+}
+
+// ── Navbar ───────────────────────────────────────────────────────────────
+.navbar {
+  box-shadow: 0 2px 14px rgba(123, 74, 103, 0.18);
+  border-bottom: 3px solid $rose;
+}
+.navbar-brand { font-family: $headings-font-family; font-weight: 700; letter-spacing: 0.4px; }
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #ffffff !important;
+  border-bottom-color: $rose-soft;
+}
+
+// Dropdown menus
+.dropdown-menu {
+  border: 1px solid $rose-soft;
+  border-radius: $border-radius;
+  box-shadow: 0 8px 24px rgba(91, 54, 80, 0.14);
+}
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: $blush-2;
+  color: $plum-deep;
+}
+
+// ── Links ────────────────────────────────────────────────────────────────
+a { transition: color 0.15s ease; }
+.content a:not(.btn):not(.nav-link):hover { text-decoration: underline; text-underline-offset: 3px; }
+
+// ── Tables ───────────────────────────────────────────────────────────────
+table, .table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 0 $rose-soft;
+}
+thead th, table th {
+  background-color: $blush-2;
+  color: $plum-deep;
+  font-weight: 700;
+  border-bottom: 2px solid $rose-soft !important;
+}
+tbody tr:nth-child(even) { background-color: $blush; }
+
+// ── Callouts / blockquotes ────────────────────────────────────────────────
+.callout.callout-note {
+  border-left-color: $rose;
+}
+blockquote {
+  border-left: 4px solid $rose-soft;
+  background: $blush;
+  padding: 0.6rem 1rem;
+  border-radius: 0 $border-radius-sm $border-radius-sm 0;
+  color: $muted;
+}
+
+// ── Cards ─────────────────────────────────────────────────────────────────
+.card {
+  border: 1px solid $rose-soft;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 4px 18px rgba(123, 74, 103, 0.08);
+}
+
+// ── Code ──────────────────────────────────────────────────────────────────
+div.sourceCode, pre.sourceCode {
+  border-radius: $border-radius-sm;
+  border: 1px solid $blush-2;
+}
+code:not(.sourceCode) {
+  background: $blush-2;
+  color: $plum-deep;
+  padding: 0.12em 0.38em;
+  border-radius: 0.3rem;
+}
+
+// ── Table of contents ──────────────────────────────────────────────────────
+#TOC .active, nav[role="doc-toc"] a.active {
+  color: $rose !important;
+  border-left-color: $rose !important;
+  font-weight: 700;
+}
+
+// ── Buttons ─────────────────────────────────────────────────────────────────
+.btn-primary {
+  background-color: $plum;
+  border-color: $plum;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: $plum-deep;
+  border-color: $plum-deep;
+}
+
+// ── Horizontal rule ───────────────────────────────────────────────────────
+hr {
+  border: 0;
+  height: 2px;
+  background: linear-gradient(90deg, $rose-soft, $rose, $rose-soft);
+  opacity: 0.7;
+}
+
+// ── Footer ─────────────────────────────────────────────────────────────────
+.nav-footer {
+  background-color: $blush;
+  border-top: 1px solid $rose-soft;
+  color: $muted;
+  font-family: $headings-font-family;
+  font-style: italic;
+}

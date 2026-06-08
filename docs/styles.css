@@ -1,20 +1,12 @@
-/* Team HeeHaa — site styles. Tweak freely. */
+/* Supplementary tweaks. Main theming lives in theme.scss. */
 
-.navbar-title {
-  font-weight: 600;
+/* Gentle fade-in for page content */
+main.content { animation: fadeIn 0.4s ease both; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Slightly roomier content column */
-main.content {
-  max-width: 1000px;
-}
-
-/* Make placeholder callouts stand out a little less harshly */
-.callout-note {
-  border-left-color: #4582ec;
-}
-
-/* Tables: full width with light striping */
-table {
-  width: 100%;
-}
+/* Slightly roomier list spacing for readability */
+main.content li { margin-bottom: 0.25rem; }

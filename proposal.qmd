@@ -9,7 +9,7 @@ format:
     toc-depth: 3
     number-sections: true
     code-fold: true
-    theme: cosmo
+    theme: theme.scss
 execute:
   warning: false
   message: false
