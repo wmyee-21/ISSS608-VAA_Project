@@ -144,14 +144,14 @@
     "href": "index.html",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "",
-    "text": "This is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
+    "text": "Team HeeHaa · on the case"
   },
   {
     "objectID": "index.html#welcome",
     "href": "index.html#welcome",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
-    "section": "",
-    "text": "This is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
+    "section": "Welcome",
+    "text": "Welcome\nThis is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
   },
   {
     "objectID": "index.html#explore-the-project",
@@ -326,13 +326,13 @@
     "href": "team.html",
     "title": "The Team",
     "section": "",
-    "text": "(placeholder) Introduce the team members and their contributions."
+    "text": "Three analysts on the trail of an embargo breach. We built the visual analytics tool that follows the signals back to the messages that prove them."
   },
   {
     "objectID": "team.html#contributions",
     "href": "team.html#contributions",
     "title": "The Team",
     "section": "Contributions",
-    "text": "Contributions\n\n\n\nMember\nContribution\n\n\n\n\nname\nwhat they did\n\n\nname\nwhat they did\n\n\nname\nwhat they did"
+    "text": "Contributions\n\n\n\nMember\nContribution\n\n\n\n\nMark Yee\nto be added\n\n\nSerene Cheng\nto be added\n\n\nCarina Faith Peh\nto be added"
   }
 ]

@@ -6,6 +6,11 @@ date: "June 10, 2026"
 toc: false
 ---
 
+::: {.home-hero}
+<img src="images/group_hero.jpg" alt="Team HeeHaa, in detective attire">
+<figcaption>Team HeeHaa &middot; on the case</figcaption>
+:::
+
 ## Welcome
 
 This is the project website for **Team HeeHaa**. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.

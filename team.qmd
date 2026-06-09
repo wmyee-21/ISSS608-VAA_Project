@@ -5,29 +5,29 @@ date: last-modified
 toc: false
 ---
 
-> *(placeholder)* Introduce the team members and their contributions.
+Three analysts on the trail of an embargo breach. We built the visual analytics tool that follows the signals back to the messages that prove them.
 
-::: {.grid}
+::: {.team-grid}
 
-::: {.g-col-12 .g-col-md-4}
-### Member 1
-_Role / focus_
-
-_Short bio and contributions._
+::: {.member-card}
+<img class="avatar" src="images/mark_avatar.jpg" alt="Mark Yee">
+<div class="member-name">Mark Yee</div>
+<div class="member-role">_Role to be added_</div>
+Contribution to be added.
 :::
 
-::: {.g-col-12 .g-col-md-4}
-### Member 2
-_Role / focus_
-
-_Short bio and contributions._
+::: {.member-card}
+<img class="avatar" src="images/serene_avatar.jpg" alt="Serene Cheng">
+<div class="member-name">Serene Cheng</div>
+<div class="member-role">_Role to be added_</div>
+Contribution to be added.
 :::
 
-::: {.g-col-12 .g-col-md-4}
-### Member 3
-_Role / focus_
-
-_Short bio and contributions._
+::: {.member-card}
+<img class="avatar" src="images/carina_avatar.jpg" alt="Carina Faith Peh">
+<div class="member-name">Carina Faith Peh</div>
+<div class="member-role">_Role to be added_</div>
+Contribution to be added.
 :::
 
 :::
@@ -36,6 +36,6 @@ _Short bio and contributions._
 
 | Member | Contribution |
 |---|---|
-| _name_ | _what they did_ |
-| _name_ | _what they did_ |
-| _name_ | _what they did_ |
+| Mark Yee | _to be added_ |
+| Serene Cheng | _to be added_ |
+| Carina Faith Peh | _to be added_ |

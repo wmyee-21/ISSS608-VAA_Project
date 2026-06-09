@@ -10,3 +10,61 @@ main.content { animation: fadeIn 0.4s ease both; }
 
 /* Slightly roomier list spacing for readability */
 main.content li { margin-bottom: 0.25rem; }
+
+/* Home page hero group photo */
+.home-hero { text-align: center; margin: 1.6rem 0 1rem; }
+.home-hero img {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 16px;
+  border: 1px solid #e8c4d4;
+  box-shadow: 0 10px 30px rgba(91, 54, 80, 0.16);
+}
+.home-hero figcaption {
+  margin-top: 0.6rem;
+  color: #c4708f;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+/* Team profile cards */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.4rem;
+}
+.member-card {
+  text-align: center;
+  background: #fffdfe;
+  border: 1px solid #e8c4d4;
+  border-radius: 18px;
+  padding: 1.4rem 1.2rem 1.6rem;
+  box-shadow: 0 6px 22px rgba(123, 74, 103, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(123, 74, 103, 0.16);
+}
+.member-card img.avatar {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f6e8f0;
+  outline: 2px solid #e8c4d4;
+}
+.member-card .member-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  color: #5b3650;
+  font-size: 1.3rem;
+  margin: 0.8rem 0 0.15rem;
+}
+.member-card .member-role {
+  color: #c4708f;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
