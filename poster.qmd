@@ -1,13 +1,10 @@
 ---
 title: "Poster"
-subtitle: "VAST Challenge 2026 · Mini-Challenge 1"
 author: "Team HeeHaa"
 date: last-modified
 toc: false
 ---
 
-Our project poster, in ISO A1 format at 300 dpi (7016 × 9933 px), covering the issues and problems, motivation, approach, results and future work.
+> *(placeholder)* The project poster will be added here.
 
-[⬇ Download the poster (JPEG, A1, 300 dpi)](images/poster.jpg){.btn .btn-primary}
-
-![Team HeeHaa project poster — Detecting Embargo Breach in a Multi-Agent AI Communication Network](images/poster.jpg)
+The poster will be produced in ISO A1 format and cover the issues and problems, motivation, approach, results and future work.
