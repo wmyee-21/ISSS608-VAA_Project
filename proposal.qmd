@@ -1,7 +1,7 @@
 ---
 title: "Project Proposal"
 subtitle: "Detecting Embargo Breach in a Multi-Agent AI Communication Network"
-author: "Team HeeHaa"
+author: "CSM TraceForce"
 date: "June 10, 2026"
 format:
   html:

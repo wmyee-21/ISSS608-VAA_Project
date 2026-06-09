@@ -4,6 +4,6 @@ subtitle: "Coming soon"
 toc: false
 ---
 
-The Team HeeHaa Shiny application is in active development and will be published here once it has been deployed.
+The CSM TraceForce Shiny application is in active development and will be published here once it has been deployed.
 
 In the meantime, the [User Guide](user-guide.qmd) walks through the four sections of the application and what each one does.

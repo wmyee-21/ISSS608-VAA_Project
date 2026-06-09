@@ -1,41 +1,41 @@
 ---
 title: "The Team"
-subtitle: "Team HeeHaa"
+subtitle: "CSM TraceForce"
 date: last-modified
 toc: false
 ---
 
-Three analysts on the trail of an embargo breach. We built the visual analytics tool that follows the signals back to the messages that prove them.
+Three analysts, two cats and one embargo that did not stand a chance. We built the visual analytics tool that follows the signals back to the messages that prove them.
 
 ::: {.team-grid}
 
 ::: {.member-card}
 <img class="avatar" src="images/mark_avatar.jpg" alt="Mark Yee">
 <div class="member-name">Mark Yee</div>
-<div class="member-role">_Role to be added_</div>
-Contribution to be added.
+<div class="member-role">Lead Investigator</div>
+Keeper of the deerstalker and the master plan. Pins channels to the board, mutters "follow the messages" at the screen, and stops the cat from sitting on the keyboard mid-render.
 :::
 
 ::: {.member-card}
 <img class="avatar" src="images/serene_avatar.jpg" alt="Serene Cheng">
 <div class="member-name">Serene Cheng</div>
-<div class="member-role">_Role to be added_</div>
-Contribution to be added.
+<div class="member-role">The Judge</div>
+The calm at the centre of the storm. While the embargo leaks and the agents lose their heads, she quietly decides what actually counts as a breach. The gavel is mostly decorative.
 :::
 
 ::: {.member-card}
 <img class="avatar" src="images/carina_avatar.jpg" alt="Carina Faith Peh">
 <div class="member-name">Carina Faith Peh</div>
-<div class="member-role">_Role to be added_</div>
-Contribution to be added.
+<div class="member-role">Forensic Analyst</div>
+Reads the evidence and the agents' private thoughts with equal delight. No keyword slips past her across the rounds, and she insists the whole thing stays tidy while she is at it.
 :::
 
 :::
 
-## Contributions
+## Project contributions
 
 | Member | Contribution |
 |---|---|
-| Mark Yee | _to be added_ |
-| Serene Cheng | _to be added_ |
-| Carina Faith Peh | _to be added_ |
+| Mark Yee | Project direction, proposal and website, activity and breach views |
+| Serene Cheng | Topic selection and the network analysis |
+| Carina Faith Peh | Topic and evidence analysis, and user experience |

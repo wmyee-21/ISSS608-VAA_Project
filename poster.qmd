@@ -1,6 +1,6 @@
 ---
 title: "Poster"
-author: "Team HeeHaa"
+author: "CSM TraceForce"
 date: last-modified
 toc: false
 ---

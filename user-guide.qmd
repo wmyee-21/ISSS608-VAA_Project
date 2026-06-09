@@ -1,6 +1,6 @@
 ---
 title: "Shiny App — User Guide"
-author: "Team HeeHaa"
+author: "CSM TraceForce"
 date: last-modified
 ---
 

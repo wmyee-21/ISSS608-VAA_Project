@@ -1,7 +1,7 @@
 ---
 title: "Findings"
 subtitle: "Methodology · Findings from the scenario"
-author: "Team HeeHaa"
+author: "CSM TraceForce"
 date: last-modified
 ---
 

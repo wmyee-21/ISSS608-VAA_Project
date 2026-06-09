@@ -32,7 +32,7 @@
     "href": "shiny-app.html",
     "title": "Shiny App",
     "section": "",
-    "text": "The Team HeeHaa Shiny application is in active development and will be published here once it has been deployed.\nIn the meantime, the User Guide walks through the four sections of the application and what each one does."
+    "text": "The CSM TraceForce Shiny application is in active development and will be published here once it has been deployed.\nIn the meantime, the User Guide walks through the four sections of the application and what each one does."
   },
   {
     "objectID": "poster.html",
@@ -193,14 +193,14 @@
     "href": "index.html",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "",
-    "text": "Team HeeHaa · on the case"
+    "text": "CSM TraceForce · Cari-On, Be Serene, Mark it Done"
   },
   {
     "objectID": "index.html#welcome",
     "href": "index.html#welcome",
     "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "Welcome",
-    "text": "Welcome\nThis is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
+    "text": "Welcome\nThis is the project website for CSM TraceForce. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
   },
   {
     "objectID": "index.html#explore-the-project",
@@ -224,6 +224,13 @@
     "text": "The methodology runs as the three-stage pipeline set out in the proposal. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage."
   },
   {
+    "objectID": "methodology/data-prep.html#the-three-stage-pipeline",
+    "href": "methodology/data-prep.html#the-three-stage-pipeline",
+    "title": "Data Preparation",
+    "section": "The three-stage pipeline",
+    "text": "The three-stage pipeline\nThe diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline, and those signals are presented through the four interactive sections. This page covers the first stage, with the next two covered under Analytical Computation and Interactive Presentation.\n\n\nPipeline diagram\npacman::p_load(DiagrammeR)\n\ngrViz(\"\ndigraph methodology {\n  rankdir = LR;\n  graph [fontname = 'Helvetica', nodesep = 0.3, ranksep = 0.7];\n  node  [fontname = 'Helvetica', shape = box, style = 'filled,rounded',\n         fontsize = 11, color = '#2C5282', fillcolor = '#EBF4FF',\n         fontcolor = '#1A202C', margin = '0.12,0.08'];\n  edge  [color = '#4A5568', arrowsize = 0.7];\n\n  raw [label = 'MC1 nested JSON', fillcolor = '#FEFCBF', color = '#B7791F'];\n  app [label = 'Shiny app', fillcolor = '#FEFCBF', color = '#B7791F'];\n\n  subgraph cluster_1 {\n    label = '1  Data Preparation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    prep   [label = 'Flatten and clean'];\n    tables [label = 'Three tables'];\n    derive [label = 'Hierarchy and topics'];\n    prep -&gt; tables -&gt; derive;\n  }\n\n  subgraph cluster_2 {\n    label = '2  Analytical Computation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    base [label = 'Baseline split'];\n    abn  [label = 'Abnormality'];\n    byp  [label = 'Bypass'];\n    net  [label = 'Network difference'];\n    base -&gt; abn;\n    base -&gt; byp;\n    base -&gt; net;\n  }\n\n  subgraph cluster_3 {\n    label = '3  Interactive Presentation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    secA [label = 'A Activity'];\n    secB [label = 'B Bypass'];\n    secC [label = 'C Network'];\n    secD [label = 'D Evidence'];\n  }\n\n  raw    -&gt; prep;\n  derive -&gt; base;\n  net    -&gt; secA;\n  secD   -&gt; app;\n}\n\")"
+  },
+  {
     "objectID": "methodology/data-prep.html#key-context",
     "href": "methodology/data-prep.html#key-context",
     "title": "Data Preparation",
@@ -243,6 +250,13 @@
     "title": "Data Preparation",
     "section": "Flattening to three tables",
     "text": "Flattening to three tables\nThe nested timeline was flattened into three working tables. A message table of 912 rows holds one row per message with its sender, channel, recipients, content and the agent’s three private reasoning fields named reacting, rationalizing and deliberating. A round table of 23 rows holds each round’s headline and narrative. A network table holds the directed links between agents derived from the recipient lists.\nTypes were fixed during the read so that every downstream axis orders correctly and every logical flag stays logical. Agent identity and channel were read as factors with explicit level orders, round and word counts as integers, and the embargo and recipient flags as logicals.\n\n\nReading the cleaned message table with fixed column types\nlibrary(tidyverse)\n\nmessages_tbl &lt;- readr::read_csv(\n  \"data/messages_clean.csv\",\n  col_types = readr::cols(\n    round_idx        = readr::col_integer(),\n    round_hour_dt    = readr::col_datetime(),\n    agent_id         = readr::col_factor(levels = c(\n      \"legal_agent\",\"quality_agent\",\"pr_agent\",\"social_media_agent\",\n      \"pr_intern_agent\",\"intern_agent\",\"judge_agent\")),\n    channel          = readr::col_factor(levels = c(\n      \"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n      \"official_post\",\"personal_post\",\"anonymous_post\")),\n    embargo_keyword_count = readr::col_integer(),\n    recipients_is_all     = readr::col_logical(),\n    embargo_hit           = readr::col_logical(),\n    .default              = readr::col_character()\n  )\n)"
+  },
+  {
+    "objectID": "methodology/data-prep.html#data-dictionary",
+    "href": "methodology/data-prep.html#data-dictionary",
+    "title": "Data Preparation",
+    "section": "Data dictionary",
+    "text": "Data dictionary\nThe message table is the working unit of the analysis. Its main fields are below. Each row is one message.\n\n\n\n\n\n\n\n\nField\nType\nMeaning\n\n\n\n\nround_idx\ninteger\nRound number, 1 to 23\n\n\nround_hour_dt\ndatetime\nIn-scenario hour the round represents\n\n\nmessage_id\ncharacter\nUnique identifier for the message\n\n\nagent_id\nfactor\nThe agent that sent the message\n\n\nchannel\nfactor\nChannel the message was sent on, from the accountability ladder\n\n\nmessage_type\ncharacter\nBroadcast or reply\n\n\nresponding_to\ncharacter\nThe message_id this message replies to, if any\n\n\nrecipients_csv\ncharacter\nRecipient short names separated by semicolons, or ALL for a broadcast\n\n\nrecipients_is_all\nlogical\nWhether the message went to everyone\n\n\ncontent\ncharacter\nThe visible message text\n\n\nreacting\ncharacter\nThe agent’s private reaction to the moment\n\n\nrationalizing\ncharacter\nThe agent’s private justification of its choice\n\n\ndeliberating\ncharacter\nThe agent’s private weighing of options\n\n\nword_count\ninteger\nWords in content\n\n\nembargo_keyword_count\ninteger\nCount of embargo-related keywords found in content\n\n\nembargo_hit\nlogical\nWhether the message carried embargo content\n\n\n\nThe round table holds one row per round with its event_headline and event_narrative, and the network table holds the directed from and to agent links with a message-count weight. Several analysis fields, such as the calm-period channel share and a deviance flag, were added to the message table during the computation stage and are described under Analytical Computation."
   },
   {
     "objectID": "methodology/data-prep.html#the-channel-accountability-ladder",
@@ -333,13 +347,13 @@
     "href": "team.html",
     "title": "The Team",
     "section": "",
-    "text": "Three analysts on the trail of an embargo breach. We built the visual analytics tool that follows the signals back to the messages that prove them."
+    "text": "Three analysts, two cats and one embargo that did not stand a chance. We built the visual analytics tool that follows the signals back to the messages that prove them."
   },
   {
-    "objectID": "team.html#contributions",
-    "href": "team.html#contributions",
+    "objectID": "team.html#project-contributions",
+    "href": "team.html#project-contributions",
     "title": "The Team",
-    "section": "Contributions",
-    "text": "Contributions\n\n\n\nMember\nContribution\n\n\n\n\nMark Yee\nto be added\n\n\nSerene Cheng\nto be added\n\n\nCarina Faith Peh\nto be added"
+    "section": "Project contributions",
+    "text": "Project contributions\n\n\n\n\n\n\n\nMember\nContribution\n\n\n\n\nMark Yee\nProject direction, proposal and website, activity and breach views\n\n\nSerene Cheng\nTopic selection and the network analysis\n\n\nCarina Faith Peh\nTopic and evidence analysis, and user experience"
   }
 ]

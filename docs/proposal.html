@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Team HeeHaa">
+<meta name="author" content="CSM TraceForce">
 <meta name="dcterms.date" content="2026-06-10">
 
-<title>Project Proposal – Team HeeHaa</title>
+<title>Project Proposal – CSM TraceForce</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -70,6 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./images/logo.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -129,8 +130,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/logo.svg" alt="CSM TraceForce logo" class="navbar-logo light-content">
+    <img src="./images/logo.svg" alt="CSM TraceForce logo" class="navbar-logo dark-content">
+    </a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Team HeeHaa</span>
+    <span class="navbar-title">CSM TraceForce</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -262,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Team HeeHaa </p>
+             <p>CSM TraceForce </p>
           </div>
   </div>
     
@@ -415,8 +420,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-a56ebaace97e294c7bf3" style="width:100%;height:288px;"></div>
-<script type="application/json" data-for="htmlwidget-a56ebaace97e294c7bf3">{"x":{"diagram":"\ndigraph methodology {\n  rankdir = LR;\n  graph [fontname = \"Helvetica\", nodesep = 0.3, ranksep = 0.7];\n  node  [fontname = \"Helvetica\", shape = box, style = \"filled,rounded\",\n         fontsize = 11, color = \"#2C5282\", fillcolor = \"#EBF4FF\",\n         fontcolor = \"#1A202C\", margin = \"0.12,0.08\"];\n  edge  [color = \"#4A5568\", arrowsize = 0.7];\n\n  raw [label = \"MC1 nested JSON\", fillcolor = \"#FEFCBF\", color = \"#B7791F\"];\n  app [label = \"Shiny app\", fillcolor = \"#FEFCBF\", color = \"#B7791F\"];\n\n  subgraph cluster_1 {\n    label = \"1  Data Preparation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    prep   [label = \"Flatten and clean\"];\n    tables [label = \"Three tables\"];\n    derive [label = \"Hierarchy and topics\"];\n    prep -> tables -> derive;\n  }\n\n  subgraph cluster_2 {\n    label = \"2  Analytical Computation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    base [label = \"Baseline split\"];\n    abn  [label = \"Abnormality\"];\n    byp  [label = \"Bypass\"];\n    net  [label = \"Network difference\"];\n    base -> abn;\n    base -> byp;\n    base -> net;\n  }\n\n  subgraph cluster_3 {\n    label = \"3  Interactive Presentation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    secA [label = \"A Activity\"];\n    secB [label = \"B Bypass\"];\n    secC [label = \"C Network\"];\n    secD [label = \"D Evidence\"];\n  }\n\n  raw    -> prep;\n  derive -> base;\n  net    -> secA;\n  secD   -> app;\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-82a58fdf54dd7186171a" style="width:100%;height:288px;"></div>
+<script type="application/json" data-for="htmlwidget-82a58fdf54dd7186171a">{"x":{"diagram":"\ndigraph methodology {\n  rankdir = LR;\n  graph [fontname = \"Helvetica\", nodesep = 0.3, ranksep = 0.7];\n  node  [fontname = \"Helvetica\", shape = box, style = \"filled,rounded\",\n         fontsize = 11, color = \"#2C5282\", fillcolor = \"#EBF4FF\",\n         fontcolor = \"#1A202C\", margin = \"0.12,0.08\"];\n  edge  [color = \"#4A5568\", arrowsize = 0.7];\n\n  raw [label = \"MC1 nested JSON\", fillcolor = \"#FEFCBF\", color = \"#B7791F\"];\n  app [label = \"Shiny app\", fillcolor = \"#FEFCBF\", color = \"#B7791F\"];\n\n  subgraph cluster_1 {\n    label = \"1  Data Preparation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    prep   [label = \"Flatten and clean\"];\n    tables [label = \"Three tables\"];\n    derive [label = \"Hierarchy and topics\"];\n    prep -> tables -> derive;\n  }\n\n  subgraph cluster_2 {\n    label = \"2  Analytical Computation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    base [label = \"Baseline split\"];\n    abn  [label = \"Abnormality\"];\n    byp  [label = \"Bypass\"];\n    net  [label = \"Network difference\"];\n    base -> abn;\n    base -> byp;\n    base -> net;\n  }\n\n  subgraph cluster_3 {\n    label = \"3  Interactive Presentation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    secA [label = \"A Activity\"];\n    secB [label = \"B Bypass\"];\n    secC [label = \"C Network\"];\n    secD [label = \"D Evidence\"];\n  }\n\n  raw    -> prep;\n  derive -> base;\n  net    -> secA;\n  secD   -> app;\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>The methodology unfolds in three phases. Each phase produces what the next one needs.</p>
@@ -1083,7 +1088,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Project Proposal"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Detecting Embargo Breach in a Multi-Agent AI Communication Network"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Team HeeHaa"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 10, 2026"</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
@@ -1356,7 +1361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Team HeeHaa · ISSS608 Visual Analytics &amp; Applications · VAST Challenge 2026 MC1</p>
+<p>CSM TraceForce · Cari-On, Be Serene, Mark it Done · ISSS608 Visual Analytics &amp; Applications</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

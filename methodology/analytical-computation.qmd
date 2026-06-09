@@ -1,7 +1,7 @@
 ---
 title: "Analytical Computation"
 subtitle: "Methodology · Phase 2 of 3"
-author: "Team HeeHaa"
+author: "CSM TraceForce"
 date: last-modified
 ---
 

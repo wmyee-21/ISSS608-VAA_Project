@@ -1,7 +1,7 @@
 ---
 title: "Meeting Minutes"
-subtitle: "Team HeeHaa (Group 4) · Meeting 1 · Topic selection"
-author: "Team HeeHaa"
+subtitle: "CSM TraceForce (Group 4) · Meeting 1 · Topic selection"
+author: "CSM TraceForce"
 date: last-modified
 toc: true
 ---
