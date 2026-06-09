@@ -45,8 +45,7 @@ website:
             href: "https://github.com/wmyee-21/ISSS608-VAA_Project"
             target: _blank
           - text: "Shiny App Repo"
-            # app.R / global.R live in this same repo; update if you split it out later
-            href: "https://github.com/wmyee-21/ISSS608-VAA_Project"
+            href: "https://github.com/wmyee-21/ISSS608-VAA_ShinyApp"
             target: _blank
   page-footer:
     center: "Team HeeHaa · ISSS608 Visual Analytics & Applications · VAST Challenge 2026 MC1"

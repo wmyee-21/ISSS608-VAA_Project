@@ -1,0 +1,13 @@
+name: VAA_project
+title: VAA_project
+username: myvaa
+account: myvaa
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17485457
+bundleId: 12102765
+url: https://myvaa.shinyapps.io/VAA_project/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|_quarto.yml|data/ISSS608 Group 4 Meeting Minutes 1.docx|findings.qmd|index.qmd|methodology/analytical-computation.qmd|methodology/data-prep.qmd|methodology/interactive-presentation.qmd|minutes.qmd|poster.qmd|proposal.qmd|shiny-app.qmd|styles.css|team.qmd|theme.scss|user-guide.qmd|vercel.json|_freeze|docs|images
