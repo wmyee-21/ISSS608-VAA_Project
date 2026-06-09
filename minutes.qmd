@@ -15,53 +15,41 @@ toc: true
 | **Present** | Mark Yee, Serene Cheng, Carina Faith Peh |
 | **Agenda** | Topic selection for the Visual Analytics Project |
 
-## Agenda
+## 1. Agenda
 
-The single item for this meeting was to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.
+The team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.
 
-## Discussion
+## 2. Discussion
 
-### MC2 summary (presented by Serene and Carina)
+### 2.1 MC2 summary — presented by Serene and Carina
 
-Serene and Carina walked the team through Mini-Challenge 2, drawing on their Take-Home Exercise 2 work. MC2 is a forensic investigation of a single anomalous event. On 17 May 2046, a post written in gibberish appeared on the social platform SaidIT under the identity of John Windward, Head of Customer Support at TenantThread, in an apparently random forum, raising the concern that an AI agent had malfunctioned or been manipulated. The challenge asks three questions: how the post was made, what the post content means and where it came from, and whether the behaviour could repeat, ending with a single recommended intervention point.
+Serene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.
 
-The data is a large event log of roughly 185,000 timestamped actions by people, agents and office systems, plus an organisation chart of 75 nodes. The analytical approach is a sequence of clear steps: map overall system activity, establish what a normal post looks like, isolate the anomalous post, trace its exact event chain backward through agents, files and task delegations, position that chain in the wider network, infer content provenance, search history for recurrence, and design one control. The investigation traces a worm-style propagation chain across 19 agents over eight days.
+### 2.2 MC1 summary — presented by Mark
 
-### MC1 summary (presented by Mark)
+Mark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent's private reasoning.
 
-Mark presented Mini-Challenge 1, drawing on his Take-Home Exercise 2 technical report. MC1 concerns TenantThread running seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent, the Judge, is meant to monitor for violations, but it can see only two of the six communication channels. Despite this oversight, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down, and to prove it from the messages.
+### 2.3 Comparison and decision
 
-The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The analytical approach defines a baseline of normal behaviour, then surfaces three signals against it: abnormal channel use, public posts that reach outside without a monitored trace (the bypass), and changes in the agent communication network, with every signal traceable back to the message text and the agents' private reasoning.
+Mark noted that an MC2 application would likely be more straightforward, being a clean investigative analysis of a known incident with less ambiguity, where the answer is largely a traceable chain of events. He felt MC1 is less straightforward because it touches on debatable areas such as where the baseline between the normal and suspect periods is drawn and what actually counts as a breach. The look-back window and flagging thresholds affect the conclusion, so the application has to let the analyst set and test these rather than fix a single answer. Carina agreed and added that MC2 would likely be simpler to build, since the event log gives an explicit timeline of actions and parties, a normal post has a clear structural signature to flag against, and the work follows a fixed investigative sequence ending in one intervention, with few subjective thresholds. Serene expressed that the team should aim for the more challenging and rewarding project and recommended MC1, and everyone concurred.
 
-### Comparison and decision
+## 3. Decision
 
-The team compared the two challenges in terms of what the resulting Shiny application would look like.
+- **Topic selected: Mini-Challenge 1 (MC1).**
 
-Mark observed that an MC2 application would likely be more straightforward, since it deals with a clean, investigative data analysis with less ambiguity. MC2 centres on a known incident with a concrete question, so much of the work is reconstructing a factual chain of events and presenting it, where the "answer" is a traceable sequence rather than a matter of interpretation. By contrast, an MC1 application is less straightforward because it touches on debatable areas. There is no ground-truth label for misconduct, so the analyst must decide where the line between the normal period and the suspect period falls, and what actually counts as a breach. A bypass, for example, depends on how far back the tool looks for an accountable trace and how strict the flagging threshold is, and different baseline choices can change the conclusion. The application therefore has to let the analyst set and test these judgements rather than hard-code a single answer.
-
-Carina agreed and expanded on why MC2 would likely be the more straightforward build. The event log gives an explicit timeline of actions and the parties involved, so tracing the chain is largely a matter of following links between events, files and agents. A normal post has a clear structural signature, which makes the anomaly easy to define against, and the deliverable follows a fixed investigative sequence ending in a single intervention point. There is comparatively little need for subjective thresholds.
-
-Serene argued that the team should aim for the more challenging and rewarding project, and recommended MC1 on that basis. Everyone concurred.
-
-## Decision
-
-The team selected **Mini-Challenge 1 (MC1)** as the topic for the Visual Analytics Project.
-
-## Action items
+## 4. Action items
 
 | Owner | Task | Due |
 |---|---|---|
-| Mark | Draft the project proposal | Tue, 9 June |
-| Serene, Carina | Read Mark's MC1 technical report to get familiar with the challenge, then add comments and new insights to the proposal | Before submission |
-| Team | Submit the proposal | Wed, 10 June |
+| Mark | Draft the project proposal | Tue, 9 Jun |
+| Serene, Carina | Read Mark's MC1 technical report, then add comments and new insights to the proposal | Before submission |
+| Team | Submit the proposal | Wed, 10 Jun |
 | Mark | Look into creating a new website for the project | Ongoing |
 | Serene, Carina | Work out the best way to collaborate using RStudio | Ongoing |
 
-The proposal will be drafted by Mark by 9 June, with Serene and Carina reviewing his technical report in parallel and contributing comments and fresh insights, aiming to submit by 10 June.
+## 5. Next meeting
 
-## Next meeting
-
-The next meeting will be held on **13 June** to refine and finalise the application modules and to split the division of work.
+- **13 June** — refine and finalise the application modules and split the division of work.
 
 ---
 

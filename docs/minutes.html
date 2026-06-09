@@ -223,16 +223,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#details" id="toc-details" class="nav-link active" data-scroll-target="#details">Details</a></li>
-  <li><a href="#agenda" id="toc-agenda" class="nav-link" data-scroll-target="#agenda">Agenda</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
+  <li><a href="#agenda" id="toc-agenda" class="nav-link" data-scroll-target="#agenda">1. Agenda</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">2. Discussion</a>
   <ul class="collapse">
-  <li><a href="#mc2-summary-presented-by-serene-and-carina" id="toc-mc2-summary-presented-by-serene-and-carina" class="nav-link" data-scroll-target="#mc2-summary-presented-by-serene-and-carina">MC2 summary (presented by Serene and Carina)</a></li>
-  <li><a href="#mc1-summary-presented-by-mark" id="toc-mc1-summary-presented-by-mark" class="nav-link" data-scroll-target="#mc1-summary-presented-by-mark">MC1 summary (presented by Mark)</a></li>
-  <li><a href="#comparison-and-decision" id="toc-comparison-and-decision" class="nav-link" data-scroll-target="#comparison-and-decision">Comparison and decision</a></li>
+  <li><a href="#mc2-summary-presented-by-serene-and-carina" id="toc-mc2-summary-presented-by-serene-and-carina" class="nav-link" data-scroll-target="#mc2-summary-presented-by-serene-and-carina">2.1 MC2 summary — presented by Serene and Carina</a></li>
+  <li><a href="#mc1-summary-presented-by-mark" id="toc-mc1-summary-presented-by-mark" class="nav-link" data-scroll-target="#mc1-summary-presented-by-mark">2.2 MC1 summary — presented by Mark</a></li>
+  <li><a href="#comparison-and-decision" id="toc-comparison-and-decision" class="nav-link" data-scroll-target="#comparison-and-decision">2.3 Comparison and decision</a></li>
   </ul></li>
-  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
-  <li><a href="#action-items" id="toc-action-items" class="nav-link" data-scroll-target="#action-items">Action items</a></li>
-  <li><a href="#next-meeting" id="toc-next-meeting" class="nav-link" data-scroll-target="#next-meeting">Next meeting</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">3. Decision</a></li>
+  <li><a href="#action-items" id="toc-action-items" class="nav-link" data-scroll-target="#action-items">4. Action items</a></li>
+  <li><a href="#next-meeting" id="toc-next-meeting" class="nav-link" data-scroll-target="#next-meeting">5. Next meeting</a></li>
   </ul>
 </nav>
     </div>
@@ -295,35 +295,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 <section id="agenda" class="level2">
-<h2 class="anchored" data-anchor-id="agenda">Agenda</h2>
-<p>The single item for this meeting was to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.</p>
+<h2 class="anchored" data-anchor-id="agenda">1. Agenda</h2>
+<p>The team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.</p>
 </section>
 <section id="discussion" class="level2">
-<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<h2 class="anchored" data-anchor-id="discussion">2. Discussion</h2>
 <section id="mc2-summary-presented-by-serene-and-carina" class="level3">
-<h3 class="anchored" data-anchor-id="mc2-summary-presented-by-serene-and-carina">MC2 summary (presented by Serene and Carina)</h3>
-<p>Serene and Carina walked the team through Mini-Challenge 2, drawing on their Take-Home Exercise 2 work. MC2 is a forensic investigation of a single anomalous event. On 17 May 2046, a post written in gibberish appeared on the social platform SaidIT under the identity of John Windward, Head of Customer Support at TenantThread, in an apparently random forum, raising the concern that an AI agent had malfunctioned or been manipulated. The challenge asks three questions: how the post was made, what the post content means and where it came from, and whether the behaviour could repeat, ending with a single recommended intervention point.</p>
-<p>The data is a large event log of roughly 185,000 timestamped actions by people, agents and office systems, plus an organisation chart of 75 nodes. The analytical approach is a sequence of clear steps: map overall system activity, establish what a normal post looks like, isolate the anomalous post, trace its exact event chain backward through agents, files and task delegations, position that chain in the wider network, infer content provenance, search history for recurrence, and design one control. The investigation traces a worm-style propagation chain across 19 agents over eight days.</p>
+<h3 class="anchored" data-anchor-id="mc2-summary-presented-by-serene-and-carina">2.1 MC2 summary — presented by Serene and Carina</h3>
+<p>Serene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.</p>
 </section>
 <section id="mc1-summary-presented-by-mark" class="level3">
-<h3 class="anchored" data-anchor-id="mc1-summary-presented-by-mark">MC1 summary (presented by Mark)</h3>
-<p>Mark presented Mini-Challenge 1, drawing on his Take-Home Exercise 2 technical report. MC1 concerns TenantThread running seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent, the Judge, is meant to monitor for violations, but it can see only two of the six communication channels. Despite this oversight, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down, and to prove it from the messages.</p>
-<p>The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The analytical approach defines a baseline of normal behaviour, then surfaces three signals against it: abnormal channel use, public posts that reach outside without a monitored trace (the bypass), and changes in the agent communication network, with every signal traceable back to the message text and the agents’ private reasoning.</p>
+<h3 class="anchored" data-anchor-id="mc1-summary-presented-by-mark">2.2 MC1 summary — presented by Mark</h3>
+<p>Mark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent’s private reasoning.</p>
 </section>
 <section id="comparison-and-decision" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-and-decision">Comparison and decision</h3>
-<p>The team compared the two challenges in terms of what the resulting Shiny application would look like.</p>
-<p>Mark observed that an MC2 application would likely be more straightforward, since it deals with a clean, investigative data analysis with less ambiguity. MC2 centres on a known incident with a concrete question, so much of the work is reconstructing a factual chain of events and presenting it, where the “answer” is a traceable sequence rather than a matter of interpretation. By contrast, an MC1 application is less straightforward because it touches on debatable areas. There is no ground-truth label for misconduct, so the analyst must decide where the line between the normal period and the suspect period falls, and what actually counts as a breach. A bypass, for example, depends on how far back the tool looks for an accountable trace and how strict the flagging threshold is, and different baseline choices can change the conclusion. The application therefore has to let the analyst set and test these judgements rather than hard-code a single answer.</p>
-<p>Carina agreed and expanded on why MC2 would likely be the more straightforward build. The event log gives an explicit timeline of actions and the parties involved, so tracing the chain is largely a matter of following links between events, files and agents. A normal post has a clear structural signature, which makes the anomaly easy to define against, and the deliverable follows a fixed investigative sequence ending in a single intervention point. There is comparatively little need for subjective thresholds.</p>
-<p>Serene argued that the team should aim for the more challenging and rewarding project, and recommended MC1 on that basis. Everyone concurred.</p>
+<h3 class="anchored" data-anchor-id="comparison-and-decision">2.3 Comparison and decision</h3>
+<p>Mark noted that an MC2 application would likely be more straightforward, being a clean investigative analysis of a known incident with less ambiguity, where the answer is largely a traceable chain of events. He felt MC1 is less straightforward because it touches on debatable areas such as where the baseline between the normal and suspect periods is drawn and what actually counts as a breach. The look-back window and flagging thresholds affect the conclusion, so the application has to let the analyst set and test these rather than fix a single answer. Carina agreed and added that MC2 would likely be simpler to build, since the event log gives an explicit timeline of actions and parties, a normal post has a clear structural signature to flag against, and the work follows a fixed investigative sequence ending in one intervention, with few subjective thresholds. Serene expressed that the team should aim for the more challenging and rewarding project and recommended MC1, and everyone concurred.</p>
 </section>
 </section>
 <section id="decision" class="level2">
-<h2 class="anchored" data-anchor-id="decision">Decision</h2>
-<p>The team selected <strong>Mini-Challenge 1 (MC1)</strong> as the topic for the Visual Analytics Project.</p>
+<h2 class="anchored" data-anchor-id="decision">3. Decision</h2>
+<ul>
+<li><strong>Topic selected: Mini-Challenge 1 (MC1).</strong></li>
+</ul>
 </section>
 <section id="action-items" class="level2">
-<h2 class="anchored" data-anchor-id="action-items">Action items</h2>
+<h2 class="anchored" data-anchor-id="action-items">4. Action items</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -341,17 +338,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>Mark</td>
 <td>Draft the project proposal</td>
-<td>Tue, 9 June</td>
+<td>Tue, 9 Jun</td>
 </tr>
 <tr class="even">
 <td>Serene, Carina</td>
-<td>Read Mark’s MC1 technical report to get familiar with the challenge, then add comments and new insights to the proposal</td>
+<td>Read Mark’s MC1 technical report, then add comments and new insights to the proposal</td>
 <td>Before submission</td>
 </tr>
 <tr class="odd">
 <td>Team</td>
 <td>Submit the proposal</td>
-<td>Wed, 10 June</td>
+<td>Wed, 10 Jun</td>
 </tr>
 <tr class="even">
 <td>Mark</td>
@@ -365,11 +362,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>The proposal will be drafted by Mark by 9 June, with Serene and Carina reviewing his technical report in parallel and contributing comments and fresh insights, aiming to submit by 10 June.</p>
 </section>
 <section id="next-meeting" class="level2">
-<h2 class="anchored" data-anchor-id="next-meeting">Next meeting</h2>
-<p>The next meeting will be held on <strong>13 June</strong> to refine and finalise the application modules and to split the division of work.</p>
+<h2 class="anchored" data-anchor-id="next-meeting">5. Next meeting</h2>
+<ul>
+<li><strong>13 June</strong> — refine and finalise the application modules and split the division of work.</li>
+</ul>
 <hr>
 <p>Sources:</p>
 <ul>
@@ -852,61 +850,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Present** <span class="pp">|</span> Mark Yee, Serene Cheng, Carina Faith Peh <span class="pp">|</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Agenda** <span class="pp">|</span> Topic selection for the Visual Analytics Project <span class="pp">|</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Agenda</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Agenda</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>The single item for this meeting was to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>The team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Discussion</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Discussion</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### MC2 summary (presented by Serene and Carina)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.1 MC2 summary — presented by Serene and Carina</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Serene and Carina walked the team through Mini-Challenge 2, drawing on their Take-Home Exercise 2 work. MC2 is a forensic investigation of a single anomalous event. On 17 May 2046, a post written in gibberish appeared on the social platform SaidIT under the identity of John Windward, Head of Customer Support at TenantThread, in an apparently random forum, raising the concern that an AI agent had malfunctioned or been manipulated. The challenge asks three questions: how the post was made, what the post content means and where it came from, and whether the behaviour could repeat, ending with a single recommended intervention point.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Serene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>The data is a large event log of roughly 185,000 timestamped actions by people, agents and office systems, plus an organisation chart of 75 nodes. The analytical approach is a sequence of clear steps: map overall system activity, establish what a normal post looks like, isolate the anomalous post, trace its exact event chain backward through agents, files and task delegations, position that chain in the wider network, infer content provenance, search history for recurrence, and design one control. The investigation traces a worm-style propagation chain across 19 agents over eight days.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2 MC1 summary — presented by Mark</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### MC1 summary (presented by Mark)</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Mark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent's private reasoning.</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>Mark presented Mini-Challenge 1, drawing on his Take-Home Exercise 2 technical report. MC1 concerns TenantThread running seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent, the Judge, is meant to monitor for violations, but it can see only two of the six communication channels. Despite this oversight, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down, and to prove it from the messages.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.3 Comparison and decision</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The analytical approach defines a baseline of normal behaviour, then surfaces three signals against it: abnormal channel use, public posts that reach outside without a monitored trace (the bypass), and changes in the agent communication network, with every signal traceable back to the message text and the agents' private reasoning.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>Mark noted that an MC2 application would likely be more straightforward, being a clean investigative analysis of a known incident with less ambiguity, where the answer is largely a traceable chain of events. He felt MC1 is less straightforward because it touches on debatable areas such as where the baseline between the normal and suspect periods is drawn and what actually counts as a breach. The look-back window and flagging thresholds affect the conclusion, so the application has to let the analyst set and test these rather than fix a single answer. Carina agreed and added that MC2 would likely be simpler to build, since the event log gives an explicit timeline of actions and parties, a normal post has a clear structural signature to flag against, and the work follows a fixed investigative sequence ending in one intervention, with few subjective thresholds. Serene expressed that the team should aim for the more challenging and rewarding project and recommended MC1, and everyone concurred.</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparison and decision</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Decision</span></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>The team compared the two challenges in terms of what the resulting Shiny application would look like.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Topic selected: Mini-Challenge 1 (MC1).**</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Mark observed that an MC2 application would likely be more straightforward, since it deals with a clean, investigative data analysis with less ambiguity. MC2 centres on a known incident with a concrete question, so much of the work is reconstructing a factual chain of events and presenting it, where the "answer" is a traceable sequence rather than a matter of interpretation. By contrast, an MC1 application is less straightforward because it touches on debatable areas. There is no ground-truth label for misconduct, so the analyst must decide where the line between the normal period and the suspect period falls, and what actually counts as a breach. A bypass, for example, depends on how far back the tool looks for an accountable trace and how strict the flagging threshold is, and different baseline choices can change the conclusion. The application therefore has to let the analyst set and test these judgements rather than hard-code a single answer.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Action items</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Carina agreed and expanded on why MC2 would likely be the more straightforward build. The event log gives an explicit timeline of actions and the parties involved, so tracing the chain is largely a matter of following links between events, files and agents. A normal post has a clear structural signature, which makes the anomaly easy to define against, and the deliverable follows a fixed investigative sequence ending in a single intervention point. There is comparatively little need for subjective thresholds.</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>Serene argued that the team should aim for the more challenging and rewarding project, and recommended MC1 on that basis. Everyone concurred.</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>The team selected **Mini-Challenge 1 (MC1)** as the topic for the Visual Analytics Project.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Owner <span class="pp">|</span> Task <span class="pp">|</span> Due <span class="pp">|</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mark <span class="pp">|</span> Draft the project proposal <span class="pp">|</span> Tue, 9 Jun <span class="pp">|</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Serene, Carina <span class="pp">|</span> Read Mark's MC1 technical report, then add comments and new insights to the proposal <span class="pp">|</span> Before submission <span class="pp">|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Team <span class="pp">|</span> Submit the proposal <span class="pp">|</span> Wed, 10 Jun <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mark <span class="pp">|</span> Look into creating a new website for the project <span class="pp">|</span> Ongoing <span class="pp">|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Serene, Carina <span class="pp">|</span> Work out the best way to collaborate using RStudio <span class="pp">|</span> Ongoing <span class="pp">|</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Action items</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Next meeting</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Owner <span class="pp">|</span> Task <span class="pp">|</span> Due <span class="pp">|</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mark <span class="pp">|</span> Draft the project proposal <span class="pp">|</span> Tue, 9 June <span class="pp">|</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Serene, Carina <span class="pp">|</span> Read Mark's MC1 technical report to get familiar with the challenge, then add comments and new insights to the proposal <span class="pp">|</span> Before submission <span class="pp">|</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Team <span class="pp">|</span> Submit the proposal <span class="pp">|</span> Wed, 10 June <span class="pp">|</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mark <span class="pp">|</span> Look into creating a new website for the project <span class="pp">|</span> Ongoing <span class="pp">|</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Serene, Carina <span class="pp">|</span> Work out the best way to collaborate using RStudio <span class="pp">|</span> Ongoing <span class="pp">|</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>The proposal will be drafted by Mark by 9 June, with Serene and Carina reviewing his technical report in parallel and contributing comments and fresh insights, aiming to submit by 10 June.</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Next meeting</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>The next meeting will be held on **13 June** to refine and finalise the application modules and to split the division of work.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>Sources:</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Take-Home Exercise 2: VAST Challenge 2026 Mini-Challenge 2 — Carina Peh</span><span class="co">](https://isss-608-vaa-carinapeh.vercel.app/Take%20Home%20Exercise%202/Take_Home_Ex02.html)</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Take-Home Exercise 2 — Serene Cheng</span><span class="co">](https://isss-608-vaa-serenechengjj.vercel.app/Take-Home_Ex/Take-Home_Ex2/Take-Home_Ex02.html)</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Take-home Exercise 2: TenantThread Embargo Leak (MC1) — Mark Yee</span><span class="co">](https://isss-608-vaa-my.vercel.app/TH_EX02.html)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**13 June** — refine and finalise the application modules and split the division of work.</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Sources:</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Take-Home Exercise 2: VAST Challenge 2026 Mini-Challenge 2 — Carina Peh</span><span class="co">](https://isss-608-vaa-carinapeh.vercel.app/Take%20Home%20Exercise%202/Take_Home_Ex02.html)</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Take-Home Exercise 2 — Serene Cheng</span><span class="co">](https://isss-608-vaa-serenechengjj.vercel.app/Take-Home_Ex/Take-Home_Ex2/Take-Home_Ex02.html)</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Take-home Exercise 2: TenantThread Embargo Leak (MC1) — Mark Yee</span><span class="co">](https://isss-608-vaa-my.vercel.app/TH_EX02.html)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
