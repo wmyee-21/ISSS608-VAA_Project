@@ -17,7 +17,7 @@ sec_network_ui <- function(id) {
   ns <- NS(id)
   layout_sidebar(
     sidebar = sidebar(
-      width = 280,
+      width = "25%",
       radioButtons(ns("view"), "View",
                    choices = c("Who talks to whom (graph)" = "graph",
                                "Agents and channels (bipartite)" = "bip"),

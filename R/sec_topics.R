@@ -18,7 +18,7 @@ sec_topics_ui <- function(id) {
   ns <- NS(id)
   layout_sidebar(
     sidebar = sidebar(
-      width = 300,
+      width = "25%",
       radioButtons(ns("dir"), "Explore by",
                    choices = c("Round, see the topics" = "round",
                                "Topic, see where it appears" = "topic"),

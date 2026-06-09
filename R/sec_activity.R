@@ -16,7 +16,7 @@ sec_activity_ui <- function(id) {
   ns <- NS(id)
   layout_sidebar(
     sidebar = sidebar(
-      width = 300,
+      width = "25%",
       sliderInput(ns("split"), "End of the baseline period (round)",
                   min = 5, max = n_rounds - 1, value = 20, step = 1),
       helpText("Rounds up to here are the baseline period. Later rounds are the ",

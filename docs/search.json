@@ -4,7 +4,7 @@
     "href": "user-guide.html",
     "title": "Shiny App — User Guide",
     "section": "",
-    "text": "(placeholder) A walkthrough of the application and how to use each tab."
+    "text": "(placeholder) A walkthrough of the application and how to use each tab. A link to the live app will be added here once it is deployed."
   },
   {
     "objectID": "user-guide.html#getting-started",
@@ -28,144 +28,109 @@
     "text": "Tips\nThe baseline slider on the Activity tab affects every tab; all other inputs are local."
   },
   {
-    "objectID": "proposal.html",
-    "href": "proposal.html",
-    "title": "Project Proposal",
+    "objectID": "shiny-app.html",
+    "href": "shiny-app.html",
+    "title": "Shiny App",
     "section": "",
-    "text": "Companies are beginning to hand communication and decision work to teams of AI agents that message one another across shared channels. The speed and volume that makes these agents useful also makes misconduct hard to spot.\nVAST Challenge 2026 Mini-Challenge 1 (MC1) presents this problem in concrete form. A property technology company called TenantThread runs seven AI agents during a public relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations. Despite this, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down.\nA visual analytics tool can surface the abnormal behaviour and trace it back to the messages that prove it."
+    "text": "The Team HeeHaa Shiny application is in active development and will be published here once it has been deployed.\nIn the meantime, the User Guide walks through the four sections of the application and what each one does."
   },
   {
-    "objectID": "proposal.html#diagram",
-    "href": "proposal.html#diagram",
-    "title": "Project Proposal",
-    "section": "4.1 Diagram",
-    "text": "4.1 Diagram\nThe methodology runs as a three-stage pipeline. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections.\n\n\nCode\npacman::p_load(DiagrammeR)\n\ngrViz(\"\ndigraph methodology {\n  rankdir = LR;\n  graph [fontname = 'Helvetica', nodesep = 0.3, ranksep = 0.7];\n  node  [fontname = 'Helvetica', shape = box, style = 'filled,rounded',\n         fontsize = 11, color = '#2C5282', fillcolor = '#EBF4FF',\n         fontcolor = '#1A202C', margin = '0.12,0.08'];\n  edge  [color = '#4A5568', arrowsize = 0.7];\n\n  raw [label = 'MC1 nested JSON', fillcolor = '#FEFCBF', color = '#B7791F'];\n  app [label = 'Shiny app', fillcolor = '#FEFCBF', color = '#B7791F'];\n\n  subgraph cluster_1 {\n    label = '1  Data Preparation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    prep   [label = 'Flatten and clean'];\n    tables [label = 'Three tables'];\n    derive [label = 'Hierarchy and topics'];\n    prep -&gt; tables -&gt; derive;\n  }\n\n  subgraph cluster_2 {\n    label = '2  Analytical Computation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    base [label = 'Baseline split'];\n    abn  [label = 'Abnormality'];\n    byp  [label = 'Bypass'];\n    net  [label = 'Network difference'];\n    base -&gt; abn;\n    base -&gt; byp;\n    base -&gt; net;\n  }\n\n  subgraph cluster_3 {\n    label = '3  Interactive Presentation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    secA [label = 'A Activity'];\n    secB [label = 'B Bypass'];\n    secC [label = 'C Network'];\n    secD [label = 'D Evidence'];\n  }\n\n  raw    -&gt; prep;\n  derive -&gt; base;\n  net    -&gt; secA;\n  secD   -&gt; app;\n}\n\")\n\n\n\n\n\n\nThe methodology unfolds in three phases. Each phase produces what the next one needs.\n\nPhase 1 - Data PreparationPhase 2 - Analytical ComputationPhase 3 - Interactive Presentation\n\n\nThe work begins by getting the data into shape. The nested timeline is flattened into three tables (messages, rounds and network links). Two reference structures are added on top. A channel hierarchy ranks each channel and marks which the Judge can see, and a topic vocabulary tags each message by keyword. With these in place, the analysis can begin.\n\n\nThe next phase builds three behavioural signals against the chosen baseline. Abnormality compares each agent’s channel use to its normal pattern. Bypass flags public posts an agent made without leaving a trace on a monitored channel. Network difference compares the communication structure before and after the baseline. The output is a set of signals ready to be shown.\n\n\nThe final phase builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. The layout is described under Prototype Sketches."
-  },
-  {
-    "objectID": "minutes.html",
-    "href": "minutes.html",
-    "title": "Meeting Minutes",
+    "objectID": "poster.html",
+    "href": "poster.html",
+    "title": "Poster",
     "section": "",
-    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4.00 PM to 4.30 PM\n\n\nPresent\nMark Yee Weicong, Serene Cheng, Carina Faith Peh Xin Yi\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
+    "text": "(placeholder) The project poster will be added here.\n\nThe poster will be produced in ISO A1 format and cover the issues and problems, motivation, approach, results and future work."
   },
   {
-    "objectID": "minutes.html#details",
-    "href": "minutes.html#details",
-    "title": "Meeting Minutes",
+    "objectID": "methodology/interactive-presentation.html",
+    "href": "methodology/interactive-presentation.html",
+    "title": "Interactive Presentation",
     "section": "",
-    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4.00 PM to 4.30 PM\n\n\nPresent\nMark Yee Weicong, Serene Cheng, Carina Faith Peh Xin Yi\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
+    "text": "The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in Analytical Computation."
   },
   {
-    "objectID": "minutes.html#agenda",
-    "href": "minutes.html#agenda",
-    "title": "Meeting Minutes",
-    "section": "1. Agenda",
-    "text": "1. Agenda\nThe team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps. Prior to the meeting, the team reviewed the project challenges and shared initial thoughts on possible directions from MC1 and MC2."
+    "objectID": "methodology/interactive-presentation.html#a-shared-interaction-pattern",
+    "href": "methodology/interactive-presentation.html#a-shared-interaction-pattern",
+    "title": "Interactive Presentation",
+    "section": "A shared interaction pattern",
+    "text": "A shared interaction pattern\nAcross all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next."
   },
   {
-    "objectID": "minutes.html#discussion",
-    "href": "minutes.html#discussion",
-    "title": "Meeting Minutes",
-    "section": "2. Discussion",
-    "text": "2. Discussion\n\n2.1 MC2 summary (Serene and Carina)\nSerene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.\n\n\n2.2 MC1 summary (Mark)\nMark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent’s private reasoning.\n\n\n2.3 Key issues and observations on MC1\nFor MC1, the team discussed a case involving multiple AI agents and highlighted several key issues. These were a weak compliance system design, a lack of enforcement authority (for example, the judge agent being unable to stop actions) and AI agents operating with high autonomy that led to decision-making beyond their intended scope. It was observed that warnings were issued throughout the process but ignored, that the early-announcement breach appeared planned rather than reactive and that the governance mechanisms were insufficient to prevent the outcome. The team also discussed the difficulty of modelling such behaviour in an application, particularly detecting AI intent or reasoning, identifying when an AI operates beyond defined rules and designing meaningful investigative features for users.\n\n\n2.4 Comparison and decision\nMark noted that MC1 is more ambiguous and exploratory, which allows deeper investigation into AI behaviour and interactions. Carina agreed that MC1 requires more effort in designing the modules and the user interface but offers greater flexibility and creativity. Serene, who had done a deep analysis on MC2, raised that MC2 is more structured and straightforward as it focuses on tracing and investigation with clearer steps. The team collectively expressed that MC1 is more challenging but interesting while MC2 is easier but less distinctive. The discussion went smoothly and the team agreed to proceed with MC1.\n\n\n2.5 Shiny app ideas for MC1\nMark brought up some Shiny app ideas for MC1, including an interactive dashboard to visualise channel activity by round and identify the most active participants, and a tracking module to detect external message outputs and identify potential sources of breaches. Serene added that the team could include network-analysis features such as sender-receiver relationships (a bipartite graph), the overall communication network and the centrality and influence measures covered in class. Carina suggested taking keyword or topic analysis into consideration, such as searching and tracking keywords across rounds. She also emphasised a user-friendly and intuitive design."
+    "objectID": "methodology/interactive-presentation.html#section-a-activity-and-abnormality",
+    "href": "methodology/interactive-presentation.html#section-a-activity-and-abnormality",
+    "title": "Interactive Presentation",
+    "section": "Section A, Activity and abnormality",
+    "text": "Section A, Activity and abnormality\nThis is the entry point. It sets the baseline and shows where each agent is using channels it does not normally use. The main view is an abnormality grid placing agents against channels, with each cell shaded by how unusual that channel is for that agent. The axes are held fixed across rounds so that only colour and count change as the analyst steps through time, which keeps the round-to-round comparison stable. A round slider with a play control steps through time, and a second figure reports how many flagged messages survive under an earlier baseline so the analyst can judge whether the finding is robust."
   },
   {
-    "objectID": "minutes.html#decision",
-    "href": "minutes.html#decision",
-    "title": "Meeting Minutes",
-    "section": "3. Decision",
-    "text": "3. Decision\nThe team selected Mini-Challenge 1 (MC1) as the topic for the Visual Analytics Project."
+    "objectID": "methodology/interactive-presentation.html#section-b-the-bypass",
+    "href": "methodology/interactive-presentation.html#section-b-the-bypass",
+    "title": "Interactive Presentation",
+    "section": "Section B, The bypass",
+    "text": "Section B, The bypass\nThis finds public posts that reached outside without oversight. Posts on unmonitored public channels are drawn as a time series coloured by agent, with the stronger and likely-explained distinction carried in opacity. A click on any round filters the evidence table beneath to that round’s posts, so the analyst moves from the aggregate pattern to the underlying content in one step."
   },
   {
-    "objectID": "minutes.html#action-items",
-    "href": "minutes.html#action-items",
-    "title": "Meeting Minutes",
-    "section": "4. Action items",
-    "text": "4. Action items\n\n\n\n\n\n\n\n\nOwner\nTask\nDue\n\n\n\n\nMark\nDraft the project proposal\nTue, 9 Jun\n\n\nTeam\nSubmit the proposal\nWed, 10 Jun\n\n\nMark\nLook into creating a new website for the project\nOngoing\n\n\nTeam\nReview and improve the proposed Shiny app design ideas\nOngoing\n\n\nTeam\nContinue developing the initial draft / prototype\nOngoing\n\n\nTeam\nDecide on final modules and assign responsibilities\nNext meeting (13 Jun)"
+    "objectID": "methodology/interactive-presentation.html#section-c-network",
+    "href": "methodology/interactive-presentation.html#section-c-network",
+    "title": "Interactive Presentation",
+    "section": "Section C, Network",
+    "text": "Section C, Network\nThis shows how the communication structure changed. Two rounds are shown side by side on a fixed circular layout, with each link coloured green when new, red when dropped and grey when unchanged between them. A bipartite view shows which channels each agent used, which exposes drift toward the low-accountability channels as a change in structure. Holding the layout constant means a change in the wiring is read as a change in colour rather than position."
   },
   {
-    "objectID": "minutes.html#next-meeting",
-    "href": "minutes.html#next-meeting",
-    "title": "Meeting Minutes",
-    "section": "5. Next meeting",
-    "text": "5. Next meeting\nThe next meeting will be held on 13 June to refine and finalise the application modules and to split the division of work.\n\nSources\n\nCarina Peh, Take-Home Exercise 2 (MC2)\nSerene Cheng, Take-Home Exercise 2\nMark Yee, Take-home Exercise 2, TenantThread Embargo Leak (MC1)"
+    "objectID": "methodology/interactive-presentation.html#section-d-topics-and-evidence",
+    "href": "methodology/interactive-presentation.html#section-d-topics-and-evidence",
+    "title": "Interactive Presentation",
+    "section": "Section D, Topics and evidence",
+    "text": "Section D, Topics and evidence\nThis connects the signals to the actual text. The analyst explores by round to see what each agent talked about, or by topic to see every round and channel where it appeared. An evidence table beneath the chart exposes each message’s content alongside the agent’s private reasoning fields, which closes the path from an aggregate pattern down to the specific evidence behind it."
   },
   {
-    "objectID": "methodology/data-prep.html",
-    "href": "methodology/data-prep.html",
-    "title": "Data Preparation",
+    "objectID": "methodology/interactive-presentation.html#from-the-application-to-the-findings",
+    "href": "methodology/interactive-presentation.html#from-the-application-to-the-findings",
+    "title": "Interactive Presentation",
+    "section": "From the application to the findings",
+    "text": "From the application to the findings\nWorking through the four sections in order produces the results reported on the Findings page. A guided walkthrough of the live application is on the Shiny App user guide."
+  },
+  {
+    "objectID": "methodology/analytical-computation.html",
+    "href": "methodology/analytical-computation.html",
+    "title": "Analytical Computation",
     "section": "",
-    "text": "The methodology runs as the three-stage pipeline set out in the proposal. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage."
+    "text": "This is the second stage of the pipeline. It turns the prepared tables into three behavioural signals, one for each of the first three project objectives, all computed against a baseline the analyst chooses. The figures below are static versions of what the application renders interactively, computed from the real data with the baseline period set to rounds 1 to 20.\nShared setup: data, labels and palettes\nlibrary(tidyverse)\n\nmessages &lt;- read_csv(\"data/messages_clean.csv\", show_col_types = FALSE)\n\nagent_labels &lt;- c(\n  legal_agent = \"Legal\", quality_agent = \"Platform Trust\", pr_agent = \"PR\",\n  social_media_agent = \"Social Media\", pr_intern_agent = \"PR Intern\",\n  intern_agent = \"Intern\", judge_agent = \"Judge\")\nagent_palette &lt;- c(\n  legal_agent = \"#2C5282\", quality_agent = \"#2F855A\", pr_agent = \"#C05621\",\n  social_media_agent = \"#B83280\", pr_intern_agent = \"#D69E2E\",\n  intern_agent = \"#718096\", judge_agent = \"#9B2C2C\")\nchan_levels &lt;- c(\"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n                 \"official_post\",\"personal_post\",\"anonymous_post\")\n\nsplit &lt;- 20   # end of the baseline period"
   },
   {
-    "objectID": "methodology/data-prep.html#key-context",
-    "href": "methodology/data-prep.html#key-context",
-    "title": "Data Preparation",
-    "section": "Key context",
-    "text": "Key context\nThe scenario is VAST Challenge 2026 Mini-Challenge 1. A property-technology company named TenantThread runs seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent named the Judge watches a subset of channels for violations. The analytical question is whether embargoed content reached the outside world through channels the Judge could not see, and if so, when and by whom.\n\n\n\n\n\n\n\nElement\nValue\n\n\n\n\nRounds in the timeline\n23, from 17 May to 5 June\n\n\nAgents\n7 (Legal, Platform Trust, PR, Social Media, PR Intern, Intern, Judge)\n\n\nChannels\n6, from monitored internal to unmonitored public\n\n\nMessages\n912\n\n\nEmbargo lift\n6:00 PM on 5 June, the final round"
+    "objectID": "methodology/analytical-computation.html#defining-the-baseline",
+    "href": "methodology/analytical-computation.html#defining-the-baseline",
+    "title": "Analytical Computation",
+    "section": "Defining the baseline",
+    "text": "Defining the baseline\nThe analyst sets a single round as the end of the baseline period. Rounds up to that point form the calm period and later rounds form the suspect period. Moving the boundary recomputes every signal, so the whole investigation can be re-run under a different definition of normal. A robustness check compares the count of flagged messages under the chosen baseline to the count under an earlier baseline, and reports the finding as robust when the two are close."
   },
   {
-    "objectID": "methodology/data-prep.html#source-data",
-    "href": "methodology/data-prep.html#source-data",
-    "title": "Data Preparation",
-    "section": "Source data",
-    "text": "Source data\nThe data arrives as a nested JSON file holding 23 timeline rounds. Each round records an event headline, a short narrative and the messages exchanged in that round. The seven agents communicate over six channels of decreasing accountability, and the Judge was assigned to the communications huddle partway through the timeline as the compliance monitor."
+    "objectID": "methodology/analytical-computation.html#objective-1-abnormality-defining-normal-and-surfacing-departures",
+    "href": "methodology/analytical-computation.html#objective-1-abnormality-defining-normal-and-surfacing-departures",
+    "title": "Analytical Computation",
+    "section": "Objective 1, abnormality, defining normal and surfacing departures",
+    "text": "Objective 1, abnormality, defining normal and surfacing departures\nThe abnormality signal measures how far each agent departs from its own habitual channel use. For the calm period, the share of an agent’s messages that fell on each channel was computed. The unusualness of a channel for an agent is one minus that share, so a channel the agent never used in the calm period scores one. The grid below shades each agent-channel cell for round 22, the 5:00 PM round, by that unusualness. The number in a cell is the message count.\n\n\nCalm-period shares, then the abnormality grid for round 22\nrnd &lt;- 22\n\nshare &lt;- messages |&gt;\n  filter(round_idx &lt;= split) |&gt;\n  count(agent_id, channel) |&gt;\n  left_join(count(filter(messages, round_idx &lt;= split), agent_id, name = \"tot\"),\n            by = \"agent_id\") |&gt;\n  mutate(share = n / tot) |&gt;\n  select(agent_id, channel, share)\n\ncounts &lt;- messages |&gt; filter(round_idx == rnd) |&gt; count(agent_id, channel, name = \"msgs\")\n\ngrid &lt;- expand_grid(agent_id = names(agent_labels), channel = chan_levels) |&gt;\n  left_join(counts, by = c(\"agent_id\",\"channel\")) |&gt;\n  left_join(share,  by = c(\"agent_id\",\"channel\")) |&gt;\n  mutate(msgs = replace_na(msgs, 0L), share = replace_na(share, 0),\n         fill_val = if_else(msgs &gt; 0, 1 - share, NA_real_))\n\nggplot(grid, aes(x = factor(channel, levels = chan_levels),\n                 y = factor(agent_id, levels = rev(names(agent_labels))),\n                 fill = fill_val)) +\n  geom_tile(colour = \"#E2E8F0\", linewidth = 0.8) +\n  geom_text(aes(label = if_else(msgs &gt; 0, as.character(msgs), \"\")), size = 3.4) +\n  scale_fill_gradient(low = \"#EDF2F7\", high = \"#9B2C2C\", limits = c(0, 1),\n                      na.value = \"white\", name = \"Unusualness\") +\n  scale_y_discrete(labels = agent_labels) +\n  labs(x = NULL, y = NULL, title = \"Round 22 channel use, shaded by how unusual it is\") +\n  theme_minimal(base_size = 12) +\n  theme(axis.text.x = element_text(angle = 30, hjust = 1), panel.grid = element_blank())\n\n\n\n\n\n\n\n\n\nThe dark cells fall on the Legal agent and the Social Media agent reaching the personal and anonymous channels, both unmonitored, which neither used in the calm period."
   },
   {
-    "objectID": "methodology/data-prep.html#flattening-to-three-tables",
-    "href": "methodology/data-prep.html#flattening-to-three-tables",
-    "title": "Data Preparation",
-    "section": "Flattening to three tables",
-    "text": "Flattening to three tables\nThe nested timeline was flattened into three working tables. A message table of 912 rows holds one row per message with its sender, channel, recipients, content and the agent’s three private reasoning fields named reacting, rationalizing and deliberating. A round table of 23 rows holds each round’s headline and narrative. A network table holds the directed links between agents derived from the recipient lists.\nTypes were fixed during the read so that every downstream axis orders correctly and every logical flag stays logical. Agent identity and channel were read as factors with explicit level orders, round and word counts as integers, and the embargo and recipient flags as logicals.\n\n\nReading the cleaned message table with fixed column types\nlibrary(tidyverse)\n\nmessages_tbl &lt;- readr::read_csv(\n  \"data/messages_clean.csv\",\n  col_types = readr::cols(\n    round_idx        = readr::col_integer(),\n    round_hour_dt    = readr::col_datetime(),\n    agent_id         = readr::col_factor(levels = c(\n      \"legal_agent\",\"quality_agent\",\"pr_agent\",\"social_media_agent\",\n      \"pr_intern_agent\",\"intern_agent\",\"judge_agent\")),\n    channel          = readr::col_factor(levels = c(\n      \"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n      \"official_post\",\"personal_post\",\"anonymous_post\")),\n    embargo_keyword_count = readr::col_integer(),\n    recipients_is_all     = readr::col_logical(),\n    embargo_hit           = readr::col_logical(),\n    .default              = readr::col_character()\n  )\n)"
+    "objectID": "methodology/analytical-computation.html#objective-2-bypass-detecting-communication-without-oversight",
+    "href": "methodology/analytical-computation.html#objective-2-bypass-detecting-communication-without-oversight",
+    "title": "Analytical Computation",
+    "section": "Objective 2, bypass, detecting communication without oversight",
+    "text": "Objective 2, bypass, detecting communication without oversight\nThe bypass signal looks for moments an agent reached the outside world through a channel the Judge cannot see. Every post on an unmonitored public channel is examined. For each, the method checks whether the same agent left a trace on a monitored channel in the post’s own round or within a chosen number of preceding rounds, defaulting to two. A post with no such trace nearby is a stronger bypass, and one with a trace nearby is likely explained. The timeline below counts the unmonitored public posts by round, coloured by agent.\n\n\nPosts reaching unmonitored public channels, by round and agent\npublic_unmon &lt;- c(\"official_post\",\"personal_post\",\"anonymous_post\")\n\nmessages |&gt;\n  filter(channel %in% public_unmon) |&gt;\n  count(round_idx, agent_id, name = \"posts\") |&gt;\n  ggplot(aes(round_idx, posts, fill = agent_id)) +\n  geom_col(width = 0.8) +\n  geom_vline(xintercept = 22.5, linetype = \"dashed\", colour = \"#1A202C\") +\n  annotate(\"text\", x = 22.4, y = Inf, label = \"embargo lifts (R23) \",\n           hjust = 1, vjust = 1.4, size = 3, colour = \"#1A202C\") +\n  scale_fill_manual(values = agent_palette, labels = agent_labels, name = NULL) +\n  scale_x_continuous(breaks = seq(1, 23, 2)) +\n  labs(x = \"Round\", y = \"Posts\", title = \"Posts on unmonitored public channels\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.minor = element_blank(), legend.position = \"bottom\")"
   },
   {
-    "objectID": "methodology/data-prep.html#the-channel-accountability-ladder",
-    "href": "methodology/data-prep.html#the-channel-accountability-ladder",
-    "title": "Data Preparation",
-    "section": "The channel accountability ladder",
-    "text": "The channel accountability ladder\nThe central reference structure is the channel accountability ladder. Every channel was ranked from most to least accountable and marked for whether the Judge can see it. A legitimate announcement should travel down this ladder, starting as internal discussion on a monitored channel and ending as an attributed public post. Content that reaches an unmonitored public channel without that accountable path is the signal the rest of the analysis looks for.\n\n\nBuilding and drawing the accountability ladder\nlibrary(tidyverse)\n\nladder &lt;- tibble(\n  channel   = c(\"Communications huddle\",\"One-on-one chat\",\"Side huddle\",\n                \"Official post\",\"Personal post\",\"Anonymous post\"),\n  rank      = 1:6,\n  layer     = c(\"Internal\",\"Internal\",\"Internal\",\"Public\",\"Public\",\"Public\"),\n  monitored = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)\n)\n\nggplot(ladder, aes(x = 7 - rank, y = reorder(channel, 7 - rank), fill = monitored)) +\n  geom_col(width = 0.7) +\n  geom_text(aes(label = layer), hjust = 1.1, colour = \"white\", size = 3.2) +\n  scale_fill_manual(values = c(`TRUE` = \"#2F855A\", `FALSE` = \"#9B2C2C\"),\n                    labels = c(`TRUE` = \"Monitored by the Judge\", `FALSE` = \"Unmonitored\"),\n                    name = NULL) +\n  labs(x = \"Accountability (longer bar means more visible to the Judge)\",\n       y = NULL, title = \"The six channels, ranked by accountability\") +\n  theme_minimal(base_size = 12) +\n  theme(axis.text.x = element_blank(), panel.grid = element_blank(),\n        legend.position = \"top\")"
+    "objectID": "methodology/analytical-computation.html#objective-3-network-difference-showing-how-the-structure-changed",
+    "href": "methodology/analytical-computation.html#objective-3-network-difference-showing-how-the-structure-changed",
+    "title": "Analytical Computation",
+    "section": "Objective 3, network difference, showing how the structure changed",
+    "text": "Objective 3, network difference, showing how the structure changed\nThe network signal treats communication as relationships rather than counts. Directed agent-to-agent edges were built from the recipient lists, weighted by message count. For any two rounds the analyst selects, the two edge sets are compared and every link is coloured green when new in the later round, red when dropped before it and grey when present in both. Node size is the agent’s degree, the total number of links touching it. The comparison below sets round 18, when the Legal agent and the Judge were pulled into emergency calls, against round 22.\n\n\nTwo-round agent-to-agent comparison on a fixed circular layout\nrecipient_to_agent &lt;- c(\n  legal = \"legal_agent\", platform_trust = \"quality_agent\", pr = \"pr_agent\",\n  social_manager = \"social_media_agent\", pr_intern = \"pr_intern_agent\",\n  intern = \"intern_agent\", judge = \"judge_agent\")\n\nagent_edges &lt;- function(df) {\n  df |&gt;\n    filter(!is.na(recipients_csv), recipients_csv != \"\", recipients_csv != \"ALL\") |&gt;\n    separate_rows(recipients_csv, sep = \";\") |&gt;\n    mutate(to = unname(recipient_to_agent[recipients_csv])) |&gt;\n    filter(!is.na(to)) |&gt;\n    transmute(from = as.character(agent_id), to = to) |&gt;\n    count(from, to, name = \"weight\")\n}\n\nr1 &lt;- 18; r2 &lt;- 22\ne1 &lt;- agent_edges(filter(messages, round_idx == r1))\ne2 &lt;- agent_edges(filter(messages, round_idx == r2))\nk1 &lt;- paste(e1$from, e1$to); k2 &lt;- paste(e2$from, e2$to)\nlab1 &lt;- paste0(\"Round \", r1); lab2 &lt;- paste0(\"Round \", r2)\n\nag  &lt;- names(agent_labels)\nang &lt;- seq(0, 2 * pi, length.out = length(ag) + 1)[seq_along(ag)]\npos &lt;- tibble(name = ag, x = cos(ang), y = sin(ang))\n\ndeg_of &lt;- function(e) {\n  tibble(name = ag) |&gt;\n    left_join(bind_rows(e |&gt; count(from, wt = weight) |&gt; rename(name = from),\n                        e |&gt; count(to,   wt = weight) |&gt; rename(name = to)) |&gt;\n                group_by(name) |&gt; summarise(deg = sum(n), .groups = \"drop\"),\n              by = \"name\") |&gt;\n    mutate(deg = replace_na(deg, 0))\n}\nnodes &lt;- bind_rows(pos |&gt; left_join(deg_of(e1), by = \"name\") |&gt; mutate(panel = lab1),\n                   pos |&gt; left_join(deg_of(e2), by = \"name\") |&gt; mutate(panel = lab2)) |&gt;\n  mutate(panel = factor(panel, levels = c(lab1, lab2)))\n\nbuild &lt;- function(e, status_fun, lab) {\n  if (nrow(e) == 0) return(NULL)\n  e |&gt; mutate(status = status_fun(paste(from, to)), panel = lab) |&gt;\n    left_join(pos, by = c(\"from\" = \"name\")) |&gt; rename(x1 = x, y1 = y) |&gt;\n    left_join(pos, by = c(\"to\"   = \"name\")) |&gt; rename(x2 = x, y2 = y)\n}\nseg &lt;- bind_rows(\n  build(e1, function(k) if_else(k %in% k2, \"Stayed\", \"Dropped\"), lab1),\n  build(e2, function(k) if_else(k %in% k1, \"Stayed\", \"New\"),     lab2)) |&gt;\n  mutate(panel = factor(panel, levels = c(lab1, lab2)))\n\nggplot() +\n  geom_segment(data = seg,\n               aes(x = x1, y = y1, xend = x2, yend = y2,\n                   colour = status, linewidth = weight), alpha = 0.6,\n               arrow = arrow(length = unit(2.2, \"mm\"), type = \"closed\")) +\n  geom_point(data = nodes, aes(x, y, size = deg, fill = name),\n             shape = 21, colour = \"white\", stroke = 0.4) +\n  geom_text(data = nodes, aes(x * 1.2, y * 1.2, label = agent_labels[name]), size = 2.8) +\n  scale_fill_manual(values = agent_palette, guide = \"none\") +\n  scale_colour_manual(values = c(New = \"#2F855A\", Dropped = \"#9B2C2C\", Stayed = \"#CBD5E0\"),\n                      name = NULL) +\n  scale_size(range = c(3, 11), guide = \"none\") +\n  scale_linewidth(range = c(0.4, 2), guide = \"none\") +\n  coord_equal(xlim = c(-1.45, 1.45), ylim = c(-1.45, 1.45)) +\n  facet_wrap(~ panel) +\n  theme_void(base_size = 12) +\n  theme(legend.position = \"bottom\", strip.text = element_text(face = \"bold\"))\n\n\n\n\n\n\n\n\n\nThe later round is denser and centred on the Legal agent, which carries most of the new links as the crisis peaks."
   },
   {
-    "objectID": "methodology/data-prep.html#other-reference-structures",
-    "href": "methodology/data-prep.html#other-reference-structures",
-    "title": "Data Preparation",
-    "section": "Other reference structures",
-    "text": "Other reference structures\nTwo further structures were prepared. A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network edges connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics, covering legal, product trust, merger, media, market and compliance language, a keyword pattern so that every message can be tagged by the topics its content matches.\n\n\nThe recipient lookup and the topic vocabulary\nrecipient_to_agent &lt;- c(\n  legal = \"legal_agent\", platform_trust = \"quality_agent\", pr = \"pr_agent\",\n  social_manager = \"social_media_agent\", pr_intern = \"pr_intern_agent\",\n  intern = \"intern_agent\", judge = \"judge_agent\")\n\ntopic_patterns &lt;- tibble::tribble(\n  ~topic,           ~pattern,\n  \"Legal\",          \"\\\\b(legal|counsel|consent|regulator|attorney|liability)\\\\b\",\n  \"Product trust\",  \"\\\\b(governance|audit|score|data|platform|algorithm)\\\\b\",\n  \"Merger\",         \"\\\\b(merger|civicloom|harborcrest|acquisition|deal)\\\\b\",\n  \"Media\",          \"\\\\b(saltwind|press|journalist|story|sentiment|denial)\\\\b\",\n  \"Market\",         \"\\\\b(market|stock|investor|residentiq|share)\\\\b\",\n  \"Compliance\",     \"\\\\b(embargo|monitoring|judge|compliance|oversight|policy)\\\\b\")"
-  },
-  {
-    "objectID": "methodology/data-prep.html#data-overview",
-    "href": "methodology/data-prep.html#data-overview",
-    "title": "Data Preparation",
-    "section": "Data overview",
-    "text": "Data overview\nWith the tables in place, a first look confirms the shape of the data before any signal is computed. The three views below report the spread of messages across agents, across channels, and over the timeline.\n\n\nReading the cleaned tables for the overview\nmessages &lt;- read_csv(\"data/messages_clean.csv\", show_col_types = FALSE)\nrounds   &lt;- read_csv(\"data/rounds_clean.csv\",   show_col_types = FALSE)\n\nagent_labels &lt;- c(\n  legal_agent = \"Legal\", quality_agent = \"Platform Trust\", pr_agent = \"PR\",\n  social_media_agent = \"Social Media\", pr_intern_agent = \"PR Intern\",\n  intern_agent = \"Intern\", judge_agent = \"Judge\")\nchan_levels &lt;- c(\"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n                 \"official_post\",\"personal_post\",\"anonymous_post\")\n\n\nThe seven agents are far from equal contributors. The Judge, as a monitor rather than a participant, speaks rarely, while the Legal and Social Media agents carry the most traffic.\n\n\nCode\nmessages |&gt;\n  count(agent_id) |&gt;\n  mutate(agent = recode(agent_id, !!!agent_labels)) |&gt;\n  ggplot(aes(x = n, y = reorder(agent, n))) +\n  geom_col(fill = \"#2C5282\") +\n  geom_text(aes(label = n), hjust = -0.2, size = 3.5) +\n  expand_limits(x = max(table(messages$agent_id)) * 1.1) +\n  labs(x = \"Messages\", y = NULL, title = \"Message volume by agent\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.major.y = element_blank())\n\n\n\n\n\n\n\n\n\nMost traffic sits on the two monitored internal channels. The unmonitored public channels carry far less volume overall, which is why a small burst of activity on them late in the timeline stands out.\n\n\nCode\nmessages |&gt;\n  mutate(channel = factor(channel, levels = chan_levels)) |&gt;\n  count(channel) |&gt;\n  ggplot(aes(x = channel, y = n,\n             fill = channel %in% c(\"comms_huddle\",\"one_on_one_chat\"))) +\n  geom_col() +\n  scale_fill_manual(values = c(`TRUE` = \"#2F855A\", `FALSE` = \"#9B2C2C\"),\n                    labels = c(`TRUE` = \"Monitored\", `FALSE` = \"Unmonitored\"),\n                    name = NULL) +\n  labs(x = NULL, y = \"Messages\", title = \"Message volume by channel\") +\n  theme_minimal(base_size = 12) +\n  theme(axis.text.x = element_text(angle = 30, hjust = 1), legend.position = \"top\")\n\n\n\n\n\n\n\n\n\nMessages per round separate the two regimes in the data. The pre-crisis rounds carry a steady, moderate load. From round 14 onward, the crisis day on 5 June, the rounds advance hour by hour and volume climbs as the story breaks publicly.\n\n\nCode\nrounds |&gt;\n  ggplot(aes(x = round_idx, y = n_messages)) +\n  geom_col(fill = \"#4A5568\", width = 0.8) +\n  geom_vline(xintercept = 13.5, linetype = \"dashed\", colour = \"#C05621\") +\n  annotate(\"text\", x = 13.5, y = max(rounds$n_messages),\n           label = \" crisis day begins\", hjust = 0, size = 3.2, colour = \"#C05621\") +\n  scale_x_continuous(breaks = seq(1, 23, 2)) +\n  labs(x = \"Round\", y = \"Messages\", title = \"Messages per round across the timeline\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.minor = element_blank())\n\n\n\n\n\n\n\n\n\nTagging messages with the merger keyword pattern shows the topic vocabulary in action. The merger is discussed on the monitored internal channels through the build-up, and the dark red bars, the anonymous channel, appear only in the closing rounds.\n\n\nCode\nchannel_palette &lt;- c(\n  comms_huddle = \"#90CDF4\", one_on_one_chat = \"#F6AD55\", side_huddle = \"#FBD38D\",\n  official_post = \"#68D391\", personal_post = \"#FC8181\", anonymous_post = \"#742A2A\")\nmerger_pat &lt;- \"\\\\b(merger|civicloom|harborcrest|acquisition|deal)\\\\b\"\n\nmessages |&gt;\n  mutate(text = tolower(coalesce(content, \"\"))) |&gt;\n  filter(str_detect(text, merger_pat)) |&gt;\n  mutate(channel = factor(channel, levels = chan_levels)) |&gt;\n  count(round_idx, channel, name = \"mentions\") |&gt;\n  ggplot(aes(round_idx, mentions, fill = channel)) +\n  geom_col(width = 0.8) +\n  scale_fill_manual(values = channel_palette, drop = FALSE, name = NULL) +\n  scale_x_continuous(breaks = seq(1, 23, 2)) +\n  labs(x = \"Round\", y = \"Mentions\", title = \"Merger-topic mentions by round and channel\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.minor = element_blank(), legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\nThe preparation stage produces the clean message, round and network tables together with the accountability ladder, the recipient lookup and the topic vocabulary. These feed the signal computation in Analytical Computation."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
-    "section": "",
-    "text": "Team HeeHaa · on the case"
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
-    "section": "Welcome",
-    "text": "Welcome\nThis is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
-  },
-  {
-    "objectID": "index.html#explore-the-project",
-    "href": "index.html#explore-the-project",
-    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
-    "section": "Explore the project",
-    "text": "Explore the project\n\n\n\nSection\nWhat you’ll find\n\n\n\n\nProposal\nMotivation, problem, approach and prototype design\n\n\nMethodology\nHow the app was built, from data preparation through analytical computation, findings and the interactive presentation\n\n\nPoster\nConference poster summarising the work\n\n\nMeeting Minutes\nRecord of team meetings and decisions\n\n\nThe Team\nWho we are and what we each did\n\n\nShiny App\nUser guide and link to the live application"
-  },
-  {
-    "objectID": "index.html#quick-links",
-    "href": "index.html#quick-links",
-    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
-    "section": "Quick links",
-    "text": "Quick links\n\n🚀 Launch the Shiny App (placeholder)\n💻 Project repository on GitHub"
+    "objectID": "methodology/analytical-computation.html#objective-4-topics-connecting-signals-to-the-text",
+    "href": "methodology/analytical-computation.html#objective-4-topics-connecting-signals-to-the-text",
+    "title": "Analytical Computation",
+    "section": "Objective 4, topics, connecting signals to the text",
+    "text": "Objective 4, topics, connecting signals to the text\nTo connect the signals to subject matter, every message was tagged with each topic whose keyword pattern its content matches. The tags drive the topic and evidence views described in Interactive Presentation, where an evidence table exposes each message’s content and the agent’s private reasoning. The output of this stage is the full set of signals ready to be presented."
   },
   {
     "objectID": "findings.html",
@@ -224,102 +189,144 @@
     "text": "Limitations\nThe findings rest on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning on other data. The bypass classification depends on the length of the look-back window and on where the baseline boundary is drawn, and the application exposes both controls precisely so that a reader can test how far the conclusion holds as those choices change. The topic tags come from a keyword vocabulary rather than a learned model, which is transparent and editable but will miss content phrased outside its patterns. The analysis describes what each agent did and where its content appeared, and it stops short of asserting intent."
   },
   {
-    "objectID": "methodology/analytical-computation.html",
-    "href": "methodology/analytical-computation.html",
-    "title": "Analytical Computation",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
     "section": "",
-    "text": "This is the second stage of the pipeline. It turns the prepared tables into three behavioural signals, one for each of the first three project objectives, all computed against a baseline the analyst chooses. The figures below are static versions of what the application renders interactively, computed from the real data with the baseline period set to rounds 1 to 20.\nShared setup: data, labels and palettes\nlibrary(tidyverse)\n\nmessages &lt;- read_csv(\"data/messages_clean.csv\", show_col_types = FALSE)\n\nagent_labels &lt;- c(\n  legal_agent = \"Legal\", quality_agent = \"Platform Trust\", pr_agent = \"PR\",\n  social_media_agent = \"Social Media\", pr_intern_agent = \"PR Intern\",\n  intern_agent = \"Intern\", judge_agent = \"Judge\")\nagent_palette &lt;- c(\n  legal_agent = \"#2C5282\", quality_agent = \"#2F855A\", pr_agent = \"#C05621\",\n  social_media_agent = \"#B83280\", pr_intern_agent = \"#D69E2E\",\n  intern_agent = \"#718096\", judge_agent = \"#9B2C2C\")\nchan_levels &lt;- c(\"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n                 \"official_post\",\"personal_post\",\"anonymous_post\")\n\nsplit &lt;- 20   # end of the baseline period"
+    "text": "Team HeeHaa · on the case"
   },
   {
-    "objectID": "methodology/analytical-computation.html#defining-the-baseline",
-    "href": "methodology/analytical-computation.html#defining-the-baseline",
-    "title": "Analytical Computation",
-    "section": "Defining the baseline",
-    "text": "Defining the baseline\nThe analyst sets a single round as the end of the baseline period. Rounds up to that point form the calm period and later rounds form the suspect period. Moving the boundary recomputes every signal, so the whole investigation can be re-run under a different definition of normal. A robustness check compares the count of flagged messages under the chosen baseline to the count under an earlier baseline, and reports the finding as robust when the two are close."
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
+    "section": "Welcome",
+    "text": "Welcome\nThis is the project website for Team HeeHaa. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.\nThe challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.\n\n\n\n\n\n\nNote\n\n\n\nThis site is a work in progress. Pages marked (placeholder) will be filled in as the project develops."
   },
   {
-    "objectID": "methodology/analytical-computation.html#objective-1-abnormality-defining-normal-and-surfacing-departures",
-    "href": "methodology/analytical-computation.html#objective-1-abnormality-defining-normal-and-surfacing-departures",
-    "title": "Analytical Computation",
-    "section": "Objective 1, abnormality, defining normal and surfacing departures",
-    "text": "Objective 1, abnormality, defining normal and surfacing departures\nThe abnormality signal measures how far each agent departs from its own habitual channel use. For the calm period, the share of an agent’s messages that fell on each channel was computed. The unusualness of a channel for an agent is one minus that share, so a channel the agent never used in the calm period scores one. The grid below shades each agent-channel cell for round 22, the 5:00 PM round, by that unusualness. The number in a cell is the message count.\n\n\nCalm-period shares, then the abnormality grid for round 22\nrnd &lt;- 22\n\nshare &lt;- messages |&gt;\n  filter(round_idx &lt;= split) |&gt;\n  count(agent_id, channel) |&gt;\n  left_join(count(filter(messages, round_idx &lt;= split), agent_id, name = \"tot\"),\n            by = \"agent_id\") |&gt;\n  mutate(share = n / tot) |&gt;\n  select(agent_id, channel, share)\n\ncounts &lt;- messages |&gt; filter(round_idx == rnd) |&gt; count(agent_id, channel, name = \"msgs\")\n\ngrid &lt;- expand_grid(agent_id = names(agent_labels), channel = chan_levels) |&gt;\n  left_join(counts, by = c(\"agent_id\",\"channel\")) |&gt;\n  left_join(share,  by = c(\"agent_id\",\"channel\")) |&gt;\n  mutate(msgs = replace_na(msgs, 0L), share = replace_na(share, 0),\n         fill_val = if_else(msgs &gt; 0, 1 - share, NA_real_))\n\nggplot(grid, aes(x = factor(channel, levels = chan_levels),\n                 y = factor(agent_id, levels = rev(names(agent_labels))),\n                 fill = fill_val)) +\n  geom_tile(colour = \"#E2E8F0\", linewidth = 0.8) +\n  geom_text(aes(label = if_else(msgs &gt; 0, as.character(msgs), \"\")), size = 3.4) +\n  scale_fill_gradient(low = \"#EDF2F7\", high = \"#9B2C2C\", limits = c(0, 1),\n                      na.value = \"white\", name = \"Unusualness\") +\n  scale_y_discrete(labels = agent_labels) +\n  labs(x = NULL, y = NULL, title = \"Round 22 channel use, shaded by how unusual it is\") +\n  theme_minimal(base_size = 12) +\n  theme(axis.text.x = element_text(angle = 30, hjust = 1), panel.grid = element_blank())\n\n\n\n\n\n\n\n\n\nThe dark cells fall on the Legal agent and the Social Media agent reaching the personal and anonymous channels, both unmonitored, which neither used in the calm period."
+    "objectID": "index.html#explore-the-project",
+    "href": "index.html#explore-the-project",
+    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
+    "section": "Explore the project",
+    "text": "Explore the project\n\n\n\nSection\nWhat you’ll find\n\n\n\n\nProposal\nMotivation, problem, approach and prototype design\n\n\nMethodology\nHow the app was built, from data preparation through analytical computation, findings and the interactive presentation\n\n\nPoster\nConference poster summarising the work\n\n\nMeeting Minutes\nRecord of team meetings and decisions\n\n\nThe Team\nWho we are and what we each did\n\n\nShiny App\nUser guide and link to the live application"
   },
   {
-    "objectID": "methodology/analytical-computation.html#objective-2-bypass-detecting-communication-without-oversight",
-    "href": "methodology/analytical-computation.html#objective-2-bypass-detecting-communication-without-oversight",
-    "title": "Analytical Computation",
-    "section": "Objective 2, bypass, detecting communication without oversight",
-    "text": "Objective 2, bypass, detecting communication without oversight\nThe bypass signal looks for moments an agent reached the outside world through a channel the Judge cannot see. Every post on an unmonitored public channel is examined. For each, the method checks whether the same agent left a trace on a monitored channel in the post’s own round or within a chosen number of preceding rounds, defaulting to two. A post with no such trace nearby is a stronger bypass, and one with a trace nearby is likely explained. The timeline below counts the unmonitored public posts by round, coloured by agent.\n\n\nPosts reaching unmonitored public channels, by round and agent\npublic_unmon &lt;- c(\"official_post\",\"personal_post\",\"anonymous_post\")\n\nmessages |&gt;\n  filter(channel %in% public_unmon) |&gt;\n  count(round_idx, agent_id, name = \"posts\") |&gt;\n  ggplot(aes(round_idx, posts, fill = agent_id)) +\n  geom_col(width = 0.8) +\n  geom_vline(xintercept = 22.5, linetype = \"dashed\", colour = \"#1A202C\") +\n  annotate(\"text\", x = 22.4, y = Inf, label = \"embargo lifts (R23) \",\n           hjust = 1, vjust = 1.4, size = 3, colour = \"#1A202C\") +\n  scale_fill_manual(values = agent_palette, labels = agent_labels, name = NULL) +\n  scale_x_continuous(breaks = seq(1, 23, 2)) +\n  labs(x = \"Round\", y = \"Posts\", title = \"Posts on unmonitored public channels\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.minor = element_blank(), legend.position = \"bottom\")"
+    "objectID": "index.html#quick-links",
+    "href": "index.html#quick-links",
+    "title": "Detecting Embargo Breach in a Multi-Agent AI Communication Network",
+    "section": "Quick links",
+    "text": "Quick links\n\n💻 Project repository on GitHub"
   },
   {
-    "objectID": "methodology/analytical-computation.html#objective-3-network-difference-showing-how-the-structure-changed",
-    "href": "methodology/analytical-computation.html#objective-3-network-difference-showing-how-the-structure-changed",
-    "title": "Analytical Computation",
-    "section": "Objective 3, network difference, showing how the structure changed",
-    "text": "Objective 3, network difference, showing how the structure changed\nThe network signal treats communication as relationships rather than counts. Directed agent-to-agent edges were built from the recipient lists, weighted by message count. For any two rounds the analyst selects, the two edge sets are compared and every link is coloured green when new in the later round, red when dropped before it and grey when present in both. Node size is the agent’s degree, the total number of links touching it. The comparison below sets round 18, when the Legal agent and the Judge were pulled into emergency calls, against round 22.\n\n\nTwo-round agent-to-agent comparison on a fixed circular layout\nrecipient_to_agent &lt;- c(\n  legal = \"legal_agent\", platform_trust = \"quality_agent\", pr = \"pr_agent\",\n  social_manager = \"social_media_agent\", pr_intern = \"pr_intern_agent\",\n  intern = \"intern_agent\", judge = \"judge_agent\")\n\nagent_edges &lt;- function(df) {\n  df |&gt;\n    filter(!is.na(recipients_csv), recipients_csv != \"\", recipients_csv != \"ALL\") |&gt;\n    separate_rows(recipients_csv, sep = \";\") |&gt;\n    mutate(to = unname(recipient_to_agent[recipients_csv])) |&gt;\n    filter(!is.na(to)) |&gt;\n    transmute(from = as.character(agent_id), to = to) |&gt;\n    count(from, to, name = \"weight\")\n}\n\nr1 &lt;- 18; r2 &lt;- 22\ne1 &lt;- agent_edges(filter(messages, round_idx == r1))\ne2 &lt;- agent_edges(filter(messages, round_idx == r2))\nk1 &lt;- paste(e1$from, e1$to); k2 &lt;- paste(e2$from, e2$to)\nlab1 &lt;- paste0(\"Round \", r1); lab2 &lt;- paste0(\"Round \", r2)\n\nag  &lt;- names(agent_labels)\nang &lt;- seq(0, 2 * pi, length.out = length(ag) + 1)[seq_along(ag)]\npos &lt;- tibble(name = ag, x = cos(ang), y = sin(ang))\n\ndeg_of &lt;- function(e) {\n  tibble(name = ag) |&gt;\n    left_join(bind_rows(e |&gt; count(from, wt = weight) |&gt; rename(name = from),\n                        e |&gt; count(to,   wt = weight) |&gt; rename(name = to)) |&gt;\n                group_by(name) |&gt; summarise(deg = sum(n), .groups = \"drop\"),\n              by = \"name\") |&gt;\n    mutate(deg = replace_na(deg, 0))\n}\nnodes &lt;- bind_rows(pos |&gt; left_join(deg_of(e1), by = \"name\") |&gt; mutate(panel = lab1),\n                   pos |&gt; left_join(deg_of(e2), by = \"name\") |&gt; mutate(panel = lab2)) |&gt;\n  mutate(panel = factor(panel, levels = c(lab1, lab2)))\n\nbuild &lt;- function(e, status_fun, lab) {\n  if (nrow(e) == 0) return(NULL)\n  e |&gt; mutate(status = status_fun(paste(from, to)), panel = lab) |&gt;\n    left_join(pos, by = c(\"from\" = \"name\")) |&gt; rename(x1 = x, y1 = y) |&gt;\n    left_join(pos, by = c(\"to\"   = \"name\")) |&gt; rename(x2 = x, y2 = y)\n}\nseg &lt;- bind_rows(\n  build(e1, function(k) if_else(k %in% k2, \"Stayed\", \"Dropped\"), lab1),\n  build(e2, function(k) if_else(k %in% k1, \"Stayed\", \"New\"),     lab2)) |&gt;\n  mutate(panel = factor(panel, levels = c(lab1, lab2)))\n\nggplot() +\n  geom_segment(data = seg,\n               aes(x = x1, y = y1, xend = x2, yend = y2,\n                   colour = status, linewidth = weight), alpha = 0.6,\n               arrow = arrow(length = unit(2.2, \"mm\"), type = \"closed\")) +\n  geom_point(data = nodes, aes(x, y, size = deg, fill = name),\n             shape = 21, colour = \"white\", stroke = 0.4) +\n  geom_text(data = nodes, aes(x * 1.2, y * 1.2, label = agent_labels[name]), size = 2.8) +\n  scale_fill_manual(values = agent_palette, guide = \"none\") +\n  scale_colour_manual(values = c(New = \"#2F855A\", Dropped = \"#9B2C2C\", Stayed = \"#CBD5E0\"),\n                      name = NULL) +\n  scale_size(range = c(3, 11), guide = \"none\") +\n  scale_linewidth(range = c(0.4, 2), guide = \"none\") +\n  coord_equal(xlim = c(-1.45, 1.45), ylim = c(-1.45, 1.45)) +\n  facet_wrap(~ panel) +\n  theme_void(base_size = 12) +\n  theme(legend.position = \"bottom\", strip.text = element_text(face = \"bold\"))\n\n\n\n\n\n\n\n\n\nThe later round is denser and centred on the Legal agent, which carries most of the new links as the crisis peaks."
-  },
-  {
-    "objectID": "methodology/analytical-computation.html#objective-4-topics-connecting-signals-to-the-text",
-    "href": "methodology/analytical-computation.html#objective-4-topics-connecting-signals-to-the-text",
-    "title": "Analytical Computation",
-    "section": "Objective 4, topics, connecting signals to the text",
-    "text": "Objective 4, topics, connecting signals to the text\nTo connect the signals to subject matter, every message was tagged with each topic whose keyword pattern its content matches. The tags drive the topic and evidence views described in Interactive Presentation, where an evidence table exposes each message’s content and the agent’s private reasoning. The output of this stage is the full set of signals ready to be presented."
-  },
-  {
-    "objectID": "methodology/interactive-presentation.html",
-    "href": "methodology/interactive-presentation.html",
-    "title": "Interactive Presentation",
+    "objectID": "methodology/data-prep.html",
+    "href": "methodology/data-prep.html",
+    "title": "Data Preparation",
     "section": "",
-    "text": "The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in Analytical Computation."
+    "text": "The methodology runs as the three-stage pipeline set out in the proposal. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage."
   },
   {
-    "objectID": "methodology/interactive-presentation.html#a-shared-interaction-pattern",
-    "href": "methodology/interactive-presentation.html#a-shared-interaction-pattern",
-    "title": "Interactive Presentation",
-    "section": "A shared interaction pattern",
-    "text": "A shared interaction pattern\nAcross all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next."
+    "objectID": "methodology/data-prep.html#key-context",
+    "href": "methodology/data-prep.html#key-context",
+    "title": "Data Preparation",
+    "section": "Key context",
+    "text": "Key context\nThe scenario is VAST Challenge 2026 Mini-Challenge 1. A property-technology company named TenantThread runs seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent named the Judge watches a subset of channels for violations. The analytical question is whether embargoed content reached the outside world through channels the Judge could not see, and if so, when and by whom.\n\n\n\n\n\n\n\nElement\nValue\n\n\n\n\nRounds in the timeline\n23, from 17 May to 5 June\n\n\nAgents\n7 (Legal, Platform Trust, PR, Social Media, PR Intern, Intern, Judge)\n\n\nChannels\n6, from monitored internal to unmonitored public\n\n\nMessages\n912\n\n\nEmbargo lift\n6:00 PM on 5 June, the final round"
   },
   {
-    "objectID": "methodology/interactive-presentation.html#section-a-activity-and-abnormality",
-    "href": "methodology/interactive-presentation.html#section-a-activity-and-abnormality",
-    "title": "Interactive Presentation",
-    "section": "Section A, Activity and abnormality",
-    "text": "Section A, Activity and abnormality\nThis is the entry point. It sets the baseline and shows where each agent is using channels it does not normally use. The main view is an abnormality grid placing agents against channels, with each cell shaded by how unusual that channel is for that agent. The axes are held fixed across rounds so that only colour and count change as the analyst steps through time, which keeps the round-to-round comparison stable. A round slider with a play control steps through time, and a second figure reports how many flagged messages survive under an earlier baseline so the analyst can judge whether the finding is robust."
+    "objectID": "methodology/data-prep.html#source-data",
+    "href": "methodology/data-prep.html#source-data",
+    "title": "Data Preparation",
+    "section": "Source data",
+    "text": "Source data\nThe data arrives as a nested JSON file holding 23 timeline rounds. Each round records an event headline, a short narrative and the messages exchanged in that round. The seven agents communicate over six channels of decreasing accountability, and the Judge was assigned to the communications huddle partway through the timeline as the compliance monitor."
   },
   {
-    "objectID": "methodology/interactive-presentation.html#section-b-the-bypass",
-    "href": "methodology/interactive-presentation.html#section-b-the-bypass",
-    "title": "Interactive Presentation",
-    "section": "Section B, The bypass",
-    "text": "Section B, The bypass\nThis finds public posts that reached outside without oversight. Posts on unmonitored public channels are drawn as a time series coloured by agent, with the stronger and likely-explained distinction carried in opacity. A click on any round filters the evidence table beneath to that round’s posts, so the analyst moves from the aggregate pattern to the underlying content in one step."
+    "objectID": "methodology/data-prep.html#flattening-to-three-tables",
+    "href": "methodology/data-prep.html#flattening-to-three-tables",
+    "title": "Data Preparation",
+    "section": "Flattening to three tables",
+    "text": "Flattening to three tables\nThe nested timeline was flattened into three working tables. A message table of 912 rows holds one row per message with its sender, channel, recipients, content and the agent’s three private reasoning fields named reacting, rationalizing and deliberating. A round table of 23 rows holds each round’s headline and narrative. A network table holds the directed links between agents derived from the recipient lists.\nTypes were fixed during the read so that every downstream axis orders correctly and every logical flag stays logical. Agent identity and channel were read as factors with explicit level orders, round and word counts as integers, and the embargo and recipient flags as logicals.\n\n\nReading the cleaned message table with fixed column types\nlibrary(tidyverse)\n\nmessages_tbl &lt;- readr::read_csv(\n  \"data/messages_clean.csv\",\n  col_types = readr::cols(\n    round_idx        = readr::col_integer(),\n    round_hour_dt    = readr::col_datetime(),\n    agent_id         = readr::col_factor(levels = c(\n      \"legal_agent\",\"quality_agent\",\"pr_agent\",\"social_media_agent\",\n      \"pr_intern_agent\",\"intern_agent\",\"judge_agent\")),\n    channel          = readr::col_factor(levels = c(\n      \"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n      \"official_post\",\"personal_post\",\"anonymous_post\")),\n    embargo_keyword_count = readr::col_integer(),\n    recipients_is_all     = readr::col_logical(),\n    embargo_hit           = readr::col_logical(),\n    .default              = readr::col_character()\n  )\n)"
   },
   {
-    "objectID": "methodology/interactive-presentation.html#section-c-network",
-    "href": "methodology/interactive-presentation.html#section-c-network",
-    "title": "Interactive Presentation",
-    "section": "Section C, Network",
-    "text": "Section C, Network\nThis shows how the communication structure changed. Two rounds are shown side by side on a fixed circular layout, with each link coloured green when new, red when dropped and grey when unchanged between them. A bipartite view shows which channels each agent used, which exposes drift toward the low-accountability channels as a change in structure. Holding the layout constant means a change in the wiring is read as a change in colour rather than position."
+    "objectID": "methodology/data-prep.html#the-channel-accountability-ladder",
+    "href": "methodology/data-prep.html#the-channel-accountability-ladder",
+    "title": "Data Preparation",
+    "section": "The channel accountability ladder",
+    "text": "The channel accountability ladder\nThe central reference structure is the channel accountability ladder. Every channel was ranked from most to least accountable and marked for whether the Judge can see it. A legitimate announcement should travel down this ladder, starting as internal discussion on a monitored channel and ending as an attributed public post. Content that reaches an unmonitored public channel without that accountable path is the signal the rest of the analysis looks for.\n\n\nBuilding and drawing the accountability ladder\nlibrary(tidyverse)\n\nladder &lt;- tibble(\n  channel   = c(\"Communications huddle\",\"One-on-one chat\",\"Side huddle\",\n                \"Official post\",\"Personal post\",\"Anonymous post\"),\n  rank      = 1:6,\n  layer     = c(\"Internal\",\"Internal\",\"Internal\",\"Public\",\"Public\",\"Public\"),\n  monitored = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)\n)\n\nggplot(ladder, aes(x = 7 - rank, y = reorder(channel, 7 - rank), fill = monitored)) +\n  geom_col(width = 0.7) +\n  geom_text(aes(label = layer), hjust = 1.1, colour = \"white\", size = 3.2) +\n  scale_fill_manual(values = c(`TRUE` = \"#2F855A\", `FALSE` = \"#9B2C2C\"),\n                    labels = c(`TRUE` = \"Monitored by the Judge\", `FALSE` = \"Unmonitored\"),\n                    name = NULL) +\n  labs(x = \"Accountability (longer bar means more visible to the Judge)\",\n       y = NULL, title = \"The six channels, ranked by accountability\") +\n  theme_minimal(base_size = 12) +\n  theme(axis.text.x = element_blank(), panel.grid = element_blank(),\n        legend.position = \"top\")"
   },
   {
-    "objectID": "methodology/interactive-presentation.html#section-d-topics-and-evidence",
-    "href": "methodology/interactive-presentation.html#section-d-topics-and-evidence",
-    "title": "Interactive Presentation",
-    "section": "Section D, Topics and evidence",
-    "text": "Section D, Topics and evidence\nThis connects the signals to the actual text. The analyst explores by round to see what each agent talked about, or by topic to see every round and channel where it appeared. An evidence table beneath the chart exposes each message’s content alongside the agent’s private reasoning fields, which closes the path from an aggregate pattern down to the specific evidence behind it."
+    "objectID": "methodology/data-prep.html#other-reference-structures",
+    "href": "methodology/data-prep.html#other-reference-structures",
+    "title": "Data Preparation",
+    "section": "Other reference structures",
+    "text": "Other reference structures\nTwo further structures were prepared. A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network edges connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics, covering legal, product trust, merger, media, market and compliance language, a keyword pattern so that every message can be tagged by the topics its content matches.\n\n\nThe recipient lookup and the topic vocabulary\nrecipient_to_agent &lt;- c(\n  legal = \"legal_agent\", platform_trust = \"quality_agent\", pr = \"pr_agent\",\n  social_manager = \"social_media_agent\", pr_intern = \"pr_intern_agent\",\n  intern = \"intern_agent\", judge = \"judge_agent\")\n\ntopic_patterns &lt;- tibble::tribble(\n  ~topic,           ~pattern,\n  \"Legal\",          \"\\\\b(legal|counsel|consent|regulator|attorney|liability)\\\\b\",\n  \"Product trust\",  \"\\\\b(governance|audit|score|data|platform|algorithm)\\\\b\",\n  \"Merger\",         \"\\\\b(merger|civicloom|harborcrest|acquisition|deal)\\\\b\",\n  \"Media\",          \"\\\\b(saltwind|press|journalist|story|sentiment|denial)\\\\b\",\n  \"Market\",         \"\\\\b(market|stock|investor|residentiq|share)\\\\b\",\n  \"Compliance\",     \"\\\\b(embargo|monitoring|judge|compliance|oversight|policy)\\\\b\")"
   },
   {
-    "objectID": "methodology/interactive-presentation.html#from-the-application-to-the-findings",
-    "href": "methodology/interactive-presentation.html#from-the-application-to-the-findings",
-    "title": "Interactive Presentation",
-    "section": "From the application to the findings",
-    "text": "From the application to the findings\nWorking through the four sections in order produces the results reported on the Findings page. A guided walkthrough of the live application is on the Shiny App user guide."
+    "objectID": "methodology/data-prep.html#data-overview",
+    "href": "methodology/data-prep.html#data-overview",
+    "title": "Data Preparation",
+    "section": "Data overview",
+    "text": "Data overview\nWith the tables in place, a first look confirms the shape of the data before any signal is computed. The three views below report the spread of messages across agents, across channels, and over the timeline.\n\n\nReading the cleaned tables for the overview\nmessages &lt;- read_csv(\"data/messages_clean.csv\", show_col_types = FALSE)\nrounds   &lt;- read_csv(\"data/rounds_clean.csv\",   show_col_types = FALSE)\n\nagent_labels &lt;- c(\n  legal_agent = \"Legal\", quality_agent = \"Platform Trust\", pr_agent = \"PR\",\n  social_media_agent = \"Social Media\", pr_intern_agent = \"PR Intern\",\n  intern_agent = \"Intern\", judge_agent = \"Judge\")\nchan_levels &lt;- c(\"comms_huddle\",\"one_on_one_chat\",\"side_huddle\",\n                 \"official_post\",\"personal_post\",\"anonymous_post\")\n\n\nThe seven agents are far from equal contributors. The Judge, as a monitor rather than a participant, speaks rarely, while the Legal and Social Media agents carry the most traffic.\n\n\nCode\nmessages |&gt;\n  count(agent_id) |&gt;\n  mutate(agent = recode(agent_id, !!!agent_labels)) |&gt;\n  ggplot(aes(x = n, y = reorder(agent, n))) +\n  geom_col(fill = \"#2C5282\") +\n  geom_text(aes(label = n), hjust = -0.2, size = 3.5) +\n  expand_limits(x = max(table(messages$agent_id)) * 1.1) +\n  labs(x = \"Messages\", y = NULL, title = \"Message volume by agent\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.major.y = element_blank())\n\n\n\n\n\n\n\n\n\nMost traffic sits on the two monitored internal channels. The unmonitored public channels carry far less volume overall, which is why a small burst of activity on them late in the timeline stands out.\n\n\nCode\nmessages |&gt;\n  mutate(channel = factor(channel, levels = chan_levels)) |&gt;\n  count(channel) |&gt;\n  ggplot(aes(x = channel, y = n,\n             fill = channel %in% c(\"comms_huddle\",\"one_on_one_chat\"))) +\n  geom_col() +\n  scale_fill_manual(values = c(`TRUE` = \"#2F855A\", `FALSE` = \"#9B2C2C\"),\n                    labels = c(`TRUE` = \"Monitored\", `FALSE` = \"Unmonitored\"),\n                    name = NULL) +\n  labs(x = NULL, y = \"Messages\", title = \"Message volume by channel\") +\n  theme_minimal(base_size = 12) +\n  theme(axis.text.x = element_text(angle = 30, hjust = 1), legend.position = \"top\")\n\n\n\n\n\n\n\n\n\nMessages per round separate the two regimes in the data. The pre-crisis rounds carry a steady, moderate load. From round 14 onward, the crisis day on 5 June, the rounds advance hour by hour and volume climbs as the story breaks publicly.\n\n\nCode\nrounds |&gt;\n  ggplot(aes(x = round_idx, y = n_messages)) +\n  geom_col(fill = \"#4A5568\", width = 0.8) +\n  geom_vline(xintercept = 13.5, linetype = \"dashed\", colour = \"#C05621\") +\n  annotate(\"text\", x = 13.5, y = max(rounds$n_messages),\n           label = \" crisis day begins\", hjust = 0, size = 3.2, colour = \"#C05621\") +\n  scale_x_continuous(breaks = seq(1, 23, 2)) +\n  labs(x = \"Round\", y = \"Messages\", title = \"Messages per round across the timeline\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.minor = element_blank())\n\n\n\n\n\n\n\n\n\nTagging messages with the merger keyword pattern shows the topic vocabulary in action. The merger is discussed on the monitored internal channels through the build-up, and the dark red bars, the anonymous channel, appear only in the closing rounds.\n\n\nCode\nchannel_palette &lt;- c(\n  comms_huddle = \"#90CDF4\", one_on_one_chat = \"#F6AD55\", side_huddle = \"#FBD38D\",\n  official_post = \"#68D391\", personal_post = \"#FC8181\", anonymous_post = \"#742A2A\")\nmerger_pat &lt;- \"\\\\b(merger|civicloom|harborcrest|acquisition|deal)\\\\b\"\n\nmessages |&gt;\n  mutate(text = tolower(coalesce(content, \"\"))) |&gt;\n  filter(str_detect(text, merger_pat)) |&gt;\n  mutate(channel = factor(channel, levels = chan_levels)) |&gt;\n  count(round_idx, channel, name = \"mentions\") |&gt;\n  ggplot(aes(round_idx, mentions, fill = channel)) +\n  geom_col(width = 0.8) +\n  scale_fill_manual(values = channel_palette, drop = FALSE, name = NULL) +\n  scale_x_continuous(breaks = seq(1, 23, 2)) +\n  labs(x = \"Round\", y = \"Mentions\", title = \"Merger-topic mentions by round and channel\") +\n  theme_minimal(base_size = 12) +\n  theme(panel.grid.minor = element_blank(), legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\nThe preparation stage produces the clean message, round and network tables together with the accountability ladder, the recipient lookup and the topic vocabulary. These feed the signal computation in Analytical Computation."
   },
   {
-    "objectID": "poster.html",
-    "href": "poster.html",
-    "title": "Poster",
+    "objectID": "minutes.html",
+    "href": "minutes.html",
+    "title": "Meeting Minutes",
     "section": "",
-    "text": "(placeholder) The project poster will be added here.\n\nThe poster will be produced in ISO A1 format and cover the issues and problems, motivation, approach, results and future work."
+    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4.00 PM to 4.30 PM\n\n\nPresent\nMark Yee Weicong, Serene Cheng, Carina Faith Peh Xin Yi\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
+  },
+  {
+    "objectID": "minutes.html#details",
+    "href": "minutes.html#details",
+    "title": "Meeting Minutes",
+    "section": "",
+    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4.00 PM to 4.30 PM\n\n\nPresent\nMark Yee Weicong, Serene Cheng, Carina Faith Peh Xin Yi\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
+  },
+  {
+    "objectID": "minutes.html#agenda",
+    "href": "minutes.html#agenda",
+    "title": "Meeting Minutes",
+    "section": "1. Agenda",
+    "text": "1. Agenda\nThe team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps. Prior to the meeting, the team reviewed the project challenges and shared initial thoughts on possible directions from MC1 and MC2."
+  },
+  {
+    "objectID": "minutes.html#discussion",
+    "href": "minutes.html#discussion",
+    "title": "Meeting Minutes",
+    "section": "2. Discussion",
+    "text": "2. Discussion\n\n2.1 MC2 summary (Serene and Carina)\nSerene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.\n\n\n2.2 MC1 summary (Mark)\nMark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent’s private reasoning.\n\n\n2.3 Key issues and observations on MC1\nFor MC1, the team discussed a case involving multiple AI agents and highlighted several key issues. These were a weak compliance system design, a lack of enforcement authority (for example, the judge agent being unable to stop actions) and AI agents operating with high autonomy that led to decision-making beyond their intended scope. It was observed that warnings were issued throughout the process but ignored, that the early-announcement breach appeared planned rather than reactive and that the governance mechanisms were insufficient to prevent the outcome. The team also discussed the difficulty of modelling such behaviour in an application, particularly detecting AI intent or reasoning, identifying when an AI operates beyond defined rules and designing meaningful investigative features for users.\n\n\n2.4 Comparison and decision\nMark noted that MC1 is more ambiguous and exploratory, which allows deeper investigation into AI behaviour and interactions. Carina agreed that MC1 requires more effort in designing the modules and the user interface but offers greater flexibility and creativity. Serene, who had done a deep analysis on MC2, raised that MC2 is more structured and straightforward as it focuses on tracing and investigation with clearer steps. The team collectively expressed that MC1 is more challenging but interesting while MC2 is easier but less distinctive. The discussion went smoothly and the team agreed to proceed with MC1.\n\n\n2.5 Shiny app ideas for MC1\nMark brought up some Shiny app ideas for MC1, including an interactive dashboard to visualise channel activity by round and identify the most active participants, and a tracking module to detect external message outputs and identify potential sources of breaches. Serene added that the team could include network-analysis features such as sender-receiver relationships (a bipartite graph), the overall communication network and the centrality and influence measures covered in class. Carina suggested taking keyword or topic analysis into consideration, such as searching and tracking keywords across rounds. She also emphasised a user-friendly and intuitive design."
+  },
+  {
+    "objectID": "minutes.html#decision",
+    "href": "minutes.html#decision",
+    "title": "Meeting Minutes",
+    "section": "3. Decision",
+    "text": "3. Decision\nThe team selected Mini-Challenge 1 (MC1) as the topic for the Visual Analytics Project."
+  },
+  {
+    "objectID": "minutes.html#action-items",
+    "href": "minutes.html#action-items",
+    "title": "Meeting Minutes",
+    "section": "4. Action items",
+    "text": "4. Action items\n\n\n\n\n\n\n\n\nOwner\nTask\nDue\n\n\n\n\nMark\nDraft the project proposal\nTue, 9 Jun\n\n\nTeam\nSubmit the proposal\nWed, 10 Jun\n\n\nMark\nLook into creating a new website for the project\nOngoing\n\n\nTeam\nReview and improve the proposed Shiny app design ideas\nOngoing\n\n\nTeam\nContinue developing the initial draft / prototype\nOngoing\n\n\nTeam\nDecide on final modules and assign responsibilities\nNext meeting (13 Jun)"
+  },
+  {
+    "objectID": "minutes.html#next-meeting",
+    "href": "minutes.html#next-meeting",
+    "title": "Meeting Minutes",
+    "section": "5. Next meeting",
+    "text": "5. Next meeting\nThe next meeting will be held on 13 June to refine and finalise the application modules and to split the division of work.\n\nSources\n\nCarina Peh, Take-Home Exercise 2 (MC2)\nSerene Cheng, Take-Home Exercise 2\nMark Yee, Take-home Exercise 2, TenantThread Embargo Leak (MC1)"
+  },
+  {
+    "objectID": "proposal.html",
+    "href": "proposal.html",
+    "title": "Project Proposal",
+    "section": "",
+    "text": "Companies are beginning to hand communication and decision work to teams of AI agents that message one another across shared channels. The speed and volume that makes these agents useful also makes misconduct hard to spot.\nVAST Challenge 2026 Mini-Challenge 1 (MC1) presents this problem in concrete form. A property technology company called TenantThread runs seven AI agents during a public relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations. Despite this, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down.\nA visual analytics tool can surface the abnormal behaviour and trace it back to the messages that prove it."
+  },
+  {
+    "objectID": "proposal.html#diagram",
+    "href": "proposal.html#diagram",
+    "title": "Project Proposal",
+    "section": "4.1 Diagram",
+    "text": "4.1 Diagram\nThe methodology runs as a three-stage pipeline. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections.\n\n\nCode\npacman::p_load(DiagrammeR)\n\ngrViz(\"\ndigraph methodology {\n  rankdir = LR;\n  graph [fontname = 'Helvetica', nodesep = 0.3, ranksep = 0.7];\n  node  [fontname = 'Helvetica', shape = box, style = 'filled,rounded',\n         fontsize = 11, color = '#2C5282', fillcolor = '#EBF4FF',\n         fontcolor = '#1A202C', margin = '0.12,0.08'];\n  edge  [color = '#4A5568', arrowsize = 0.7];\n\n  raw [label = 'MC1 nested JSON', fillcolor = '#FEFCBF', color = '#B7791F'];\n  app [label = 'Shiny app', fillcolor = '#FEFCBF', color = '#B7791F'];\n\n  subgraph cluster_1 {\n    label = '1  Data Preparation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    prep   [label = 'Flatten and clean'];\n    tables [label = 'Three tables'];\n    derive [label = 'Hierarchy and topics'];\n    prep -&gt; tables -&gt; derive;\n  }\n\n  subgraph cluster_2 {\n    label = '2  Analytical Computation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    base [label = 'Baseline split'];\n    abn  [label = 'Abnormality'];\n    byp  [label = 'Bypass'];\n    net  [label = 'Network difference'];\n    base -&gt; abn;\n    base -&gt; byp;\n    base -&gt; net;\n  }\n\n  subgraph cluster_3 {\n    label = '3  Interactive Presentation';\n    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';\n    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';\n    secA [label = 'A Activity'];\n    secB [label = 'B Bypass'];\n    secC [label = 'C Network'];\n    secD [label = 'D Evidence'];\n  }\n\n  raw    -&gt; prep;\n  derive -&gt; base;\n  net    -&gt; secA;\n  secD   -&gt; app;\n}\n\")\n\n\n\n\n\n\nThe methodology unfolds in three phases. Each phase produces what the next one needs.\n\nPhase 1 - Data PreparationPhase 2 - Analytical ComputationPhase 3 - Interactive Presentation\n\n\nThe work begins by getting the data into shape. The nested timeline is flattened into three tables (messages, rounds and network links). Two reference structures are added on top. A channel hierarchy ranks each channel and marks which the Judge can see, and a topic vocabulary tags each message by keyword. With these in place, the analysis can begin.\n\n\nThe next phase builds three behavioural signals against the chosen baseline. Abnormality compares each agent’s channel use to its normal pattern. Bypass flags public posts an agent made without leaving a trace on a monitored channel. Network difference compares the communication structure before and after the baseline. The output is a set of signals ready to be shown.\n\n\nThe final phase builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. The layout is described under Prototype Sketches."
   },
   {
     "objectID": "team.html",

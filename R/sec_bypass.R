@@ -19,7 +19,7 @@ sec_bypass_ui <- function(id) {
   ns <- NS(id)
   layout_sidebar(
     sidebar = sidebar(
-      width = 300,
+      width = "25%",
       checkboxGroupInput(
         ns("agents"), "Agents to inspect",
         choiceNames  = unname(agent_labels),

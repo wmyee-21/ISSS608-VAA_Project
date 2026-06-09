@@ -34,5 +34,4 @@ This site is a work in progress. Pages marked *(placeholder)* will be filled in 
 
 ## Quick links
 
-- 🚀 [Launch the Shiny App](https://example.shinyapps.io/REPLACE-ME/) *(placeholder)*
 - 💻 [Project repository on GitHub](https://github.com/wmyee-21/ISSS608-VAA_Project)

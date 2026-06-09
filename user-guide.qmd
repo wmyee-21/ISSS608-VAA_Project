@@ -4,13 +4,7 @@ author: "Team HeeHaa"
 date: last-modified
 ---
 
-> *(placeholder)* A walkthrough of the application and how to use each tab.
-
-::: {.callout-tip}
-## Launch the app
-👉 [Open the Team HeeHaa Shiny App](https://example.shinyapps.io/REPLACE-ME/){target="_blank"}
-*(placeholder link — replace once deployed)*
-:::
+> *(placeholder)* A walkthrough of the application and how to use each tab. A link to the live app will be added here once it is deployed.
 
 ## Getting started
 

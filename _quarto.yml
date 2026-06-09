@@ -35,10 +35,8 @@ website:
         menu:
           - href: user-guide.qmd
             text: "User Guide"
-          - text: "Launch Shiny App"
-            # TODO: replace with your live Shiny app URL (e.g. https://YOURNAME.shinyapps.io/teamheehaa/)
-            href: "https://example.shinyapps.io/REPLACE-ME/"
-            target: _blank
+          - href: shiny-app.qmd
+            text: "Launch App (coming soon)"
     right:
       - text: GitHub
         icon: github
