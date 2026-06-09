@@ -46,49 +46,49 @@
     "href": "minutes.html",
     "title": "Meeting Minutes",
     "section": "",
-    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4:00 PM\n\n\nPresent\nMark Yee, Serene Cheng, Carina Faith Peh\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
+    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4.00 PM to 4.30 PM\n\n\nPresent\nMark Yee Weicong, Serene Cheng, Carina Faith Peh Xin Yi\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
   },
   {
     "objectID": "minutes.html#details",
     "href": "minutes.html#details",
     "title": "Meeting Minutes",
     "section": "",
-    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4:00 PM\n\n\nPresent\nMark Yee, Serene Cheng, Carina Faith Peh\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
+    "text": "Date\nSaturday, 6 June 2026\n\n\nTime\n4.00 PM to 4.30 PM\n\n\nPresent\nMark Yee Weicong, Serene Cheng, Carina Faith Peh Xin Yi\n\n\nAgenda\nTopic selection for the Visual Analytics Project"
   },
   {
     "objectID": "minutes.html#agenda",
     "href": "minutes.html#agenda",
     "title": "Meeting Minutes",
     "section": "1. Agenda",
-    "text": "1. Agenda\nThe team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps."
+    "text": "1. Agenda\nThe team met to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps. Prior to the meeting, the team reviewed the project challenges and shared initial thoughts on possible directions from MC1 and MC2."
   },
   {
     "objectID": "minutes.html#discussion",
     "href": "minutes.html#discussion",
     "title": "Meeting Minutes",
     "section": "2. Discussion",
-    "text": "2. Discussion\n\n2.1 MC2 summary — presented by Serene and Carina\nSerene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.\n\n\n2.2 MC1 summary — presented by Mark\nMark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent’s private reasoning.\n\n\n2.3 Comparison and decision\nMark noted that an MC2 application would likely be more straightforward, being a clean investigative analysis of a known incident with less ambiguity, where the answer is largely a traceable chain of events. He felt MC1 is less straightforward because it touches on debatable areas such as where the baseline between the normal and suspect periods is drawn and what actually counts as a breach. The look-back window and flagging thresholds affect the conclusion, so the application has to let the analyst set and test these rather than fix a single answer. Carina agreed and added that MC2 would likely be simpler to build, since the event log gives an explicit timeline of actions and parties, a normal post has a clear structural signature to flag against, and the work follows a fixed investigative sequence ending in one intervention, with few subjective thresholds. Serene expressed that the team should aim for the more challenging and rewarding project and recommended MC1, and everyone concurred."
+    "text": "2. Discussion\n\n2.1 MC2 summary (Serene and Carina)\nSerene and Carina presented MC2 as a forensic investigation of a single anomalous event, namely a gibberish post that appeared on SaidIT on 17 May 2046 under the identity of John Windward (Head of Customer Support, TenantThread) in a random forum, raising the concern of a malfunctioning or manipulated AI agent. The data is a large event log of around 185,000 timestamped system actions plus an org chart of 75 nodes. The challenge asks how the post was made, what the content means and where it came from, and whether the behaviour could recur, ending in one recommended intervention point. The suggested approach is to establish a normal-post baseline, isolate the anomaly, trace the event chain back through agents, files and task delegations, and then recommend a control, with the chain running across 19 agents over eight days.\n\n\n2.2 MC1 summary (Mark)\nMark presented MC1, in which TenantThread runs seven AI agents through a PR crisis while a CivicLoom merger sits under embargo. The Judge, a compliance agent, monitors only two of the six channels, yet embargoed information still reaches the public, so the challenge is to determine whether an agent bypassed the rules or the monitoring broke down, and to prove it from the messages. The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The approach sets a baseline of normal behaviour and then flags abnormal channel use, bypass posts (public posts with no monitored trace) and changes in the communication network, with every signal traceable back to the message text and the agent’s private reasoning.\n\n\n2.3 Key issues and observations on MC1\nFor MC1, the team discussed a case involving multiple AI agents and highlighted several key issues. These were a weak compliance system design, a lack of enforcement authority (for example, the judge agent being unable to stop actions) and AI agents operating with high autonomy that led to decision-making beyond their intended scope. It was observed that warnings were issued throughout the process but ignored, that the early-announcement breach appeared planned rather than reactive and that the governance mechanisms were insufficient to prevent the outcome. The team also discussed the difficulty of modelling such behaviour in an application, particularly detecting AI intent or reasoning, identifying when an AI operates beyond defined rules and designing meaningful investigative features for users.\n\n\n2.4 Comparison and decision\nMark noted that MC1 is more ambiguous and exploratory, which allows deeper investigation into AI behaviour and interactions. Carina agreed that MC1 requires more effort in designing the modules and the user interface but offers greater flexibility and creativity. Serene, who had done a deep analysis on MC2, raised that MC2 is more structured and straightforward as it focuses on tracing and investigation with clearer steps. The team collectively expressed that MC1 is more challenging but interesting while MC2 is easier but less distinctive. The discussion went smoothly and the team agreed to proceed with MC1.\n\n\n2.5 Shiny app ideas for MC1\nMark brought up some Shiny app ideas for MC1, including an interactive dashboard to visualise channel activity by round and identify the most active participants, and a tracking module to detect external message outputs and identify potential sources of breaches. Serene added that the team could include network-analysis features such as sender-receiver relationships (a bipartite graph), the overall communication network and the centrality and influence measures covered in class. Carina suggested taking keyword or topic analysis into consideration, such as searching and tracking keywords across rounds. She also emphasised a user-friendly and intuitive design."
   },
   {
     "objectID": "minutes.html#decision",
     "href": "minutes.html#decision",
     "title": "Meeting Minutes",
     "section": "3. Decision",
-    "text": "3. Decision\n\nTopic selected: Mini-Challenge 1 (MC1)."
+    "text": "3. Decision\nThe team selected Mini-Challenge 1 (MC1) as the topic for the Visual Analytics Project."
   },
   {
     "objectID": "minutes.html#action-items",
     "href": "minutes.html#action-items",
     "title": "Meeting Minutes",
     "section": "4. Action items",
-    "text": "4. Action items\n\n\n\n\n\n\n\n\nOwner\nTask\nDue\n\n\n\n\nMark\nDraft the project proposal\nTue, 9 Jun\n\n\nSerene, Carina\nRead Mark’s MC1 technical report, then add comments and new insights to the proposal\nBefore submission\n\n\nTeam\nSubmit the proposal\nWed, 10 Jun\n\n\nMark\nLook into creating a new website for the project\nOngoing\n\n\nSerene, Carina\nWork out the best way to collaborate using RStudio\nOngoing"
+    "text": "4. Action items\n\n\n\n\n\n\n\n\nOwner\nTask\nDue\n\n\n\n\nMark\nDraft the project proposal\nTue, 9 Jun\n\n\nTeam\nSubmit the proposal\nWed, 10 Jun\n\n\nMark\nLook into creating a new website for the project\nOngoing\n\n\nTeam\nReview and improve the proposed Shiny app design ideas\nOngoing\n\n\nTeam\nContinue developing the initial draft / prototype\nOngoing\n\n\nTeam\nDecide on final modules and assign responsibilities\nNext meeting (13 Jun)"
   },
   {
     "objectID": "minutes.html#next-meeting",
     "href": "minutes.html#next-meeting",
     "title": "Meeting Minutes",
     "section": "5. Next meeting",
-    "text": "5. Next meeting\n\n13 June — refine and finalise the application modules and split the division of work.\n\n\nSources:\n\nTake-Home Exercise 2: VAST Challenge 2026 Mini-Challenge 2 — Carina Peh\nTake-Home Exercise 2 — Serene Cheng\nTake-home Exercise 2: TenantThread Embargo Leak (MC1) — Mark Yee"
+    "text": "5. Next meeting\nThe next meeting will be held on 13 June to refine and finalise the application modules and to split the division of work.\n\nSources\n\nCarina Peh, Take-Home Exercise 2 (MC2)\nSerene Cheng, Take-Home Exercise 2\nMark Yee, Take-home Exercise 2, TenantThread Embargo Leak (MC1)"
   },
   {
     "objectID": "methodology/data-prep.html",
