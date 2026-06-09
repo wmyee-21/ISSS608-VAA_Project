@@ -1,7 +1,7 @@
 /*-- scss:defaults --*/
 
 // ── Fonts ────────────────────────────────────────────────────────────────
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&display=swap');
 
 // ── Palette: soft, clean, gently feminine ───────────────────────────────
 $rose:       #c4708f;   // accent / links
@@ -13,6 +13,7 @@ $blush-2:    #f6e8f0;   // table headers, stripes
 $cream:      #fffdfe;   // page background
 $ink:        #312b32;   // body text
 $muted:      #6f6673;   // secondary text
+$gold:       #c9a25f;   // sparing warm accent
 
 // ── Bootstrap variable overrides ────────────────────────────────────────
 $primary:            $plum;
@@ -28,78 +29,139 @@ $headings-font-family:   "Playfair Display", Georgia, "Times New Roman", serif;
 $headings-font-weight:   600;
 $headings-color:         $plum-deep;
 $font-size-root:         17px;
-$line-height-base:       1.65;
+$line-height-base:       1.7;
 
 $border-radius:       0.6rem;
 $border-radius-sm:    0.4rem;
-$border-radius-lg:    0.85rem;
+$border-radius-lg:    0.9rem;
 
 $navbar-bg:           $plum;
-$navbar-fg:           #fbeef4;
 
 $table-border-color:  $rose-soft;
-
 $code-color:          $plum-deep;
 
 /*-- scss:rules --*/
 
+html { scroll-behavior: smooth; }
+
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(1200px 380px at 100% -8%, rgba(196, 112, 143, 0.07), rgba(196, 112, 143, 0) 70%),
+    radial-gradient(900px 320px at -5% -6%, rgba(125, 74, 103, 0.06), rgba(125, 74, 103, 0) 70%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-// ── Headings ─────────────────────────────────────────────────────────────
-h1, h2, h3, h4, h5, h6 { letter-spacing: 0.2px; }
+::selection { background: $rose-soft; color: $plum-deep; }
 
-// Display headings use the serif; smaller ones return to the clean sans
+// ── Headings ─────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
+
 h3, h4, h5, h6 {
   font-family: $font-family-sans-serif;
   font-weight: 700;
+  letter-spacing: 0.1px;
   color: $plum-deep;
 }
 
 h2 {
-  margin-top: 2.1rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 2px solid $blush-2;
+  position: relative;
+  margin-top: 2.4rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid $blush-2;
+}
+// short rose accent under each h2
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 46px;
+  height: 3px;
+  border-radius: 3px;
+  background: $rose;
 }
 
-// Title block on each page
+// ── Title block ──────────────────────────────────────────────────────────
 .quarto-title-block .quarto-title .title {
   font-weight: 700;
   color: $plum-deep;
-  line-height: 1.15;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
 }
 .quarto-title-block .subtitle {
   color: $rose;
   font-family: $headings-font-family;
   font-style: italic;
   font-weight: 500;
+  font-size: 1.18rem;
+}
+// refined byline / date row
+.quarto-title-meta {
+  color: $muted;
+  border-top: 1px solid $blush-2;
+  padding-top: 0.6rem;
+  margin-top: 0.4rem;
+}
+.quarto-title-meta-heading {
+  font-family: $font-family-sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: $rose;
 }
 
 // ── Navbar ───────────────────────────────────────────────────────────────
 .navbar {
-  box-shadow: 0 2px 14px rgba(123, 74, 103, 0.18);
+  box-shadow: 0 2px 16px rgba(91, 54, 80, 0.18);
   border-bottom: 3px solid $rose;
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
 }
-.navbar-brand { font-family: $headings-font-family; font-weight: 700; letter-spacing: 0.4px; }
+.navbar-brand {
+  font-family: $headings-font-family;
+  font-weight: 700;
+  font-size: 1.28rem;
+  letter-spacing: 0.3px;
+}
 
 .navbar .nav-link {
-  color: rgba(255, 255, 255, 0.86) !important;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  color: rgba(255, 255, 255, 0.84) !important;
+  font-weight: 600;
+  font-size: 0.96rem;
+  letter-spacing: 0.015em;
+  position: relative;
+  margin: 0 0.1rem;
+  transition: color 0.18s ease;
+}
+.navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.5rem; right: 0.5rem;
+  bottom: 0.15rem;
+  height: 2px;
+  background: $rose-soft;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
 }
 .navbar .nav-link:hover,
-.navbar .nav-link.active {
-  color: #ffffff !important;
-  border-bottom-color: $rose-soft;
-}
+.navbar .nav-link.active { color: #ffffff !important; }
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after { transform: scaleX(1); }
 
 // Dropdown menus
 .dropdown-menu {
   border: 1px solid $rose-soft;
   border-radius: $border-radius;
-  box-shadow: 0 8px 24px rgba(91, 54, 80, 0.14);
+  box-shadow: 0 12px 30px rgba(91, 54, 80, 0.16);
+  padding: 0.4rem;
+}
+.dropdown-item {
+  border-radius: $border-radius-sm;
+  font-weight: 600;
 }
 .dropdown-item:hover, .dropdown-item:focus {
   background-color: $blush-2;
@@ -107,8 +169,18 @@ h2 {
 }
 
 // ── Links ────────────────────────────────────────────────────────────────
-a { transition: color 0.15s ease; }
-.content a:not(.btn):not(.nav-link):hover { text-decoration: underline; text-underline-offset: 3px; }
+.content a:not(.btn):not(.nav-link) {
+  background-image: linear-gradient($rose-soft, $rose-soft);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  transition: background-size 0.22s ease, color 0.18s ease;
+  padding-bottom: 1px;
+}
+.content a:not(.btn):not(.nav-link):hover {
+  background-size: 100% 1.5px;
+  color: $plum-deep;
+}
 
 // ── Tables ───────────────────────────────────────────────────────────────
 table, .table {
@@ -117,70 +189,103 @@ table, .table {
   border-spacing: 0;
   overflow: hidden;
   border-radius: $border-radius;
-  box-shadow: 0 1px 0 $rose-soft;
+  border: 1px solid $rose-soft;
 }
 thead th, table th {
   background-color: $blush-2;
   color: $plum-deep;
   font-weight: 700;
-  border-bottom: 2px solid $rose-soft !important;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid $rose-soft !important;
+  padding: 0.6rem 0.8rem;
 }
+tbody td { padding: 0.55rem 0.8rem; }
 tbody tr:nth-child(even) { background-color: $blush; }
+tbody tr { transition: background-color 0.15s ease; }
+tbody tr:hover { background-color: $blush-2; }
 
 // ── Callouts / blockquotes ────────────────────────────────────────────────
-.callout.callout-note {
-  border-left-color: $rose;
-}
-blockquote {
-  border-left: 4px solid $rose-soft;
+.callout.callout-note { border-left-color: $rose; }
+.callout { border-radius: $border-radius; }
+blockquote, .blockquote {
+  border-left: 3px solid $rose;
   background: $blush;
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
   border-radius: 0 $border-radius-sm $border-radius-sm 0;
   color: $muted;
+  font-style: italic;
 }
 
 // ── Cards ─────────────────────────────────────────────────────────────────
 .card {
   border: 1px solid $rose-soft;
   border-radius: $border-radius-lg;
-  box-shadow: 0 4px 18px rgba(123, 74, 103, 0.08);
+  box-shadow: 0 6px 22px rgba(123, 74, 103, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(123, 74, 103, 0.14);
+}
+
+// ── Figures ─────────────────────────────────────────────────────────────
+.cell-output-display img {
+  border-radius: $border-radius-sm;
 }
 
 // ── Code ──────────────────────────────────────────────────────────────────
 div.sourceCode, pre.sourceCode {
   border-radius: $border-radius-sm;
   border: 1px solid $blush-2;
+  background: #fffafc;
 }
 code:not(.sourceCode) {
   background: $blush-2;
   color: $plum-deep;
-  padding: 0.12em 0.38em;
+  padding: 0.12em 0.4em;
   border-radius: 0.3rem;
+  font-size: 0.88em;
 }
+// code-fold "Code" button
+.quarto-title-banner, details > summary { color: $plum; }
 
 // ── Table of contents ──────────────────────────────────────────────────────
-#TOC .active, nav[role="doc-toc"] a.active {
+#TOC .active,
+nav[role="doc-toc"] ul > li > a.active {
   color: $rose !important;
   border-left-color: $rose !important;
   font-weight: 700;
+}
+nav[role="doc-toc"] > h2, #toc-title {
+  font-family: $font-family-sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  color: $rose;
 }
 
 // ── Buttons ─────────────────────────────────────────────────────────────────
 .btn-primary {
   background-color: $plum;
   border-color: $plum;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 12px rgba(125, 74, 103, 0.22);
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 .btn-primary:hover, .btn-primary:focus {
   background-color: $plum-deep;
   border-color: $plum-deep;
+  transform: translateY(-1px);
 }
 
 // ── Horizontal rule ───────────────────────────────────────────────────────
 hr {
   border: 0;
   height: 2px;
-  background: linear-gradient(90deg, $rose-soft, $rose, $rose-soft);
-  opacity: 0.7;
+  background: linear-gradient(90deg, rgba(232,196,212,0), $rose, rgba(232,196,212,0));
+  opacity: 0.75;
+  margin: 2rem 0;
 }
 
 // ── Footer ─────────────────────────────────────────────────────────────────

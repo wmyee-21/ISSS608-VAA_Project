@@ -37,6 +37,10 @@ sec_activity_ui <- function(id) {
       helpText("A message is flagged when the agent used that channel in fewer ",
                "than this share of their baseline-period messages. Lower = stricter.")
     ),
+    card(
+      card_header("Reading this tab"),
+      htmlOutput(ns("summary"))
+    ),
     layout_columns(
       col_widths = c(7, 5),
       card(card_header("Channel activity for the selected round"),
@@ -188,6 +192,24 @@ sec_activity_server <- function(id) {
         collapse = "")
       HTML(paste0("<ol style='margin-top:6px;padding-left:20px'>",
                   rows, "</ol>"))
+    })
+
+    # Output stats box: headline numbers plus what the tab means.
+    output$summary <- renderUI({
+      sus <- input$split + 1
+      df  <- score(msgs(), input$split, input$strict) |> filter(round_idx >= sus)
+      n   <- sum(df$flagged)
+      top <- df |> group_by(agent_id) |>
+        summarise(u = sum(flagged), .groups = "drop") |>
+        arrange(desc(u)) |> slice_head(n = 1)
+      topname <- if (nrow(top) && top$u > 0) agent_labels[as.character(top$agent_id)] else "none"
+      HTML(paste0(
+        "<span style='font-size:1.7em;font-weight:700;color:#5b3650'>", n, " unusual messages</span>",
+        "<div style='color:#6f6673'>flagged after round ", input$split,
+        " &middot; top drifter: <b>", topname, "</b></div>",
+        "<p style='margin-top:.5rem;margin-bottom:0'>Unusual means an agent used a channel it ",
+        "rarely touched during the calm period. A cluster of these after the baseline points to an ",
+        "agent breaking its own pattern, which is the first signal worth investigating.</p>"))
     })
 
     # Public API for the other sections.

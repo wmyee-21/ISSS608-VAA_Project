@@ -1,29 +1,72 @@
 ---
 title: "Meeting Minutes"
+subtitle: "Meeting 1 · Topic selection"
 author: "Team HeeHaa"
 date: last-modified
+toc: true
 ---
 
-> *(placeholder)* A running record of team meetings, decisions and action items.
+## Details
 
-## Meeting 1 — _date_
+| | |
+|---|---|
+| **Date** | Saturday, 6 June 2026 |
+| **Time** | 4:00 PM |
+| **Present** | Mark Yee, Serene Cheng, Carina Faith Peh |
+| **Agenda** | Topic selection for the Visual Analytics Project |
 
-**Present:** _names_
+## Agenda
 
-**Agenda:** _topics_
+The single item for this meeting was to choose between the two VAST Challenge 2026 Mini-Challenges as the basis for the group project, and to agree on immediate next steps.
 
-**Decisions:**
+## Discussion
 
-- _decision_
+### MC2 summary (presented by Serene and Carina)
 
-**Action items:**
+Serene and Carina walked the team through Mini-Challenge 2, drawing on their Take-Home Exercise 2 work. MC2 is a forensic investigation of a single anomalous event. On 17 May 2046, a post written in gibberish appeared on the social platform SaidIT under the identity of John Windward, Head of Customer Support at TenantThread, in an apparently random forum, raising the concern that an AI agent had malfunctioned or been manipulated. The challenge asks three questions: how the post was made, what the post content means and where it came from, and whether the behaviour could repeat, ending with a single recommended intervention point.
+
+The data is a large event log of roughly 185,000 timestamped actions by people, agents and office systems, plus an organisation chart of 75 nodes. The analytical approach is a sequence of clear steps: map overall system activity, establish what a normal post looks like, isolate the anomalous post, trace its exact event chain backward through agents, files and task delegations, position that chain in the wider network, infer content provenance, search history for recurrence, and design one control. The investigation traces a worm-style propagation chain across 19 agents over eight days.
+
+### MC1 summary (presented by Mark)
+
+Mark presented Mini-Challenge 1, drawing on his Take-Home Exercise 2 technical report. MC1 concerns TenantThread running seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent, the Judge, is meant to monitor for violations, but it can see only two of the six communication channels. Despite this oversight, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down, and to prove it from the messages.
+
+The data is a nested log of 912 messages across 23 rounds and six channels of differing accountability. The analytical approach defines a baseline of normal behaviour, then surfaces three signals against it: abnormal channel use, public posts that reach outside without a monitored trace (the bypass), and changes in the agent communication network, with every signal traceable back to the message text and the agents' private reasoning.
+
+### Comparison and decision
+
+The team compared the two challenges in terms of what the resulting Shiny application would look like.
+
+Mark observed that an MC2 application would likely be more straightforward, since it deals with a clean, investigative data analysis with less ambiguity. MC2 centres on a known incident with a concrete question, so much of the work is reconstructing a factual chain of events and presenting it, where the "answer" is a traceable sequence rather than a matter of interpretation. By contrast, an MC1 application is less straightforward because it touches on debatable areas. There is no ground-truth label for misconduct, so the analyst must decide where the line between the normal period and the suspect period falls, and what actually counts as a breach. A bypass, for example, depends on how far back the tool looks for an accountable trace and how strict the flagging threshold is, and different baseline choices can change the conclusion. The application therefore has to let the analyst set and test these judgements rather than hard-code a single answer.
+
+Carina agreed and expanded on why MC2 would likely be the more straightforward build. The event log gives an explicit timeline of actions and the parties involved, so tracing the chain is largely a matter of following links between events, files and agents. A normal post has a clear structural signature, which makes the anomaly easy to define against, and the deliverable follows a fixed investigative sequence ending in a single intervention point. There is comparatively little need for subjective thresholds.
+
+Serene argued that the team should aim for the more challenging and rewarding project, and recommended MC1 on that basis. Everyone concurred.
+
+## Decision
+
+The team selected **Mini-Challenge 1 (MC1)** as the topic for the Visual Analytics Project.
+
+## Action items
 
 | Owner | Task | Due |
 |---|---|---|
-| _name_ | _task_ | _date_ |
+| Mark | Draft the project proposal | Tue, 9 June |
+| Serene, Carina | Read Mark's MC1 technical report to get familiar with the challenge, then add comments and new insights to the proposal | Before submission |
+| Team | Submit the proposal | Wed, 10 June |
+| Mark | Look into creating a new website for the project | Ongoing |
+| Serene, Carina | Work out the best way to collaborate using RStudio | Ongoing |
+
+The proposal will be drafted by Mark by 9 June, with Serene and Carina reviewing his technical report in parallel and contributing comments and fresh insights, aiming to submit by 10 June.
+
+## Next meeting
+
+The next meeting will be held on **13 June** to refine and finalise the application modules and to split the division of work.
 
 ---
 
-## Meeting 2 — _date_
+Sources:
 
-_..._
+- [Take-Home Exercise 2: VAST Challenge 2026 Mini-Challenge 2 — Carina Peh](https://isss-608-vaa-carinapeh.vercel.app/Take%20Home%20Exercise%202/Take_Home_Ex02.html)
+- [Take-Home Exercise 2 — Serene Cheng](https://isss-608-vaa-serenechengjj.vercel.app/Take-Home_Ex/Take-Home_Ex2/Take-Home_Ex02.html)
+- [Take-home Exercise 2: TenantThread Embargo Leak (MC1) — Mark Yee](https://isss-608-vaa-my.vercel.app/TH_EX02.html)

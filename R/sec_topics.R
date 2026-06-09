@@ -35,6 +35,10 @@ sec_topics_ui <- function(id) {
       helpText("The table below always shows the messages behind the current ",
                "view. Open a row to read the agent's private reasoning.")
     ),
+    card(
+      card_header("Reading this tab"),
+      htmlOutput(ns("summary"))
+    ),
     layout_columns(
       col_widths = c(12, 12),
       card(card_header(textOutput(ns("title"))),
@@ -71,6 +75,20 @@ sec_topics_server <- function(id, messages) {
       } else {
         tagged() |> filter(topic == input$topic)
       }
+    })
+
+    # Output stats box: headline numbers plus what the tab means.
+    output$summary <- renderUI({
+      d <- selected()
+      nmsg <- nrow(d)
+      nr <- dplyr::n_distinct(d$round_idx)
+      nc <- dplyr::n_distinct(d$channel)
+      HTML(paste0(
+        "<span style='font-size:1.7em;font-weight:700;color:#5b3650'>", nmsg, " messages</span>",
+        "<div style='color:#6f6673'>across ", nr, " round(s) and ", nc, " channel(s)</div>",
+        "<p style='margin-top:.5rem;margin-bottom:0'>Each bar ties a topic to where and when it ",
+        "appeared. Open a row in the table to read the message text alongside the agent's private ",
+        "reasoning, which is how an aggregate signal becomes concrete evidence.</p>"))
     })
 
     output$title <- renderText({

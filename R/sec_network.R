@@ -31,6 +31,10 @@ sec_network_ui <- function(id) {
       tags$strong("Channel reference"),
       tableOutput(ns("channel_ref"))
     ),
+    card(
+      card_header("Reading this tab"),
+      htmlOutput(ns("summary"))
+    ),
     card(card_header(textOutput(ns("title"))),
          # Summary line that names the biggest connectivity loser between the two
          # selected rounds. Only populated for the graph view.
@@ -63,6 +67,22 @@ sec_network_server <- function(id, messages, split = NULL) {
       rng <- input$rounds
       req(length(rng) == 2)
       list(r1 = min(rng), r2 = max(rng))
+    })
+
+    # Output stats box: headline numbers plus what the tab means.
+    output$summary <- renderUI({
+      rr <- cmp(); r1 <- rr$r1; r2 <- rr$r2
+      e1 <- agent_edges(messages() |> filter(round_idx == r1))
+      e2 <- agent_edges(messages() |> filter(round_idx == r2))
+      newl <- nrow(dplyr::anti_join(e2, e1, by = c("from", "to")))
+      drop <- nrow(dplyr::anti_join(e1, e2, by = c("from", "to")))
+      HTML(paste0(
+        "<span style='font-size:1.7em;font-weight:700;color:#5b3650'>", newl, " new &middot; ",
+        drop, " dropped links</span>",
+        "<div style='color:#6f6673'>between round ", r1, " and round ", r2, "</div>",
+        "<p style='margin-top:.5rem;margin-bottom:0'>Green links are new in the later round, red ",
+        "dropped, grey unchanged. An agent shedding links is moving from the centre of the ",
+        "conversation to its edge, often as oversight tightens.</p>"))
     })
 
     output$title <- renderText({

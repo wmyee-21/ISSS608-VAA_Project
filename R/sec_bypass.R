@@ -33,6 +33,10 @@ sec_bypass_ui <- function(id) {
                "is marked a stronger bypass; if one does, it is likely explained. ",
                "Set to 0 to check only the post's own round.")
     ),
+    card(
+      card_header("Reading this tab"),
+      htmlOutput(ns("summary"))
+    ),
     layout_columns(
       col_widths = c(12, 12),
       card(card_header("Posts that reached the outside world without oversight"),
@@ -80,6 +84,21 @@ sec_bypass_server <- function(id, messages) {
       req(input$agents)
       detect_bypass(messages(), input$window) |>
         filter(agent_id %in% input$agents)
+    })
+
+    # Output stats box: headline numbers plus what the tab means.
+    output$summary <- renderUI({
+      d <- flagged()
+      strong <- sum(d$strength == "Stronger bypass")
+      expl   <- sum(d$strength == "Likely explained")
+      HTML(paste0(
+        "<span style='font-size:1.7em;font-weight:700;color:#5b3650'>", strong, " stronger bypasses</span>",
+        "<div style='color:#6f6673'>", expl, " likely explained &middot; look-back ",
+        input$window, " round(s)</div>",
+        "<p style='margin-top:.5rem;margin-bottom:0'>A bypass is a public post on a channel the ",
+        "Judge cannot see. <b>Stronger</b> means the agent left no monitored-channel trace nearby, so ",
+        "nothing accountable explains reaching the outside; <b>likely explained</b> means accountable ",
+        "discussion sat close by.</p>"))
     })
 
     output$plot <- renderGirafe({
