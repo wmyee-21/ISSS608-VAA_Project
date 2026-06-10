@@ -1,7 +1,7 @@
 ---
 title: "Shiny App — User Guide"
 author: "CSM TraceForce"
-date: last-modified
+date: "June 10, 2026"
 ---
 
 > *(placeholder)* A walkthrough of the application and how to use each tab. A link to the live app will be added here once it is deployed.

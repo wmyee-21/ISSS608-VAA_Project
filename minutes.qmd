@@ -2,7 +2,7 @@
 title: "Meeting Minutes"
 subtitle: "CSM TraceForce (Group 4) · Meeting 1 · Topic selection"
 author: "CSM TraceForce"
-date: last-modified
+date: "June 10, 2026"
 toc: true
 ---
 

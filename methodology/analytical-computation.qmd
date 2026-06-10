@@ -2,10 +2,12 @@
 title: "Analytical Computation"
 subtitle: "Methodology · Phase 2 of 3"
 author: "CSM TraceForce"
-date: last-modified
+date: "June 10, 2026"
 ---
 
+::: {.lead-drop}
 This is the second stage of the pipeline. It turns the prepared tables into three behavioural signals, one for each of the first three project objectives, all computed against a baseline the analyst chooses. The figures below are static versions of what the application renders interactively, computed from the real data with the baseline period set to rounds 1 to 20.
+:::
 
 ```{r}
 #| label: setup

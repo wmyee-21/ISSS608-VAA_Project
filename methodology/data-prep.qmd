@@ -2,10 +2,12 @@
 title: "Data Preparation"
 subtitle: "Methodology · Phase 1 of 3"
 author: "CSM TraceForce"
-date: last-modified
+date: "June 10, 2026"
 ---
 
+::: {.lead-drop}
 The methodology runs as the three-stage pipeline set out in the [proposal](../proposal.qmd). Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage.
+:::
 
 ## The three-stage pipeline
 

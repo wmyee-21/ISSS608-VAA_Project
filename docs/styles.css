@@ -68,3 +68,67 @@ main.content li { margin-bottom: 0.25rem; }
   font-style: italic;
   margin-bottom: 0.5rem;
 }
+
+/* ── Investigative "dossier" touches ─────────────────────────────── */
+
+/* Drop cap on opening paragraphs wrapped in ::: {.lead-drop} */
+.lead-drop p:first-of-type::first-letter {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  color: #7d4a67;
+  font-size: 3.6em;
+  line-height: 0.78;
+  float: left;
+  margin: 0.06em 0.10em 0 0;
+}
+
+/* Section kicker label: [The Case]{.kicker} */
+.kicker {
+  display: block;
+  font-family: "Nunito Sans", system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #c4708f;
+  margin: 0.2rem 0 -0.2rem;
+}
+
+/* Trail divider: a dotted path with a magnifier at its centre */
+main.content hr {
+  border: 0 !important;
+  height: 26px !important;
+  margin: 2.4rem auto !important;
+  opacity: 1 !important;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 64 64'%3E%3Ccircle cx='27' cy='27' r='12' fill='%23fffdfe' stroke='%23c4708f' stroke-width='4'/%3E%3Cline x1='35.6' y1='35.6' x2='47' y2='47' stroke='%23c4708f' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") center no-repeat,
+    radial-gradient(circle, #e0b6c8 1.7px, transparent 2.2px) center/16px 4px repeat-x !important;
+}
+
+/* Exhibit numbering on figure captions */
+main.content { counter-reset: exhibit; }
+main.content figure > figcaption {
+  counter-increment: exhibit;
+}
+main.content figure > figcaption::before {
+  content: "Exhibit " counter(exhibit, decimal-leading-zero) "  ·  ";
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82em;
+  color: #9b2c4f;
+}
+
+/* Manual exhibit caption (for tables, which Quarto does not treat as figures) */
+.exhibit-cap {
+  font-size: 0.92rem;
+  color: #6f6673;
+  margin: 0.4rem 0 1.2rem;
+}
+.exhibit-cap strong {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82em;
+  color: #9b2c4f;
+  font-weight: 700;
+}

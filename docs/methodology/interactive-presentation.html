@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="CSM TraceForce">
-<meta name="dcterms.date" content="2026-06-09">
+<meta name="dcterms.date" content="2026-06-10">
 
 <title>Interactive Presentation – CSM TraceForce</title>
 <style>
@@ -233,6 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section-c-network" id="toc-section-c-network" class="nav-link" data-scroll-target="#section-c-network">Section C, Network</a></li>
   <li><a href="#section-d-topics-and-evidence" id="toc-section-d-topics-and-evidence" class="nav-link" data-scroll-target="#section-d-topics-and-evidence">Section D, Topics and evidence</a></li>
   <li><a href="#from-the-application-to-the-findings" id="toc-from-the-application-to-the-findings" class="nav-link" data-scroll-target="#from-the-application-to-the-findings">From the application to the findings</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   </ul>
 </nav>
     </div>
@@ -259,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 9, 2026</p>
+      <p class="date">June 10, 2026</p>
     </div>
   </div>
   
@@ -271,7 +272,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="lead-drop">
 <p>The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in <a href="../methodology/analytical-computation.html">Analytical Computation</a>.</p>
+</div>
 <section id="a-shared-interaction-pattern" class="level2">
 <h2 class="anchored" data-anchor-id="a-shared-interaction-pattern">A shared interaction pattern</h2>
 <p>Across all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next.</p>
@@ -299,6 +302,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="from-the-application-to-the-findings" class="level2">
 <h2 class="anchored" data-anchor-id="from-the-application-to-the-findings">From the application to the findings</h2>
 <p>Working through the four sections in order produces the results reported on the <a href="../findings.html">Findings</a> page. A guided walkthrough of the live application is on the <a href="../user-guide.html">Shiny App user guide</a>.</p>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on the length of the look-back window and on where the baseline boundary is drawn, which is why the application exposes both controls rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. Finally, the application reports what each agent did and where its content appeared, and it stops short of asserting intent.</p>
 
 
 <!-- -->
@@ -761,42 +768,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Interactive Presentation"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Methodology · Phase 3 of 3"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> last-modified</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 10, 2026"</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## A shared interaction pattern</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>::: {.lead-drop}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Across all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## A shared interaction pattern</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section A, Activity and abnormality</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Across all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next.</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>This is the entry point. It sets the baseline and shows where each agent is using channels it does not normally use. The main view is an abnormality grid placing agents against channels, with each cell shaded by how unusual that channel is for that agent. The axes are held fixed across rounds so that only colour and count change as the analyst steps through time, which keeps the round-to-round comparison stable. A round slider with a play control steps through time, and a second figure reports how many flagged messages survive under an earlier baseline so the analyst can judge whether the finding is robust.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section A, Activity and abnormality</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_activity.png)</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>This is the entry point. It sets the baseline and shows where each agent is using channels it does not normally use. The main view is an abnormality grid placing agents against channels, with each cell shaded by how unusual that channel is for that agent. The axes are held fixed across rounds so that only colour and count change as the analyst steps through time, which keeps the round-to-round comparison stable. A round slider with a play control steps through time, and a second figure reports how many flagged messages survive under an earlier baseline so the analyst can judge whether the finding is robust.</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section B, The bypass</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_activity.png)</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>This finds public posts that reached outside without oversight. Posts on unmonitored public channels are drawn as a time series coloured by agent, with the stronger and likely-explained distinction carried in opacity. A click on any round filters the evidence table beneath to that round's posts, so the analyst moves from the aggregate pattern to the underlying content in one step.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section B, The bypass</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_bypass.png)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>This finds public posts that reached outside without oversight. Posts on unmonitored public channels are drawn as a time series coloured by agent, with the stronger and likely-explained distinction carried in opacity. A click on any round filters the evidence table beneath to that round's posts, so the analyst moves from the aggregate pattern to the underlying content in one step.</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section C, Network</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_bypass.png)</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>This shows how the communication structure changed. Two rounds are shown side by side on a fixed circular layout, with each link coloured green when new, red when dropped and grey when unchanged between them. A bipartite view shows which channels each agent used, which exposes drift toward the low-accountability channels as a change in structure. Holding the layout constant means a change in the wiring is read as a change in colour rather than position.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section C, Network</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_network.png)</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>This shows how the communication structure changed. Two rounds are shown side by side on a fixed circular layout, with each link coloured green when new, red when dropped and grey when unchanged between them. A bipartite view shows which channels each agent used, which exposes drift toward the low-accountability channels as a change in structure. Holding the layout constant means a change in the wiring is read as a change in colour rather than position.</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section D, Topics and evidence</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_network.png)</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>This connects the signals to the actual text. The analyst explores by round to see what each agent talked about, or by topic to see every round and channel where it appeared. An evidence table beneath the chart exposes each message's content alongside the agent's private reasoning fields, which closes the path from an aggregate pattern down to the specific evidence behind it.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section D, Topics and evidence</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_evidence.png)</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>This connects the signals to the actual text. The analyst explores by round to see what each agent talked about, or by topic to see every round and channel where it appeared. An evidence table beneath the chart exposes each message's content alongside the agent's private reasoning fields, which closes the path from an aggregate pattern down to the specific evidence behind it.</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## From the application to the findings</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_evidence.png)</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Working through the four sections in order produces the results reported on the <span class="co">[</span><span class="ot">Findings</span><span class="co">](../findings.qmd)</span> page. A guided walkthrough of the live application is on the <span class="co">[</span><span class="ot">Shiny App user guide</span><span class="co">](../user-guide.qmd)</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## From the application to the findings</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Working through the four sections in order produces the results reported on the <span class="co">[</span><span class="ot">Findings</span><span class="co">](../findings.qmd)</span> page. A guided walkthrough of the live application is on the <span class="co">[</span><span class="ot">Shiny App user guide</span><span class="co">](../user-guide.qmd)</span>.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on the length of the look-back window and on where the baseline boundary is drawn, which is why the application exposes both controls rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. Finally, the application reports what each agent did and where its content appeared, and it stops short of asserting intent.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

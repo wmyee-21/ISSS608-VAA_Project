@@ -2,10 +2,12 @@
 title: "Interactive Presentation"
 subtitle: "Methodology · Phase 3 of 3"
 author: "CSM TraceForce"
-date: last-modified
+date: "June 10, 2026"
 ---
 
+::: {.lead-drop}
 The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in [Analytical Computation](analytical-computation.qmd).
+:::
 
 ## A shared interaction pattern
 
@@ -38,3 +40,7 @@ This connects the signals to the actual text. The analyst explores by round to s
 ## From the application to the findings
 
 Working through the four sections in order produces the results reported on the [Findings](../findings.qmd) page. A guided walkthrough of the live application is on the [Shiny App user guide](../user-guide.qmd).
+
+## Limitations
+
+The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on the length of the look-back window and on where the baseline boundary is drawn, which is why the application exposes both controls rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. Finally, the application reports what each agent did and where its content appeared, and it stops short of asserting intent.

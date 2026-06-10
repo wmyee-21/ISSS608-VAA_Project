@@ -11,15 +11,23 @@ toc: false
 <figcaption>CSM TraceForce &middot; Cari-On, Be Serene, Mark it Done</figcaption>
 :::
 
+[The Case]{.kicker}
+
 ## Welcome
 
+::: {.lead-drop}
 This is the project website for **CSM TraceForce**. The project builds a web-enabled visual analytics application with Shiny for VAST Challenge 2026 Mini-Challenge 1. Its aim is to democratise data and analytics by turning a complex compliance investigation into something a non-technical analyst can run, with interactivity and the integration of data analytics and data visualisation at its centre.
+:::
 
 The challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed, and trace each signal back to the messages that prove it.
 
 ::: {.callout-note}
 This site is a work in progress. Pages marked *(placeholder)* will be filled in as the project develops.
 :::
+
+---
+
+[Explore]{.kicker}
 
 ## Explore the project
 

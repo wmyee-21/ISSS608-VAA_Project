@@ -18,7 +18,9 @@ execute:
 
 # Motivation
 
+::: {.lead-drop}
 Companies are beginning to hand communication and decision work to teams of AI agents that message one another across shared channels. The speed and volume that makes these agents useful also makes misconduct hard to spot.
+:::
 
 VAST Challenge 2026 Mini-Challenge 1 (MC1) presents this problem in concrete form. A property technology company called TenantThread runs seven AI agents during a public relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations. Despite this, embargoed merger information reaches the outside world. The question is whether an agent bypassed the rules or the monitoring itself broke down.
 
