@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="CSM TraceForce">
-<meta name="dcterms.date" content="2026-06-10">
+<meta name="dcterms.date" content="2026-06-23">
 
-<title>Shiny App — User Guide – CSM TraceForce</title>
+<title>A Study in Breach, User Guide – CSM TraceForce</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -156,15 +156,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Analytical Computation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./findings.html">
- <span class="dropdown-text">Findings</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="./methodology/interactive-presentation.html">
  <span class="dropdown-text">Interactive Presentation</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./findings.html"> 
+<span class="menu-text">Findings</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./poster.html"> 
 <span class="menu-text">Poster</span></a>
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./shiny-app.html">
- <span class="dropdown-text">Launch App (coming soon)</span></a>
+ <span class="dropdown-text">Launch App</span></a>
   </li>  
     </ul>
   </li>
@@ -227,24 +227,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#the-four-tabs" id="toc-the-four-tabs" class="nav-link" data-scroll-target="#the-four-tabs">The four tabs</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a></li>
+  <li><a href="#shared-elements" id="toc-shared-elements" class="nav-link" data-scroll-target="#shared-elements"><span class="header-section-number">2</span> Shared elements</a></li>
+  <li><a href="#the-case-board" id="toc-the-case-board" class="nav-link" data-scroll-target="#the-case-board"><span class="header-section-number">3</span> The Case Board</a>
   <ul class="collapse">
-  <li><a href="#activity-abnormality" id="toc-activity-abnormality" class="nav-link" data-scroll-target="#activity-abnormality">1. Activity &amp; Abnormality</a></li>
-  <li><a href="#the-bypass" id="toc-the-bypass" class="nav-link" data-scroll-target="#the-bypass">2. The Bypass</a></li>
-  <li><a href="#network" id="toc-network" class="nav-link" data-scroll-target="#network">3. Network</a></li>
-  <li><a href="#topics-evidence" id="toc-topics-evidence" class="nav-link" data-scroll-target="#topics-evidence">4. Topics &amp; Evidence</a></li>
+  <li><a href="#the-settings-in-detail" id="toc-the-settings-in-detail" class="nav-link" data-scroll-target="#the-settings-in-detail"><span class="header-section-number">3.1</span> The settings in detail</a></li>
   </ul></li>
-  <li><a href="#tips" id="toc-tips" class="nav-link" data-scroll-target="#tips">Tips</a></li>
+  <li><a href="#behaviour" id="toc-behaviour" class="nav-link" data-scroll-target="#behaviour"><span class="header-section-number">4</span> Behaviour</a></li>
+  <li><a href="#connections" id="toc-connections" class="nav-link" data-scroll-target="#connections"><span class="header-section-number">5</span> Connections</a></li>
+  <li><a href="#evidence" id="toc-evidence" class="nav-link" data-scroll-target="#evidence"><span class="header-section-number">6</span> Evidence</a></li>
+  <li><a href="#case-intake" id="toc-case-intake" class="nav-link" data-scroll-target="#case-intake"><span class="header-section-number">7</span> Case Intake</a></li>
+  <li><a href="#a-recommended-workflow" id="toc-a-recommended-workflow" class="nav-link" data-scroll-target="#a-recommended-workflow"><span class="header-section-number">8</span> A recommended workflow</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="user-guide.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Shiny App — User Guide</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">A Study in Breach, User Guide</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">How to use the CSM TraceForce investigation app</p>
 </div>
 
 
@@ -261,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 10, 2026</p>
+      <p class="date">June 23, 2026</p>
     </div>
   </div>
   
@@ -273,39 +276,165 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<blockquote class="blockquote">
-<p><em>(placeholder)</em> A walkthrough of the application and how to use each tab. A link to the live app will be added here once it is deployed.</p>
-</blockquote>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<p><em>How to open the app and what the landing tab shows.</em></p>
+<p><span class="kicker">The Field Manual</span></p>
+<section id="overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1</span> Overview</h2>
+<p>A Study in Breach turns a multi-agent communication log into an investigation you can run by eye. It scores every round of the scenario on four abnormality signals, lets you place the line between normal and suspect behaviour and then drills from a high-level pattern down to the individual messages that stand as evidence.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_navbar.png" class="img-fluid figure-img"></p>
+<figcaption>The five tabs and the dataset indicator.</figcaption>
+</figure>
+</div>
+<p>The app has five tabs, meant to be read left to right, moving from the overview toward the evidence.</p>
+<ol type="1">
+<li><strong>The Case Board</strong> is the overview. It scores each round on the four signals and is where you set the analysis settings that every other tab reads.</li>
+<li><strong>Behaviour</strong> shows channel drift, where an agent uses a channel far more or far less than it normally does.</li>
+<li><strong>Connections</strong> shows the agent-to-agent network and how it changes between rounds.</li>
+<li><strong>Evidence</strong> is where you read the messages, with a bypass lens for posts that reached the outside world without oversight.</li>
+<li><strong>Case Intake</strong> is where a new dataset is loaded.</li>
+</ol>
+<p>A single set of analysis settings, chosen on the Case Board, flows into every tab, so changing the baseline once updates the whole investigation. Clicking a result moves you toward the evidence rather than opening a separate screen.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Throughout the app, hovering any bar, cell or node shows a tooltip with the exact figures, and clicking moves you to the matching detail. A small “Dataset” indicator at the top right shows which file is loaded.</p>
+</div>
+</div>
 </section>
-<section id="the-four-tabs" class="level2">
-<h2 class="anchored" data-anchor-id="the-four-tabs">The four tabs</h2>
-<section id="activity-abnormality" class="level3">
-<h3 class="anchored" data-anchor-id="activity-abnormality">1. Activity &amp; Abnormality</h3>
-<p><em>What it shows and the controls (date range, baseline slider, agent filters, time).</em></p>
-<p><img src="images/prototype_activity.png" class="img-fluid"></p>
+<section id="shared-elements" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="shared-elements"><span class="header-section-number">2</span> Shared elements</h2>
+<p><strong>The analysis highlight strip</strong> is the band at the top of each tab that reports the key number for the current view, for example the most abnormal round or the count of bypassed chats.</p>
+<p><strong>Click to investigate.</strong> Hot cells, bars and nodes are clickable. A click carries the round and the current settings into the matching tab, so you never lose your place.</p>
 </section>
-<section id="the-bypass" class="level3">
-<h3 class="anchored" data-anchor-id="the-bypass">2. The Bypass</h3>
-<p><em>…</em></p>
-<p><img src="images/prototype_bypass.png" class="img-fluid"></p>
+<section id="the-case-board" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-case-board"><span class="header-section-number">3</span> The Case Board</h2>
+<p>The Case Board is the entry point and the control room. It scores every round on the four signals and holds the analysis settings that flow into every other tab. The numbers in the image match the descriptions below it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_caseboard_annotated.png" class="img-fluid figure-img"></p>
+<figcaption>The Case Board. Box 1 is the settings sidebar, box 2 the analysis highlight strip, box 3 the signals-over-time strips above the abnormality heatmap.</figcaption>
+</figure>
+</div>
+<p><strong>1. Settings sidebar.</strong> Holds the analysis settings, grouped by the signal each one drives. Every control is covered in detail further below.</p>
+<p><strong>2. Analysis highlight strip.</strong> Reports the most abnormal round and the signals that drive it, along with where the baseline currently ends.</p>
+<p><strong>3. Signals over time and the abnormality heatmap (how to read it).</strong> The top strips plot each tunable signal per round, so you can see where activity builds. Click any bar to set the baseline there, and the shaded rounds are the baseline period. The heatmap below scores every round on each signal, and the darker a cell the more abnormal that round is. The Overall row blends the four. Click any hot cell to jump to the matching tab at that round.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The four signals are Channel drift (an agent changing which channels it uses), Bypass (a public post the Judge could not have cleared), Network (new or dropped connections versus the baseline) and Topic (a spike in mentions of the tracked topic).</p>
+</div>
+</div>
+<section id="the-settings-in-detail" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="the-settings-in-detail"><span class="header-section-number">3.1</span> The settings in detail</h3>
+<p>Every analysis threshold lives in the Case Board sidebar and flows into all the other tabs. The numbers in the close-up match the list below it, and each entry says exactly what changes when you move it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_settings_annotated.png" class="img-fluid figure-img" style="width:62.0%"></p>
+<figcaption>The Case Board sidebar, with each control numbered.</figcaption>
+</figure>
+</div>
+<p><strong>1. Suggest settings (button).</strong> Fills in a recommended baseline and signal settings in one click. The baseline is detected from the data and placed just before outside posting begins, the unusual-channel cutoff is set to five per cent, the spike size to two times and the minimum messages per link to one. Everything stays adjustable afterward.</p>
+<p><strong>2. Last baseline round (slider).</strong> Sets the end of the baseline period, the early rounds treated as normal. Rounds up to and including this value are the baseline, and later rounds are the suspect period. Drag it right to treat more rounds as normal, left to treat fewer. You can also click a bar on the timeline to set it. Channel drift, Network and Topic are all measured against this period, so this is the single most important control. The default is the last round the data labels as baseline.</p>
+<p><strong>3. Unusual-Channel Activity (slider, per cent).</strong> The cutoff for the Channel drift signal. A channel is flagged for an agent when that agent’s share of its messages on that channel in a round differs from its baseline share by at least this many percentage points, in either direction, whether the agent used the channel much more or much less than usual. Move it right and only larger departures are flagged, so fewer cells light up and the baseline rounds quieten down. Move it left and smaller wobbles count, so more is flagged. The default is the lowest setting, which flags the most.</p>
+<p><strong>4. Topics to track (dropdown).</strong> Chooses which topics the Topic signal counts. Pick one or several and their keyword patterns are combined. Leave it blank to track all topics at once. The default is Merger.</p>
+<p><strong>5. Or search words (text box).</strong> Overrides the dropdown with your own words. Separate several words with commas to count messages mentioning any of them. Clear it to fall back to the dropdown.</p>
+<p><strong>6. Spike size (slider, times baseline).</strong> The threshold for the Topic signal. A round counts as a spike when its topic mentions exceed this multiple of the baseline-period average. Move it right and only bigger surges count, move it left and smaller increases register. The default is the lowest setting.</p>
+<p><strong>7. Minimum messages per link (slider).</strong> A noise filter for the Network signal. A connection between two agents is only counted once it carries at least this many messages, so one-off messages are ignored. Move it right to ignore weaker links. The default is one, which keeps every link.</p>
 </section>
-<section id="network" class="level3">
-<h3 class="anchored" data-anchor-id="network">3. Network</h3>
-<p><em>…</em></p>
-<p><img src="images/prototype_network.png" class="img-fluid"></p>
 </section>
-<section id="topics-evidence" class="level3">
-<h3 class="anchored" data-anchor-id="topics-evidence">4. Topics &amp; Evidence</h3>
-<p><em>…</em></p>
-<p><img src="images/prototype_evidence.png" class="img-fluid"></p>
+<section id="behaviour" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="behaviour"><span class="header-section-number">4</span> Behaviour</h2>
+<p>The Behaviour tab answers who is acting out of character. The numbers in the image match the descriptions below it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_behaviour_annotated.png" class="img-fluid figure-img"></p>
+<figcaption>The Behaviour tab. Box 1 the round picker, box 2 the highlight strip, box 3 the channel-drift grid, box 4 the drift summary.</figcaption>
+</figure>
+</div>
+<p><strong>1. Round to inspect (sidebar).</strong> The slider chooses which round the grid shows. The marker strip beneath it flags the rounds with the most drift, so the darker marks point you to the rounds worth opening. What counts as drift is set by the baseline and the Unusual-Channel Activity cutoff, both chosen on the Case Board.</p>
+<p><strong>2. Analysis highlight strip.</strong> Reports the headline for the chosen round, the number of channel drifts and the agent that drifted most.</p>
+<p><strong>3. Channel activity grid (how to read it).</strong> Each row is a channel and each column an agent. A cell’s colour is how far that agent’s use of the channel this round departs from its baseline share, red for much more than usual and blue for much less, and the number inside is the message count. Pale or empty cells are normal, so the strongest reds and blues are the out-of-character behaviour. Click an agent to open the Connections tab focused on this round.</p>
+<p><strong>4. Drift summary.</strong> The top chart, drifting channels per round, shows how many channels drifted in each round, so you can see when behaviour broke from the baseline. The list below ranks the agents that drifted most across the suspect period.</p>
 </section>
+<section id="connections" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="connections"><span class="header-section-number">5</span> Connections</h2>
+<p>The Connections tab answers who is talking to whom and how that changes between rounds. The numbers in the image match the descriptions below it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_connections_annotated.png" class="img-fluid figure-img"></p>
+<figcaption>The Connections tab. Box 1 the controls, box 2 the highlight strip, box 3 the network graph, box 4 the connections table, box 5 the link timeline.</figcaption>
+</figure>
+</div>
+<p><strong>1. View and comparison controls (sidebar).</strong> View switches between the who-talks-to-whom graph and the agents-and-channels view. Compare two rounds is a two-handle slider, the left handle the earlier round and the right the later. The channel reference table below names each channel and whether the Judge monitors it.</p>
+<p><strong>2. Analysis highlight strip.</strong> Reports the new and dropped links between the two compared rounds.</p>
+<p><strong>3. Network graph (how to read it).</strong> Each node is an agent and its size is the number of connections it has. Each arrow is a directed link from sender to recipient, coloured by message volume, and a greyed arrow is a link that dropped since the earlier round. The two panels are the two rounds you are comparing, so the change between them is the story. Click a node to list that agent’s connections.</p>
+<p><strong>4. Connections table.</strong> Lists the selected agent’s links with messages sent and received. The round toggle above the table switches it between the two compared rounds. Pick a row and click Read these messages in Evidence to read the chats on that link.</p>
+<p><strong>5. Link timeline (how to read it).</strong> Each row is a pair of agents and each column a round, and a filled cell means the pair was connected that round, so a row of cells is a relationship over time and a gap is a break. Show links involving, above the timeline, keeps only links where both selected agents appear, so select at least two. The Total links row matches the Case Board.</p>
 </section>
-<section id="tips" class="level2">
-<h2 class="anchored" data-anchor-id="tips">Tips</h2>
-<p><em>The baseline slider on the Activity tab affects every tab; all other inputs are local.</em></p>
+<section id="evidence" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="evidence"><span class="header-section-number">6</span> Evidence</h2>
+<p>The Evidence tab is where every trail ends, in the messages themselves. The Bypass only switch at the top decides what the page is about, and the two states are shown below. The numbers in each image match the descriptions below it.</p>
+<p>With <strong>Bypass only on</strong>, the page is about chats that reached the outside without oversight.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_evidence_bypass_annotated.png" class="img-fluid figure-img"></p>
+<figcaption>The Evidence tab with the bypass lens on. Box 1 the filters, box 2 the highlight strip, box 3 the bypassed-posts plot, box 4 the bypassed-chats table.</figcaption>
+</figure>
+</div>
+<p><strong>1. Filters (sidebar).</strong> Bypass only switches the page between bypassed chats and all chats. Topics narrows to chosen topics and is left blank to track all, while the search box overrides it and accepts comma-separated words. Agents and Time period narrow the view further, and Show all rounds clears a clicked-round focus.</p>
+<p><strong>2. Analysis highlight strip.</strong> Reports how many chats bypassed oversight and the average bypass likelihood.</p>
+<p><strong>3. Bypassed posts plot (how to read it).</strong> Each bar is a round and its height is the number of bypassed posts, with redder bars carrying higher bypass likelihood. Click a bar to focus the table on that round.</p>
+<p><strong>4. Bypassed chats table.</strong> Every chat that reached the outside without oversight, scored by how likely it slipped past the Judge. When a round is focused, the table also shows the watched messages that would have cleared those posts, so you can compare what was said in the open against what was kept hidden.</p>
+<p>With <strong>Bypass only off</strong>, the page becomes every chat in the log.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_evidence_messages_annotated.png" class="img-fluid figure-img"></p>
+<figcaption>The Evidence tab with the bypass lens off. Box 1 the toggle, box 2 the chats-by-round plot, box 3 the message table with private reasoning.</figcaption>
+</figure>
+</div>
+<p><strong>1. Bypass only toggle.</strong> Turned off, the page shows every chat rather than only the bypassed ones.</p>
+<p><strong>2. Chats by round plot (how to read it).</strong> Each bar is a round and its height is the number of chats, split by channel colour so you can see where the talk happened.</p>
+<p><strong>3. All chats table.</strong> Every message with the agent’s private reasoning shown alongside, in the Reacting, Rationalizing and Deliberating columns, so you can read intent next to the words that were sent.</p>
+</section>
+<section id="case-intake" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="case-intake"><span class="header-section-number">7</span> Case Intake</h2>
+<p>The Case Intake tab loads the data the rest of the app analyses. The numbers in the image match the descriptions below it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/guide_intake_annotated.png" class="img-fluid figure-img"></p>
+<figcaption>The Case Intake tab. Box 1 upload, box 2 column mapping, box 3 channel classification, box 4 the load button, box 5 the guidance and preview panel.</figcaption>
+</figure>
+</div>
+<p><strong>1. Upload.</strong> Upload a file, either the cleaned message CSV or the company JSON export. Download CSV template gives you the expected column layout.</p>
+<p><strong>2. Map your columns.</strong> The dropdowns tell the app which column in your file holds each field it needs, round, sender, channel, recipients and message text, and they pre-guess from your headers.</p>
+<p><strong>3. Classify each channel.</strong> Mark each channel as monitored, internal or public. This is what decides whether a public post counts as a bypass.</p>
+<p><strong>4. Confirm and load data.</strong> Applies the mapping and runs every tab on the new dataset. The dataset indicator at the top right then updates.</p>
+<p><strong>5. Guidance and preview panel.</strong> The right column explains the tab and checks your file. About this app and How to use this tab walk through the steps, Validation flags any problems with the mapping, and Preview shows the first rows mapped to the schema, so you can confirm everything before you load.</p>
+</section>
+<section id="a-recommended-workflow" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="a-recommended-workflow"><span class="header-section-number">8</span> A recommended workflow</h2>
+<p>A typical investigation runs the tabs in order.</p>
+<ol type="1">
+<li>On the Case Board, click Suggest, then read the heatmap for the rounds and signals that stand out.</li>
+<li>Click the hottest cell to drill into the matching tab for the detail.</li>
+<li>From Behaviour or Connections, follow a suspicious agent or link into Evidence.</li>
+<li>In Evidence, read the messages and the private reasoning behind them to confirm what happened.</li>
+</ol>
 
 
 <!-- -->
@@ -765,42 +894,165 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Shiny App — User Guide"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 10, 2026"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *(placeholder)* A walkthrough of the application and how to use each tab. A link to the live app will be added here once it is deployed.</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Getting started</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>_How to open the app and what the landing tab shows._</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## The four tabs</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Activity &amp; Abnormality</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>_What it shows and the controls (date range, baseline slider, agent filters, time)._</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/prototype_activity.png)</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. The Bypass</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>_..._</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "A Study in Breach, User Guide"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "How to use the CSM TraceForce investigation app"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 23, 2026"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">toc-depth:</span><span class="co"> 3</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  html: default</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  pdf:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    geometry: margin=2.5cm</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The Field Manual</span><span class="co">]</span>{.kicker}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>A Study in Breach turns a multi-agent communication log into an investigation you can run by eye. It scores every round of the scenario on four abnormality signals, lets you place the line between normal and suspect behaviour and then drills from a high-level pattern down to the individual messages that stand as evidence.</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/prototype_bypass.png)</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="al">![The five tabs and the dataset indicator.]( images/guide_navbar.png )</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Network</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_..._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/prototype_network.png)</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Topics &amp; Evidence</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>_..._</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>The app has five tabs, meant to be read left to right, moving from the overview toward the evidence.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**The Case Board** is the overview. It scores each round on the four signals and is where you set the analysis settings that every other tab reads.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Behaviour** shows channel drift, where an agent uses a channel far more or far less than it normally does.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Connections** shows the agent-to-agent network and how it changes between rounds.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Evidence** is where you read the messages, with a bypass lens for posts that reached the outside world without oversight.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Case Intake** is where a new dataset is loaded.</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/prototype_evidence.png)</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>A single set of analysis settings, chosen on the Case Board, flows into every tab, so changing the baseline once updates the whole investigation. Clicking a result moves you toward the evidence rather than opening a separate screen.</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>_The baseline slider on the Activity tab affects every tab; all other inputs are local._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Throughout the app, hovering any bar, cell or node shows a tooltip with the exact figures, and clicking moves you to the matching detail. A small "Dataset" indicator at the top right shows which file is loaded.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shared elements</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>**The analysis highlight strip** is the band at the top of each tab that reports the key number for the current view, for example the most abnormal round or the count of bypassed chats.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>**Click to investigate.** Hot cells, bars and nodes are clickable. A click carries the round and the current settings into the matching tab, so you never lose your place.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Case Board</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>The Case Board is the entry point and the control room. It scores every round on the four signals and holds the analysis settings that flow into every other tab. The numbers in the image match the descriptions below it.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="al">![The Case Board. Box 1 is the settings sidebar, box 2 the analysis highlight strip, box 3 the signals-over-time strips above the abnormality heatmap.]( images/guide_caseboard_annotated.png )</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>**1. Settings sidebar.** Holds the analysis settings, grouped by the signal each one drives. Every control is covered in detail further below.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>**2. Analysis highlight strip.** Reports the most abnormal round and the signals that drive it, along with where the baseline currently ends.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>**3. Signals over time and the abnormality heatmap (how to read it).** The top strips plot each tunable signal per round, so you can see where activity builds. Click any bar to set the baseline there, and the shaded rounds are the baseline period. The heatmap below scores every round on each signal, and the darker a cell the more abnormal that round is. The Overall row blends the four. Click any hot cell to jump to the matching tab at that round.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>The four signals are Channel drift (an agent changing which channels it uses), Bypass (a public post the Judge could not have cleared), Network (new or dropped connections versus the baseline) and Topic (a spike in mentions of the tracked topic).</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### The settings in detail</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>Every analysis threshold lives in the Case Board sidebar and flows into all the other tabs. The numbers in the close-up match the list below it, and each entry says exactly what changes when you move it.</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="al">![The Case Board sidebar, with each control numbered.]( images/guide_settings_annotated.png )</span>{width=62%}</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>**1. Suggest settings (button).** Fills in a recommended baseline and signal settings in one click. The baseline is detected from the data and placed just before outside posting begins, the unusual-channel cutoff is set to five per cent, the spike size to two times and the minimum messages per link to one. Everything stays adjustable afterward.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>**2. Last baseline round (slider).** Sets the end of the baseline period, the early rounds treated as normal. Rounds up to and including this value are the baseline, and later rounds are the suspect period. Drag it right to treat more rounds as normal, left to treat fewer. You can also click a bar on the timeline to set it. Channel drift, Network and Topic are all measured against this period, so this is the single most important control. The default is the last round the data labels as baseline.</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>**3. Unusual-Channel Activity (slider, per cent).** The cutoff for the Channel drift signal. A channel is flagged for an agent when that agent's share of its messages on that channel in a round differs from its baseline share by at least this many percentage points, in either direction, whether the agent used the channel much more or much less than usual. Move it right and only larger departures are flagged, so fewer cells light up and the baseline rounds quieten down. Move it left and smaller wobbles count, so more is flagged. The default is the lowest setting, which flags the most.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>**4. Topics to track (dropdown).** Chooses which topics the Topic signal counts. Pick one or several and their keyword patterns are combined. Leave it blank to track all topics at once. The default is Merger.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>**5. Or search words (text box).** Overrides the dropdown with your own words. Separate several words with commas to count messages mentioning any of them. Clear it to fall back to the dropdown.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>**6. Spike size (slider, times baseline).** The threshold for the Topic signal. A round counts as a spike when its topic mentions exceed this multiple of the baseline-period average. Move it right and only bigger surges count, move it left and smaller increases register. The default is the lowest setting.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>**7. Minimum messages per link (slider).** A noise filter for the Network signal. A connection between two agents is only counted once it carries at least this many messages, so one-off messages are ignored. Move it right to ignore weaker links. The default is one, which keeps every link.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Behaviour</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>The Behaviour tab answers who is acting out of character. The numbers in the image match the descriptions below it.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="al">![The Behaviour tab. Box 1 the round picker, box 2 the highlight strip, box 3 the channel-drift grid, box 4 the drift summary.]( images/guide_behaviour_annotated.png )</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>**1. Round to inspect (sidebar).** The slider chooses which round the grid shows. The marker strip beneath it flags the rounds with the most drift, so the darker marks point you to the rounds worth opening. What counts as drift is set by the baseline and the Unusual-Channel Activity cutoff, both chosen on the Case Board.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>**2. Analysis highlight strip.** Reports the headline for the chosen round, the number of channel drifts and the agent that drifted most.</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>**3. Channel activity grid (how to read it).** Each row is a channel and each column an agent. A cell's colour is how far that agent's use of the channel this round departs from its baseline share, red for much more than usual and blue for much less, and the number inside is the message count. Pale or empty cells are normal, so the strongest reds and blues are the out-of-character behaviour. Click an agent to open the Connections tab focused on this round.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>**4. Drift summary.** The top chart, drifting channels per round, shows how many channels drifted in each round, so you can see when behaviour broke from the baseline. The list below ranks the agents that drifted most across the suspect period.</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Connections</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>The Connections tab answers who is talking to whom and how that changes between rounds. The numbers in the image match the descriptions below it.</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="al">![The Connections tab. Box 1 the controls, box 2 the highlight strip, box 3 the network graph, box 4 the connections table, box 5 the link timeline.]( images/guide_connections_annotated.png )</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>**1. View and comparison controls (sidebar).** View switches between the who-talks-to-whom graph and the agents-and-channels view. Compare two rounds is a two-handle slider, the left handle the earlier round and the right the later. The channel reference table below names each channel and whether the Judge monitors it.</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>**2. Analysis highlight strip.** Reports the new and dropped links between the two compared rounds.</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>**3. Network graph (how to read it).** Each node is an agent and its size is the number of connections it has. Each arrow is a directed link from sender to recipient, coloured by message volume, and a greyed arrow is a link that dropped since the earlier round. The two panels are the two rounds you are comparing, so the change between them is the story. Click a node to list that agent's connections.</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>**4. Connections table.** Lists the selected agent's links with messages sent and received. The round toggle above the table switches it between the two compared rounds. Pick a row and click Read these messages in Evidence to read the chats on that link.</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>**5. Link timeline (how to read it).** Each row is a pair of agents and each column a round, and a filled cell means the pair was connected that round, so a row of cells is a relationship over time and a gap is a break. Show links involving, above the timeline, keeps only links where both selected agents appear, so select at least two. The Total links row matches the Case Board.</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evidence</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>The Evidence tab is where every trail ends, in the messages themselves. The Bypass only switch at the top decides what the page is about, and the two states are shown below. The numbers in each image match the descriptions below it.</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>With **Bypass only on**, the page is about chats that reached the outside without oversight.</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="al">![The Evidence tab with the bypass lens on. Box 1 the filters, box 2 the highlight strip, box 3 the bypassed-posts plot, box 4 the bypassed-chats table.]( images/guide_evidence_bypass_annotated.png )</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>**1. Filters (sidebar).** Bypass only switches the page between bypassed chats and all chats. Topics narrows to chosen topics and is left blank to track all, while the search box overrides it and accepts comma-separated words. Agents and Time period narrow the view further, and Show all rounds clears a clicked-round focus.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>**2. Analysis highlight strip.** Reports how many chats bypassed oversight and the average bypass likelihood.</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>**3. Bypassed posts plot (how to read it).** Each bar is a round and its height is the number of bypassed posts, with redder bars carrying higher bypass likelihood. Click a bar to focus the table on that round.</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>**4. Bypassed chats table.** Every chat that reached the outside without oversight, scored by how likely it slipped past the Judge. When a round is focused, the table also shows the watched messages that would have cleared those posts, so you can compare what was said in the open against what was kept hidden.</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>With **Bypass only off**, the page becomes every chat in the log.</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="al">![The Evidence tab with the bypass lens off. Box 1 the toggle, box 2 the chats-by-round plot, box 3 the message table with private reasoning.]( images/guide_evidence_messages_annotated.png )</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>**1. Bypass only toggle.** Turned off, the page shows every chat rather than only the bypassed ones.</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>**2. Chats by round plot (how to read it).** Each bar is a round and its height is the number of chats, split by channel colour so you can see where the talk happened.</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>**3. All chats table.** Every message with the agent's private reasoning shown alongside, in the Reacting, Rationalizing and Deliberating columns, so you can read intent next to the words that were sent.</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Case Intake</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>The Case Intake tab loads the data the rest of the app analyses. The numbers in the image match the descriptions below it.</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="al">![The Case Intake tab. Box 1 upload, box 2 column mapping, box 3 channel classification, box 4 the load button, box 5 the guidance and preview panel.]( images/guide_intake_annotated.png )</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>**1. Upload.** Upload a file, either the cleaned message CSV or the company JSON export. Download CSV template gives you the expected column layout.</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>**2. Map your columns.** The dropdowns tell the app which column in your file holds each field it needs, round, sender, channel, recipients and message text, and they pre-guess from your headers.</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>**3. Classify each channel.** Mark each channel as monitored, internal or public. This is what decides whether a public post counts as a bypass.</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>**4. Confirm and load data.** Applies the mapping and runs every tab on the new dataset. The dataset indicator at the top right then updates.</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>**5. Guidance and preview panel.** The right column explains the tab and checks your file. About this app and How to use this tab walk through the steps, Validation flags any problems with the mapping, and Preview shows the first rows mapped to the schema, so you can confirm everything before you load.</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## A recommended workflow</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>A typical investigation runs the tabs in order.</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>On the Case Board, click Suggest, then read the heatmap for the rounds and signals that stand out.</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Click the hottest cell to drill into the matching tab for the detail.</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>From Behaviour or Connections, follow a suspicious agent or link into Evidence.</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>In Evidence, read the messages and the private reasoning behind them to confirm what happened.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -1,0 +1,75 @@
+---
+title: "Meeting Minutes"
+subtitle: "CSM TraceForce (Group 4) · Meeting 2 · Dashboard refinement"
+author: "CSM TraceForce"
+date: "June 20, 2026"
+toc: true
+---
+
+## Details
+
+| | |
+|---|---|
+| **Date** | Saturday, 20 June 2026 |
+| **Time** | 3.30 PM to 4.30 PM |
+| **Present** | Carina Faith Peh Xin Yi, Serene Cheng, Mark Yee Weicong |
+| **Agenda** | Refine the Shiny app dashboard structure, clarify the overview page flow and agree on the editing process for the project |
+
+## 1. Agenda
+
+The team met to review the current Shiny app design and improve the dashboard flow for the MC1 investigation. The discussion focused on simplifying the tab structure, making the overview page more useful for analysts and ensuring that users can move smoothly from high-level findings into detailed investigation.
+
+## 2. Discussion
+
+### 2.1 Dashboard tab structure
+
+The team discussed how the dashboard tabs should be organised. Rather than maintaining too many separate sections, the team agreed that related components should be combined to make the app easier to navigate.
+
+The proposed structure retains a main overview page, followed by detailed investigation tabs. The detailed tabs would group related analysis areas, with activity, abnormality and network in one tab and bypass, topic and evidence in another. This reduces repetition while still allowing users to explore the evidence behind each finding.
+
+### 2.2 Purpose statement for each tab
+
+The team discussed whether each tab should include a short description of its purpose. It was agreed that a concise purpose statement should appear on each tab so that analysts can immediately understand what it is for.
+
+The team noted that descriptions should not be lengthy. Since the project already has a user guide, the dashboard itself should avoid information overload. A single well-written sentence per tab is sufficient.
+
+### 2.3 Overview page as the starting point
+
+The team agreed that the overview page should act as the main entry point for analysis. Rather than requiring users to explore every tab manually, the overview page should help analysts identify abnormal rounds quickly.
+
+The proposed approach is to use a heat map on the overview page. Users can adjust settings such as baseline period, flagging threshold, topic or keyword. Once the heat map surfaces an abnormal round, the user can click through to the relevant detail tab.
+
+### 2.4 Round-level investigation
+
+The team clarified that the analysis should be structured around rounds rather than calendar dates, reflecting how the MC1 data is organised. The dashboard should guide users from identifying an abnormal round to understanding what happened during that round, who was involved, which channels were used and what evidence supports the finding.
+
+### 2.5 Linking between overview and detailed tabs
+
+The team discussed adding interactive cross-tab navigation. For example, when a user clicks on a bar in the bypass section, the app should bring them directly to the network view for that specific round.
+
+This makes the app more intuitive because analysts can move from a detected signal straight to the supporting evidence, without having to search manually across tabs.
+
+### 2.6 Editing process and version control
+
+The team agreed on a process for managing edits to the app and project files. Only one person should edit at a time. Before making changes, the editor should pull the latest version from GitHub. After completing the changes, they should push the updated version and notify the group chat. This avoids conflicts and prevents work from being overwritten.
+
+## 3. Decision
+
+The team agreed to refine the Shiny app around a clearer investigation flow. The overview page will serve as the entry point for identifying abnormal rounds, and the detailed tabs will support deeper analysis of activity, abnormality, network behaviour, bypass patterns, topics and evidence. Dashboard descriptions will be kept concise, and the team will follow the one-person-at-a-time editing process for all project files.
+
+## 4. Action items
+
+| Owner | Task | Due |
+|---|---|---|
+| Carina | Prepare and share the meeting minutes | Sat, 21 Jun |
+| Carina | Consolidate discussion comments and push the updated project files | Sat, 21 Jun |
+| Serene | Review whether the overview page flow is clear from an analyst's perspective | Ongoing |
+| Team | Suggest clearer or more engaging names for the merged dashboard sections | Ongoing |
+| Mark | Review the linking logic between bypass, overview and network views | Ongoing |
+| Mark | Verify that clicking into a specific round brings users to the correct detailed view | Ongoing |
+| Team | Refine the overview heat map settings and agree on how abnormality indicators should be displayed | Before next meeting |
+| Team | Follow the agreed editing process: pull latest, edit, push, update group chat | Ongoing |
+
+## 5. Next meeting
+
+The next meeting will be used to review the updated dashboard flow, confirm whether the merged tabs work well together and assess whether the overview page successfully guides users from abnormality detection through to detailed evidence.

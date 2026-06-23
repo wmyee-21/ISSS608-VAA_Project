@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="CSM TraceForce">
-<meta name="dcterms.date" content="2026-06-10">
+<meta name="dcterms.date" content="2026-06-23">
 
 <title>Data Preparation – CSM TraceForce</title>
 <style>
@@ -108,16 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
-
-<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-
-<script src="../site_libs/viz-1.8.2/viz.js"></script>
-
-<link href="../site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-
-<script src="../site_libs/grViz-binding-1.0.12/grViz.js"></script>
-
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -166,15 +156,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Analytical Computation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../findings.html">
- <span class="dropdown-text">Findings</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../methodology/interactive-presentation.html">
  <span class="dropdown-text">Interactive Presentation</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../findings.html"> 
+<span class="menu-text">Findings</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link" href="../poster.html"> 
 <span class="menu-text">Poster</span></a>
@@ -198,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../shiny-app.html">
- <span class="dropdown-text">Launch App (coming soon)</span></a>
+ <span class="dropdown-text">Launch App</span></a>
   </li>  
     </ul>
   </li>
@@ -239,12 +229,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#the-three-stage-pipeline" id="toc-the-three-stage-pipeline" class="nav-link active" data-scroll-target="#the-three-stage-pipeline">The three-stage pipeline</a></li>
   <li><a href="#key-context" id="toc-key-context" class="nav-link" data-scroll-target="#key-context">Key context</a></li>
-  <li><a href="#source-data" id="toc-source-data" class="nav-link" data-scroll-target="#source-data">Source data</a></li>
-  <li><a href="#flattening-to-three-tables" id="toc-flattening-to-three-tables" class="nav-link" data-scroll-target="#flattening-to-three-tables">Flattening to three tables</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#loading-the-raw-data" id="toc-loading-the-raw-data" class="nav-link" data-scroll-target="#loading-the-raw-data">Loading the raw data</a></li>
+  <li><a href="#flattening-the-rounds-to-messages" id="toc-flattening-the-rounds-to-messages" class="nav-link" data-scroll-target="#flattening-the-rounds-to-messages">Flattening the rounds to messages</a></li>
+  <li><a href="#deriving-the-analysis-fields" id="toc-deriving-the-analysis-fields" class="nav-link" data-scroll-target="#deriving-the-analysis-fields">Deriving the analysis fields</a></li>
+  <li><a href="#the-round-and-network-tables" id="toc-the-round-and-network-tables" class="nav-link" data-scroll-target="#the-round-and-network-tables">The round and network tables</a></li>
   <li><a href="#data-dictionary" id="toc-data-dictionary" class="nav-link" data-scroll-target="#data-dictionary">Data dictionary</a></li>
   <li><a href="#the-channel-accountability-ladder" id="toc-the-channel-accountability-ladder" class="nav-link" data-scroll-target="#the-channel-accountability-ladder">The channel accountability ladder</a></li>
   <li><a href="#other-reference-structures" id="toc-other-reference-structures" class="nav-link" data-scroll-target="#other-reference-structures">Other reference structures</a></li>
-  <li><a href="#data-overview" id="toc-data-overview" class="nav-link" data-scroll-target="#data-overview">Data overview</a></li>
   </ul>
 </nav>
     </div>
@@ -271,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 10, 2026</p>
+      <p class="date">June 23, 2026</p>
     </div>
   </div>
   
@@ -284,72 +276,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="lead-drop">
-<p>The methodology runs as the three-stage pipeline set out in the <a href="../proposal.html">proposal</a>. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage.</p>
+<p>The methodology runs as the three-stage pipeline set out in the <a href="../proposal.html">proposal</a>. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses and the signals are shown through the interactive application. This page covers the first stage. It follows the same preparation workflow as the Big Fish <a href="https://isss608-202324g4.netlify.app/methodology/data_preparation">Data Preparation</a> reference, parsing the nested JSON with jsonlite, extracting it into tidy tibbles, deriving the analysis fields and saving a clean table for the app. The data shape differs, as the reference prepares a node-and-edge graph while this scenario is a per-round message log flattened to one row per message.</p>
 </div>
 <section id="the-three-stage-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="the-three-stage-pipeline">The three-stage pipeline</h2>
-<p>The diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline, and those signals are presented through the four interactive sections. This page covers the first stage, with the next two covered under <a href="../methodology/analytical-computation.html">Analytical Computation</a> and <a href="../methodology/interactive-presentation.html">Interactive Presentation</a>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Pipeline diagram</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(DiagrammeR)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">digraph methodology {</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">  rankdir = LR;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [fontname = 'Helvetica', nodesep = 0.3, ranksep = 0.7];</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">  node  [fontname = 'Helvetica', shape = box, style = 'filled,rounded',</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">         fontsize = 11, color = '#2C5282', fillcolor = '#EBF4FF',</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">         fontcolor = '#1A202C', margin = '0.12,0.08'];</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">  edge  [color = '#4A5568', arrowsize = 0.7];</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="st">  raw [label = 'MC1 nested JSON', fillcolor = '#FEFCBF', color = '#B7791F'];</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="st">  app [label = 'Shiny app', fillcolor = '#FEFCBF', color = '#B7791F'];</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph cluster_1 {</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">    label = '1  Data Preparation';</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="st">    prep   [label = 'Flatten and clean'];</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">    tables [label = 'Three tables'];</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">    derive [label = 'Hierarchy and topics'];</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="st">    prep -&gt; tables -&gt; derive;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph cluster_2 {</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="st">    label = '2  Analytical Computation';</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="st">    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="st">    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="st">    base [label = 'Baseline split'];</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="st">    abn  [label = 'Abnormality'];</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="st">    byp  [label = 'Bypass'];</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="st">    net  [label = 'Network difference'];</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="st">    base -&gt; abn;</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="st">    base -&gt; byp;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="st">    base -&gt; net;</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph cluster_3 {</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="st">    label = '3  Interactive Presentation';</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="st">    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="st">    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="st">    secA [label = 'A Activity'];</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="st">    secB [label = 'B Bypass'];</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="st">    secC [label = 'C Network'];</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="st">    secD [label = 'D Evidence'];</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="st">  raw    -&gt; prep;</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="st">  derive -&gt; base;</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="st">  net    -&gt; secA;</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="st">  secD   -&gt; app;</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-bc756e646ca80176bf63" style="width:100%;height:260px;"></div>
-<script type="application/json" data-for="htmlwidget-bc756e646ca80176bf63">{"x":{"diagram":"\ndigraph methodology {\n  rankdir = LR;\n  graph [fontname = \"Helvetica\", nodesep = 0.3, ranksep = 0.7];\n  node  [fontname = \"Helvetica\", shape = box, style = \"filled,rounded\",\n         fontsize = 11, color = \"#2C5282\", fillcolor = \"#EBF4FF\",\n         fontcolor = \"#1A202C\", margin = \"0.12,0.08\"];\n  edge  [color = \"#4A5568\", arrowsize = 0.7];\n\n  raw [label = \"MC1 nested JSON\", fillcolor = \"#FEFCBF\", color = \"#B7791F\"];\n  app [label = \"Shiny app\", fillcolor = \"#FEFCBF\", color = \"#B7791F\"];\n\n  subgraph cluster_1 {\n    label = \"1  Data Preparation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    prep   [label = \"Flatten and clean\"];\n    tables [label = \"Three tables\"];\n    derive [label = \"Hierarchy and topics\"];\n    prep -> tables -> derive;\n  }\n\n  subgraph cluster_2 {\n    label = \"2  Analytical Computation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    base [label = \"Baseline split\"];\n    abn  [label = \"Abnormality\"];\n    byp  [label = \"Bypass\"];\n    net  [label = \"Network difference\"];\n    base -> abn;\n    base -> byp;\n    base -> net;\n  }\n\n  subgraph cluster_3 {\n    label = \"3  Interactive Presentation\";\n    fontname = \"Helvetica\"; fontsize = 12; fontcolor = \"#1A202C\";\n    style = \"filled,rounded\"; fillcolor = \"#F7FAFC\"; color = \"#CBD5E0\";\n    secA [label = \"A Activity\"];\n    secB [label = \"B Bypass\"];\n    secC [label = \"C Network\"];\n    secD [label = \"D Evidence\"];\n  }\n\n  raw    -> prep;\n  derive -> base;\n  net    -> secA;\n  secD   -> app;\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-</div>
+<p>The diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline and those signals are presented through the application’s tabs. This page covers the first stage, with the next two covered under <a href="../methodology/analytical-computation.html">Analytical Computation</a> and <a href="../methodology/interactive-presentation.html">Interactive Presentation</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/prep_pipeline.png" class="img-fluid figure-img"></p>
+<figcaption>The three-stage methodology pipeline, from the raw MC1 export to the A Study in Breach application.</figcaption>
+</figure>
 </div>
 </section>
 <section id="key-context" class="level2">
@@ -390,37 +326,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="source-data" class="level2">
-<h2 class="anchored" data-anchor-id="source-data">Source data</h2>
-<p>The data arrives as a nested JSON file holding 23 timeline rounds. Each round records an event headline, a short narrative and the messages exchanged in that round. The seven agents communicate over six channels of decreasing accountability, and the Judge was assigned to the communications huddle partway through the timeline as the compliance monitor.</p>
-</section>
-<section id="flattening-to-three-tables" class="level2">
-<h2 class="anchored" data-anchor-id="flattening-to-three-tables">Flattening to three tables</h2>
-<p>The nested timeline was flattened into three working tables. A message table of 912 rows holds one row per message with its sender, channel, recipients, content and the agent’s three private reasoning fields named reacting, rationalizing and deliberating. A round table of 23 rows holds each round’s headline and narrative. A network table holds the directed links between agents derived from the recipient lists.</p>
-<p>Types were fixed during the read so that every downstream axis orders correctly and every logical flag stays logical. Agent identity and channel were read as factors with explicit level orders, round and word counts as integers, and the embargo and recipient flags as logicals.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>The preparation uses jsonlite to parse the export, the tidyverse for the reshaping, lubridate for the timestamps and knitr for the table displays.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Reading the cleaned message table with fixed column types</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>messages_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/messages_clean.csv"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> readr<span class="sc">::</span><span class="fu">cols</span>(</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_idx        =</span> readr<span class="sc">::</span><span class="fu">col_integer</span>(),</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_hour_dt    =</span> readr<span class="sc">::</span><span class="fu">col_datetime</span>(),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">agent_id         =</span> readr<span class="sc">::</span><span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"legal_agent"</span>,<span class="st">"quality_agent"</span>,<span class="st">"pr_agent"</span>,<span class="st">"social_media_agent"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"pr_intern_agent"</span>,<span class="st">"intern_agent"</span>,<span class="st">"judge_agent"</span>)),</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">channel          =</span> readr<span class="sc">::</span><span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"comms_huddle"</span>,<span class="st">"one_on_one_chat"</span>,<span class="st">"side_huddle"</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"official_post"</span>,<span class="st">"personal_post"</span>,<span class="st">"anonymous_post"</span>)),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_keyword_count =</span> readr<span class="sc">::</span><span class="fu">col_integer</span>(),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipients_is_all     =</span> readr<span class="sc">::</span><span class="fu">col_logical</span>(),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_hit           =</span> readr<span class="sc">::</span><span class="fu">col_logical</span>(),</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default              =</span> readr<span class="sc">::</span><span class="fu">col_character</span>()</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<summary>Loading the packages</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(jsonlite, tidyverse, lubridate, knitr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+</div>
+</section>
+<section id="loading-the-raw-data" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-raw-data">Loading the raw data</h2>
+<p>The data arrives as a single nested JSON file. The top-level object holds a <code>rounds</code> list of 23 entries. Each round carries an <code>hour</code> timestamp, an <code>environment_context</code> with the event narrative, a <code>participants</code> list and a <code>communications</code> list of that round’s messages. Each message records its <code>message_id</code>, <code>agent_id</code>, <code>channel</code>, <code>recipients</code>, <code>message_type</code>, <code>responding_to</code>, <code>content</code> and <code>timestamp</code>, together with a nested <code>internal_state</code> holding the agent’s private reacting, rationalizing and deliberating fields.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Reading the nested JSON</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC1_final_00.json"</span>, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(raw<span class="sc">$</span>rounds)        <span class="co"># 23 timeline rounds</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(raw<span class="sc">$</span>rounds[[<span class="dv">1</span>]])    <span class="co"># "hour" "environment_context" "communications" "participants"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="flattening-the-rounds-to-messages" class="level2">
+<h2 class="anchored" data-anchor-id="flattening-the-rounds-to-messages">Flattening the rounds to messages</h2>
+<p>The nested timeline is flattened into one row per message. Walking each round and then each message inside it pulls the message fields up to the top level, collapses the recipient list into a semicolon-separated string and lifts the three private reasoning fields out of <code>internal_state</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Flattening every round’s communications into a message table</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>messages_raw <span class="ot">&lt;-</span> <span class="fu">imap_dfr</span>(raw<span class="sc">$</span>rounds, <span class="cf">function</span>(rd, i) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(rd<span class="sc">$</span>communications, <span class="cf">function</span>(m) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">round_idx      =</span> i,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">round_hour     =</span> rd<span class="sc">$</span>hour,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">message_id     =</span> m<span class="sc">$</span>message_id,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">timestamp      =</span> m<span class="sc">$</span>timestamp <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">agent_id       =</span> m<span class="sc">$</span>agent_id,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">channel        =</span> m<span class="sc">$</span>channel,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">message_type   =</span> m<span class="sc">$</span>message_type <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">responding_to  =</span> m<span class="sc">$</span>responding_to <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">recipients_csv =</span> <span class="fu">paste</span>(<span class="fu">unlist</span>(m<span class="sc">$</span>recipients), <span class="at">collapse =</span> <span class="st">";"</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">content        =</span> m<span class="sc">$</span>content <span class="sc">%||%</span> <span class="st">""</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">reacting       =</span> m<span class="sc">$</span>internal_state<span class="sc">$</span>reacting      <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">rationalizing  =</span> m<span class="sc">$</span>internal_state<span class="sc">$</span>rationalizing <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">deliberating   =</span> m<span class="sc">$</span>internal_state<span class="sc">$</span>deliberating  <span class="sc">%||%</span> <span class="cn">NA_character_</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="deriving-the-analysis-fields" class="level2">
+<h2 class="anchored" data-anchor-id="deriving-the-analysis-fields">Deriving the analysis fields</h2>
+<p>A handful of fields are derived from the flattened table. The ISO 8601 timestamps are parsed to datetimes. The recipient string yields a count and an all-recipients flag. The content gives a word count and an embargo-keyword count over the merger vocabulary. The round is labelled by period using the boundary the data itself carries, rounds 1 to 20 as the baseline and rounds 21 to 23 as the leak window.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Deriving timestamps, counts, the embargo flag and the period</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>embargo_pat <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">b(merger|civicloom|harborcrest|acquisition|deal|embargo|saltwind)</span><span class="sc">\\</span><span class="st">b"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>messages_clean <span class="ot">&lt;-</span> messages_raw <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_hour_dt         =</span> <span class="fu">ymd_hms</span>(round_hour),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">timestamp_dt          =</span> <span class="fu">ymd_hms</span>(timestamp),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipients_is_all     =</span> recipients_csv <span class="sc">==</span> <span class="st">"ALL"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipients_n          =</span> <span class="fu">if_else</span>(recipients_csv <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"ALL"</span>), <span class="dv">0</span>L,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">str_count</span>(recipients_csv, <span class="st">";"</span>) <span class="sc">+</span> <span class="dv">1</span>L),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">word_count            =</span> <span class="fu">str_count</span>(content, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_keyword_count =</span> <span class="fu">str_count</span>(<span class="fu">str_to_lower</span>(content), embargo_pat),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_hit           =</span> embargo_keyword_count <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_internal_state    =</span> <span class="sc">!</span>(<span class="fu">is.na</span>(reacting) <span class="sc">&amp;</span> <span class="fu">is.na</span>(rationalizing) <span class="sc">&amp;</span> <span class="fu">is.na</span>(deliberating)),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">period                =</span> <span class="fu">if_else</span>(round_idx <span class="sc">&lt;=</span> <span class="dv">20</span>, <span class="st">"Baseline"</span>, <span class="st">"Leak window"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(messages_clean, <span class="st">"data/messages_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The baseline-share and deviance fields named <code>baseline_prop</code> and <code>deviant</code> are not set here. They depend on the baseline the analyst chooses, so they are computed at the next stage and are described under <a href="../methodology/analytical-computation.html">Analytical Computation</a>.</p>
+</section>
+<section id="the-round-and-network-tables" class="level2">
+<h2 class="anchored" data-anchor-id="the-round-and-network-tables">The round and network tables</h2>
+<p>Two companion tables are saved alongside the messages. The round table keeps each round’s hour, its event narrative and a message count, and the network table holds the directed agent-to-agent links built from the recipient lists and weighted by message count.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Building the round and network tables</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rounds_clean <span class="ot">&lt;-</span> <span class="fu">imap_dfr</span>(raw<span class="sc">$</span>rounds, <span class="cf">function</span>(rd, i) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_idx       =</span> i,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_hour      =</span> rd<span class="sc">$</span>hour,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">event_narrative =</span> rd<span class="sc">$</span>environment_context<span class="sc">$</span>event_narrative <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_messages      =</span> <span class="fu">length</span>(rd<span class="sc">$</span>communications)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(rounds_clean, <span class="st">"data/rounds_clean.csv"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>recipient_to_agent <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">legal =</span> <span class="st">"legal_agent"</span>, <span class="at">platform_trust =</span> <span class="st">"quality_agent"</span>, <span class="at">pr =</span> <span class="st">"pr_agent"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">social_manager =</span> <span class="st">"social_media_agent"</span>, <span class="at">pr_intern =</span> <span class="st">"pr_intern_agent"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">intern =</span> <span class="st">"intern_agent"</span>, <span class="at">judge =</span> <span class="st">"judge_agent"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>network_clean <span class="ot">&lt;-</span> messages_clean <span class="sc">|&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>recipients_csv <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"ALL"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(recipients_csv, <span class="at">sep =</span> <span class="st">";"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">from =</span> agent_id, <span class="at">to =</span> <span class="fu">unname</span>(recipient_to_agent[recipients_csv])) <span class="sc">|&gt;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(to)) <span class="sc">|&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(round_idx, from, to, <span class="at">name =</span> <span class="st">"weight"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(network_clean, <span class="st">"data/network_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The same flattening is what the application performs on any uploaded file in its Case Intake tab, where each column is mapped to the field the analysis needs and each channel is marked as monitored, internal or public.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/guide_intake.png" class="img-fluid figure-img"></p>
+<figcaption>The Case Intake tab, where a dataset is loaded, its columns mapped and its channels classified before analysis.</figcaption>
+</figure>
 </div>
 </section>
 <section id="data-dictionary" class="level2">
@@ -520,187 +538,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>logical</td>
 <td>Whether the message carried embargo content</td>
 </tr>
+<tr class="odd">
+<td><code>period</code></td>
+<td>character</td>
+<td>Baseline for rounds 1 to 20, Leak window for rounds 21 to 23</td>
+</tr>
 </tbody>
 </table>
-<p>The round table holds one row per round with its <code>event_headline</code> and <code>event_narrative</code>, and the network table holds the directed <code>from</code> and <code>to</code> agent links with a message-count <code>weight</code>. Several analysis fields, such as the calm-period channel share and a deviance flag, were added to the message table during the computation stage and are described under <a href="../methodology/analytical-computation.html">Analytical Computation</a>.</p>
 </section>
 <section id="the-channel-accountability-ladder" class="level2">
 <h2 class="anchored" data-anchor-id="the-channel-accountability-ladder">The channel accountability ladder</h2>
 <p>The central reference structure is the channel accountability ladder. Every channel was ranked from most to least accountable and marked for whether the Judge can see it. A legitimate announcement should travel down this ladder, starting as internal discussion on a monitored channel and ending as an attributed public post. Content that reaches an unmonitored public channel without that accountable path is the signal the rest of the analysis looks for.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Building and drawing the accountability ladder</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ladder <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">channel   =</span> <span class="fu">c</span>(<span class="st">"Communications huddle"</span>,<span class="st">"One-on-one chat"</span>,<span class="st">"Side huddle"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Official post"</span>,<span class="st">"Personal post"</span>,<span class="st">"Anonymous post"</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">rank      =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">layer     =</span> <span class="fu">c</span>(<span class="st">"Internal"</span>,<span class="st">"Internal"</span>,<span class="st">"Internal"</span>,<span class="st">"Public"</span>,<span class="st">"Public"</span>,<span class="st">"Public"</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">monitored =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ladder, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">7</span> <span class="sc">-</span> rank, <span class="at">y =</span> <span class="fu">reorder</span>(channel, <span class="dv">7</span> <span class="sc">-</span> rank), <span class="at">fill =</span> monitored)) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> layer), <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#2F855A"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#9B2C2C"</span>),</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Monitored by the Judge"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Unmonitored"</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Accountability (longer bar means more visible to the Judge)"</span>,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"The six channels, ranked by accountability"</span>) <span class="sc">+</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="data-prep_files/figure-html/channel-ladder-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="../images/prep_ladder.png" class="img-fluid figure-img"></p>
+<figcaption>The six channels, ranked by accountability and marked for whether the Judge can see them.</figcaption>
 </figure>
-</div>
-</div>
 </div>
 </section>
 <section id="other-reference-structures" class="level2">
 <h2 class="anchored" data-anchor-id="other-reference-structures">Other reference structures</h2>
-<p>Two further structures were prepared. A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network edges connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics, covering legal, product trust, merger, media, market and compliance language, a keyword pattern so that every message can be tagged by the topics its content matches.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>The recipient lookup and the topic vocabulary</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>recipient_to_agent <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">legal =</span> <span class="st">"legal_agent"</span>, <span class="at">platform_trust =</span> <span class="st">"quality_agent"</span>, <span class="at">pr =</span> <span class="st">"pr_agent"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">social_manager =</span> <span class="st">"social_media_agent"</span>, <span class="at">pr_intern =</span> <span class="st">"pr_intern_agent"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">intern =</span> <span class="st">"intern_agent"</span>, <span class="at">judge =</span> <span class="st">"judge_agent"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>topic_patterns <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>topic,           <span class="sc">~</span>pattern,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Legal"</span>,          <span class="st">"</span><span class="sc">\\</span><span class="st">b(legal|counsel|consent|regulator|attorney|liability)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Product trust"</span>,  <span class="st">"</span><span class="sc">\\</span><span class="st">b(governance|audit|score|data|platform|algorithm)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Merger"</span>,         <span class="st">"</span><span class="sc">\\</span><span class="st">b(merger|civicloom|harborcrest|acquisition|deal)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Media"</span>,          <span class="st">"</span><span class="sc">\\</span><span class="st">b(saltwind|press|journalist|story|sentiment|denial)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Market"</span>,         <span class="st">"</span><span class="sc">\\</span><span class="st">b(market|stock|investor|residentiq|share)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Compliance"</span>,     <span class="st">"</span><span class="sc">\\</span><span class="st">b(embargo|monitoring|judge|compliance|oversight|policy)</span><span class="sc">\\</span><span class="st">b"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</section>
-<section id="data-overview" class="level2">
-<h2 class="anchored" data-anchor-id="data-overview">Data overview</h2>
-<p>With the tables in place, a first look confirms the shape of the data before any signal is computed. The three views below report the spread of messages across agents, across channels, and over the timeline.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Reading the cleaned tables for the overview</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>messages <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/messages_clean.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rounds   <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rounds_clean.csv"</span>,   <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>agent_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">legal_agent =</span> <span class="st">"Legal"</span>, <span class="at">quality_agent =</span> <span class="st">"Platform Trust"</span>, <span class="at">pr_agent =</span> <span class="st">"PR"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">social_media_agent =</span> <span class="st">"Social Media"</span>, <span class="at">pr_intern_agent =</span> <span class="st">"PR Intern"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">intern_agent =</span> <span class="st">"Intern"</span>, <span class="at">judge_agent =</span> <span class="st">"Judge"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>chan_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"comms_huddle"</span>,<span class="st">"one_on_one_chat"</span>,<span class="st">"side_huddle"</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"official_post"</span>,<span class="st">"personal_post"</span>,<span class="st">"anonymous_post"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<p>The seven agents are far from equal contributors. The Judge, as a monitor rather than a participant, speaks rarely, while the Legal and Social Media agents carry the most traffic.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>messages <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(agent_id) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agent =</span> <span class="fu">recode</span>(agent_id, <span class="sc">!!!</span>agent_labels)) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> <span class="fu">reorder</span>(agent, n))) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2C5282"</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">max</span>(<span class="fu">table</span>(messages<span class="sc">$</span>agent_id)) <span class="sc">*</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Messages"</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Message volume by agent"</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-prep_files/figure-html/messages-per-agent-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Most traffic sits on the two monitored internal channels. The unmonitored public channels carry far less volume overall, which is why a small burst of activity on them late in the timeline stands out.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>messages <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">channel =</span> <span class="fu">factor</span>(channel, <span class="at">levels =</span> chan_levels)) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(channel) <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> channel, <span class="at">y =</span> n,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> channel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"comms_huddle"</span>,<span class="st">"one_on_one_chat"</span>))) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#2F855A"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#9B2C2C"</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Monitored"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Unmonitored"</span>),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Messages"</span>, <span class="at">title =</span> <span class="st">"Message volume by channel"</span>) <span class="sc">+</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-prep_files/figure-html/messages-per-channel-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Messages per round separate the two regimes in the data. The pre-crisis rounds carry a steady, moderate load. From round 14 onward, the crisis day on 5 June, the rounds advance hour by hour and volume climbs as the story breaks publicly.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rounds <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> round_idx, <span class="at">y =</span> n_messages)) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#4A5568"</span>, <span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">13.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"#C05621"</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">13.5</span>, <span class="at">y =</span> <span class="fu">max</span>(rounds<span class="sc">$</span>n_messages),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">" crisis day begins"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">colour =</span> <span class="st">"#C05621"</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">23</span>, <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Round"</span>, <span class="at">y =</span> <span class="st">"Messages"</span>, <span class="at">title =</span> <span class="st">"Messages per round across the timeline"</span>) <span class="sc">+</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-prep_files/figure-html/activity-over-time-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Tagging messages with the merger keyword pattern shows the topic vocabulary in action. The merger is discussed on the monitored internal channels through the build-up, and the dark red bars, the anonymous channel, appear only in the closing rounds.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>channel_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">comms_huddle =</span> <span class="st">"#90CDF4"</span>, <span class="at">one_on_one_chat =</span> <span class="st">"#F6AD55"</span>, <span class="at">side_huddle =</span> <span class="st">"#FBD38D"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">official_post =</span> <span class="st">"#68D391"</span>, <span class="at">personal_post =</span> <span class="st">"#FC8181"</span>, <span class="at">anonymous_post =</span> <span class="st">"#742A2A"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>merger_pat <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">b(merger|civicloom|harborcrest|acquisition|deal)</span><span class="sc">\\</span><span class="st">b"</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>messages <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">tolower</span>(<span class="fu">coalesce</span>(content, <span class="st">""</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(text, merger_pat)) <span class="sc">|&gt;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">channel =</span> <span class="fu">factor</span>(channel, <span class="at">levels =</span> chan_levels)) <span class="sc">|&gt;</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(round_idx, channel, <span class="at">name =</span> <span class="st">"mentions"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(round_idx, mentions, <span class="at">fill =</span> channel)) <span class="sc">+</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> channel_palette, <span class="at">drop =</span> <span class="cn">FALSE</span>, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">23</span>, <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Round"</span>, <span class="at">y =</span> <span class="st">"Mentions"</span>, <span class="at">title =</span> <span class="st">"Merger-topic mentions by round and channel"</span>) <span class="sc">+</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-prep_files/figure-html/merger-topic-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network links connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics a keyword pattern so that every message can be tagged by the topics its content matches, and the analyst can edit the vocabulary or search for their own words.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Topic</th>
+<th>Keyword pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Legal</td>
+<td>legal, counsel, consent, regulator, attorney, liability</td>
+</tr>
+<tr class="even">
+<td>Product trust</td>
+<td>governance, audit, score, data, platform, algorithm</td>
+</tr>
+<tr class="odd">
+<td>Merger</td>
+<td>merger, civicloom, harborcrest, acquisition, deal</td>
+</tr>
+<tr class="even">
+<td>Media</td>
+<td>saltwind, press, journalist, story, sentiment, denial</td>
+</tr>
+<tr class="odd">
+<td>Market</td>
+<td>market, stock, investor, residentiq, share</td>
+</tr>
+<tr class="even">
+<td>Compliance</td>
+<td>embargo, monitoring, judge, compliance, oversight, policy</td>
+</tr>
+</tbody>
+</table>
 <p>The preparation stage produces the clean message, round and network tables together with the accountability ladder, the recipient lookup and the topic vocabulary. These feed the signal computation in <a href="../methodology/analytical-computation.html">Analytical Computation</a>.</p>
 
 
@@ -1160,306 +1056,192 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Data Preparation"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Methodology · Phase 1 of 3"</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 10, 2026"</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>::: {.lead-drop}</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>The methodology runs as the three-stage pipeline set out in the <span class="co">[</span><span class="ot">proposal</span><span class="co">](../proposal.qmd)</span>. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage.</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## The three-stage pipeline</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>The diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline, and those signals are presented through the four interactive sections. This page covers the first stage, with the next two covered under <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span> and <span class="co">[</span><span class="ot">Interactive Presentation</span><span class="co">](interactive-presentation.qmd)</span>.</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: methodology-pipeline</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.6</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Pipeline diagram"</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(DiagrammeR)</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="fu">grViz</span>(<span class="st">"</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="st">digraph methodology {</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="st">  rankdir = LR;</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [fontname = 'Helvetica', nodesep = 0.3, ranksep = 0.7];</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="st">  node  [fontname = 'Helvetica', shape = box, style = 'filled,rounded',</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="st">         fontsize = 11, color = '#2C5282', fillcolor = '#EBF4FF',</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="st">         fontcolor = '#1A202C', margin = '0.12,0.08'];</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="st">  edge  [color = '#4A5568', arrowsize = 0.7];</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="st">  raw [label = 'MC1 nested JSON', fillcolor = '#FEFCBF', color = '#B7791F'];</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="st">  app [label = 'Shiny app', fillcolor = '#FEFCBF', color = '#B7791F'];</span></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph cluster_1 {</span></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="st">    label = '1  Data Preparation';</span></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="st">    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';</span></span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="st">    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';</span></span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="st">    prep   [label = 'Flatten and clean'];</span></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="st">    tables [label = 'Three tables'];</span></span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="st">    derive [label = 'Hierarchy and topics'];</span></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="st">    prep -&gt; tables -&gt; derive;</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph cluster_2 {</span></span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="st">    label = '2  Analytical Computation';</span></span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="st">    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';</span></span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="st">    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';</span></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="st">    base [label = 'Baseline split'];</span></span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="st">    abn  [label = 'Abnormality'];</span></span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="st">    byp  [label = 'Bypass'];</span></span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="st">    net  [label = 'Network difference'];</span></span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="st">    base -&gt; abn;</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="st">    base -&gt; byp;</span></span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="st">    base -&gt; net;</span></span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="st">  subgraph cluster_3 {</span></span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="st">    label = '3  Interactive Presentation';</span></span>
-<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="st">    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';</span></span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="st">    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';</span></span>
-<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a><span class="st">    secA [label = 'A Activity'];</span></span>
-<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="st">    secB [label = 'B Bypass'];</span></span>
-<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="st">    secC [label = 'C Network'];</span></span>
-<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="st">    secD [label = 'D Evidence'];</span></span>
-<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="st">  raw    -&gt; prep;</span></span>
-<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="st">  derive -&gt; base;</span></span>
-<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="st">  net    -&gt; secA;</span></span>
-<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="st">  secD   -&gt; app;</span></span>
-<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
-<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key context</span></span>
-<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>The scenario is VAST Challenge 2026 Mini-Challenge 1. A property-technology company named TenantThread runs seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent named the Judge watches a subset of channels for violations. The analytical question is whether embargoed content reached the outside world through channels the Judge could not see, and if so, when and by whom.</span>
-<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Element <span class="pp">|</span> Value <span class="pp">|</span></span>
-<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rounds in the timeline <span class="pp">|</span> 23, from 17 May to 5 June <span class="pp">|</span></span>
-<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Agents <span class="pp">|</span> 7 (Legal, Platform Trust, PR, Social Media, PR Intern, Intern, Judge) <span class="pp">|</span></span>
-<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Channels <span class="pp">|</span> 6, from monitored internal to unmonitored public <span class="pp">|</span></span>
-<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Messages <span class="pp">|</span> 912 <span class="pp">|</span></span>
-<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Embargo lift <span class="pp">|</span> 6:00 PM on 5 June, the final round <span class="pp">|</span></span>
-<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Source data</span></span>
-<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>The data arrives as a nested JSON file holding 23 timeline rounds. Each round records an event headline, a short narrative and the messages exchanged in that round. The seven agents communicate over six channels of decreasing accountability, and the Judge was assigned to the communications huddle partway through the timeline as the compliance monitor.</span>
-<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## Flattening to three tables</span></span>
-<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>The nested timeline was flattened into three working tables. A message table of 912 rows holds one row per message with its sender, channel, recipients, content and the agent's three private reasoning fields named reacting, rationalizing and deliberating. A round table of 23 rows holds each round's headline and narrative. A network table holds the directed links between agents derived from the recipient lists.</span>
-<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>Types were fixed during the read so that every downstream axis orders correctly and every logical flag stays logical. Agent identity and channel were read as factors with explicit level orders, round and word counts as integers, and the embargo and recipient flags as logicals.</span>
-<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: load-data</span></span>
-<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Reading the cleaned message table with fixed column types"</span></span>
-<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>messages_tbl <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
-<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/messages_clean.csv"</span>,</span>
-<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> readr<span class="sc">::</span><span class="fu">cols</span>(</span>
-<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_idx        =</span> readr<span class="sc">::</span><span class="fu">col_integer</span>(),</span>
-<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_hour_dt    =</span> readr<span class="sc">::</span><span class="fu">col_datetime</span>(),</span>
-<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>    <span class="at">agent_id         =</span> readr<span class="sc">::</span><span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>      <span class="st">"legal_agent"</span>,<span class="st">"quality_agent"</span>,<span class="st">"pr_agent"</span>,<span class="st">"social_media_agent"</span>,</span>
-<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a>      <span class="st">"pr_intern_agent"</span>,<span class="st">"intern_agent"</span>,<span class="st">"judge_agent"</span>)),</span>
-<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>    <span class="at">channel          =</span> readr<span class="sc">::</span><span class="fu">col_factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>      <span class="st">"comms_huddle"</span>,<span class="st">"one_on_one_chat"</span>,<span class="st">"side_huddle"</span>,</span>
-<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>      <span class="st">"official_post"</span>,<span class="st">"personal_post"</span>,<span class="st">"anonymous_post"</span>)),</span>
-<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_keyword_count =</span> readr<span class="sc">::</span><span class="fu">col_integer</span>(),</span>
-<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipients_is_all     =</span> readr<span class="sc">::</span><span class="fu">col_logical</span>(),</span>
-<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_hit           =</span> readr<span class="sc">::</span><span class="fu">col_logical</span>(),</span>
-<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default              =</span> readr<span class="sc">::</span><span class="fu">col_character</span>()</span>
-<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data dictionary</span></span>
-<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>The message table is the working unit of the analysis. Its main fields are below. Each row is one message.</span>
-<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Type <span class="pp">|</span> Meaning <span class="pp">|</span></span>
-<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`round_idx`</span> <span class="pp">|</span> integer <span class="pp">|</span> Round number, 1 to 23 <span class="pp">|</span></span>
-<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`round_hour_dt`</span> <span class="pp">|</span> datetime <span class="pp">|</span> In-scenario hour the round represents <span class="pp">|</span></span>
-<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`message_id`</span> <span class="pp">|</span> character <span class="pp">|</span> Unique identifier for the message <span class="pp">|</span></span>
-<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`agent_id`</span> <span class="pp">|</span> factor <span class="pp">|</span> The agent that sent the message <span class="pp">|</span></span>
-<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`channel`</span> <span class="pp">|</span> factor <span class="pp">|</span> Channel the message was sent on, from the accountability ladder <span class="pp">|</span></span>
-<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`message_type`</span> <span class="pp">|</span> character <span class="pp">|</span> Broadcast or reply <span class="pp">|</span></span>
-<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`responding_to`</span> <span class="pp">|</span> character <span class="pp">|</span> The <span class="in">`message_id`</span> this message replies to, if any <span class="pp">|</span></span>
-<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`recipients_csv`</span> <span class="pp">|</span> character <span class="pp">|</span> Recipient short names separated by semicolons, or <span class="in">`ALL`</span> for a broadcast <span class="pp">|</span></span>
-<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`recipients_is_all`</span> <span class="pp">|</span> logical <span class="pp">|</span> Whether the message went to everyone <span class="pp">|</span></span>
-<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`content`</span> <span class="pp">|</span> character <span class="pp">|</span> The visible message text <span class="pp">|</span></span>
-<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`reacting`</span> <span class="pp">|</span> character <span class="pp">|</span> The agent's private reaction to the moment <span class="pp">|</span></span>
-<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`rationalizing`</span> <span class="pp">|</span> character <span class="pp">|</span> The agent's private justification of its choice <span class="pp">|</span></span>
-<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`deliberating`</span> <span class="pp">|</span> character <span class="pp">|</span> The agent's private weighing of options <span class="pp">|</span></span>
-<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`word_count`</span> <span class="pp">|</span> integer <span class="pp">|</span> Words in <span class="in">`content`</span> <span class="pp">|</span></span>
-<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`embargo_keyword_count`</span> <span class="pp">|</span> integer <span class="pp">|</span> Count of embargo-related keywords found in <span class="in">`content`</span> <span class="pp">|</span></span>
-<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`embargo_hit`</span> <span class="pp">|</span> logical <span class="pp">|</span> Whether the message carried embargo content <span class="pp">|</span></span>
-<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>The round table holds one row per round with its <span class="in">`event_headline`</span> and <span class="in">`event_narrative`</span>, and the network table holds the directed <span class="in">`from`</span> and <span class="in">`to`</span> agent links with a message-count <span class="in">`weight`</span>. Several analysis fields, such as the calm-period channel share and a deviance flag, were added to the message table during the computation stage and are described under <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
-<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## The channel accountability ladder</span></span>
-<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>The central reference structure is the channel accountability ladder. Every channel was ranked from most to least accountable and marked for whether the Judge can see it. A legitimate announcement should travel down this ladder, starting as internal discussion on a monitored channel and ending as an attributed public post. Content that reaches an unmonitored public channel without that accountable path is the signal the rest of the analysis looks for.</span>
-<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: channel-ladder</span></span>
-<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2.8</span></span>
-<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Building and drawing the accountability ladder"</span></span>
-<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a>ladder <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a>  <span class="at">channel   =</span> <span class="fu">c</span>(<span class="st">"Communications huddle"</span>,<span class="st">"One-on-one chat"</span>,<span class="st">"Side huddle"</span>,</span>
-<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Official post"</span>,<span class="st">"Personal post"</span>,<span class="st">"Anonymous post"</span>),</span>
-<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a>  <span class="at">rank      =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
-<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a>  <span class="at">layer     =</span> <span class="fu">c</span>(<span class="st">"Internal"</span>,<span class="st">"Internal"</span>,<span class="st">"Internal"</span>,<span class="st">"Public"</span>,<span class="st">"Public"</span>,<span class="st">"Public"</span>),</span>
-<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>  <span class="at">monitored =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ladder, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">7</span> <span class="sc">-</span> rank, <span class="at">y =</span> <span class="fu">reorder</span>(channel, <span class="dv">7</span> <span class="sc">-</span> rank), <span class="at">fill =</span> monitored)) <span class="sc">+</span></span>
-<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> layer), <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
-<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#2F855A"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#9B2C2C"</span>),</span>
-<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Monitored by the Judge"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Unmonitored"</span>),</span>
-<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Accountability (longer bar means more visible to the Judge)"</span>,</span>
-<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"The six channels, ranked by accountability"</span>) <span class="sc">+</span></span>
-<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
-<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other reference structures</span></span>
-<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>Two further structures were prepared. A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network edges connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics, covering legal, product trust, merger, media, market and compliance language, a keyword pattern so that every message can be tagged by the topics its content matches.</span>
-<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: reference-structures</span></span>
-<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "The recipient lookup and the topic vocabulary"</span></span>
-<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a>recipient_to_agent <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>  <span class="at">legal =</span> <span class="st">"legal_agent"</span>, <span class="at">platform_trust =</span> <span class="st">"quality_agent"</span>, <span class="at">pr =</span> <span class="st">"pr_agent"</span>,</span>
-<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>  <span class="at">social_manager =</span> <span class="st">"social_media_agent"</span>, <span class="at">pr_intern =</span> <span class="st">"pr_intern_agent"</span>,</span>
-<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a>  <span class="at">intern =</span> <span class="st">"intern_agent"</span>, <span class="at">judge =</span> <span class="st">"judge_agent"</span>)</span>
-<span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-202"><a href="#cb10-202" aria-hidden="true" tabindex="-1"></a>topic_patterns <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
-<span id="cb10-203"><a href="#cb10-203" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>topic,           <span class="sc">~</span>pattern,</span>
-<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Legal"</span>,          <span class="st">"</span><span class="sc">\\</span><span class="st">b(legal|counsel|consent|regulator|attorney|liability)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Product trust"</span>,  <span class="st">"</span><span class="sc">\\</span><span class="st">b(governance|audit|score|data|platform|algorithm)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb10-206"><a href="#cb10-206" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Merger"</span>,         <span class="st">"</span><span class="sc">\\</span><span class="st">b(merger|civicloom|harborcrest|acquisition|deal)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Media"</span>,          <span class="st">"</span><span class="sc">\\</span><span class="st">b(saltwind|press|journalist|story|sentiment|denial)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb10-208"><a href="#cb10-208" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Market"</span>,         <span class="st">"</span><span class="sc">\\</span><span class="st">b(market|stock|investor|residentiq|share)</span><span class="sc">\\</span><span class="st">b"</span>,</span>
-<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Compliance"</span>,     <span class="st">"</span><span class="sc">\\</span><span class="st">b(embargo|monitoring|judge|compliance|oversight|policy)</span><span class="sc">\\</span><span class="st">b"</span>)</span>
-<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data overview</span></span>
-<span id="cb10-213"><a href="#cb10-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-214"><a href="#cb10-214" aria-hidden="true" tabindex="-1"></a>With the tables in place, a first look confirms the shape of the data before any signal is computed. The three views below report the spread of messages across agents, across channels, and over the timeline.</span>
-<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-218"><a href="#cb10-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-219"><a href="#cb10-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: overview-setup</span></span>
-<span id="cb10-220"><a href="#cb10-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Reading the cleaned tables for the overview"</span></span>
-<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a>messages <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/messages_clean.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a>rounds   <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rounds_clean.csv"</span>,   <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a>agent_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>  <span class="at">legal_agent =</span> <span class="st">"Legal"</span>, <span class="at">quality_agent =</span> <span class="st">"Platform Trust"</span>, <span class="at">pr_agent =</span> <span class="st">"PR"</span>,</span>
-<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a>  <span class="at">social_media_agent =</span> <span class="st">"Social Media"</span>, <span class="at">pr_intern_agent =</span> <span class="st">"PR Intern"</span>,</span>
-<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a>  <span class="at">intern_agent =</span> <span class="st">"Intern"</span>, <span class="at">judge_agent =</span> <span class="st">"Judge"</span>)</span>
-<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a>chan_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"comms_huddle"</span>,<span class="st">"one_on_one_chat"</span>,<span class="st">"side_huddle"</span>,</span>
-<span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"official_post"</span>,<span class="st">"personal_post"</span>,<span class="st">"anonymous_post"</span>)</span>
-<span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a>The seven agents are far from equal contributors. The Judge, as a monitor rather than a participant, speaks rarely, while the Legal and Social Media agents carry the most traffic.</span>
-<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-238"><a href="#cb10-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: messages-per-agent</span></span>
-<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.0</span></span>
-<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a>messages <span class="sc">|&gt;</span></span>
-<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(agent_id) <span class="sc">|&gt;</span></span>
-<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agent =</span> <span class="fu">recode</span>(agent_id, <span class="sc">!!!</span>agent_labels)) <span class="sc">|&gt;</span></span>
-<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> <span class="fu">reorder</span>(agent, n))) <span class="sc">+</span></span>
-<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2C5282"</span>) <span class="sc">+</span></span>
-<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
-<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">max</span>(<span class="fu">table</span>(messages<span class="sc">$</span>agent_id)) <span class="sc">*</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Messages"</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Message volume by agent"</span>) <span class="sc">+</span></span>
-<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a>Most traffic sits on the two monitored internal channels. The unmonitored public channels carry far less volume overall, which is why a small burst of activity on them late in the timeline stands out.</span>
-<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: messages-per-channel</span></span>
-<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.0</span></span>
-<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a>messages <span class="sc">|&gt;</span></span>
-<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">channel =</span> <span class="fu">factor</span>(channel, <span class="at">levels =</span> chan_levels)) <span class="sc">|&gt;</span></span>
-<span id="cb10-261"><a href="#cb10-261" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(channel) <span class="sc">|&gt;</span></span>
-<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> channel, <span class="at">y =</span> n,</span>
-<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> channel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"comms_huddle"</span>,<span class="st">"one_on_one_chat"</span>))) <span class="sc">+</span></span>
-<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#2F855A"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#9B2C2C"</span>),</span>
-<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Monitored"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Unmonitored"</span>),</span>
-<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a>                    <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Messages"</span>, <span class="at">title =</span> <span class="st">"Message volume by channel"</span>) <span class="sc">+</span></span>
-<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
-<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a>Messages per round separate the two regimes in the data. The pre-crisis rounds carry a steady, moderate load. From round 14 onward, the crisis day on 5 June, the rounds advance hour by hour and volume climbs as the story breaks publicly.</span>
-<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-277"><a href="#cb10-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: activity-over-time</span></span>
-<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.0</span></span>
-<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a>rounds <span class="sc">|&gt;</span></span>
-<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> round_idx, <span class="at">y =</span> n_messages)) <span class="sc">+</span></span>
-<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#4A5568"</span>, <span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">13.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"#C05621"</span>) <span class="sc">+</span></span>
-<span id="cb10-284"><a href="#cb10-284" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">13.5</span>, <span class="at">y =</span> <span class="fu">max</span>(rounds<span class="sc">$</span>n_messages),</span>
-<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">" crisis day begins"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">colour =</span> <span class="st">"#C05621"</span>) <span class="sc">+</span></span>
-<span id="cb10-286"><a href="#cb10-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">23</span>, <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb10-287"><a href="#cb10-287" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Round"</span>, <span class="at">y =</span> <span class="st">"Messages"</span>, <span class="at">title =</span> <span class="st">"Messages per round across the timeline"</span>) <span class="sc">+</span></span>
-<span id="cb10-288"><a href="#cb10-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb10-289"><a href="#cb10-289" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb10-290"><a href="#cb10-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-291"><a href="#cb10-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-292"><a href="#cb10-292" aria-hidden="true" tabindex="-1"></a>Tagging messages with the merger keyword pattern shows the topic vocabulary in action. The merger is discussed on the monitored internal channels through the build-up, and the dark red bars, the anonymous channel, appear only in the closing rounds.</span>
-<span id="cb10-293"><a href="#cb10-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-296"><a href="#cb10-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-297"><a href="#cb10-297" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: merger-topic</span></span>
-<span id="cb10-298"><a href="#cb10-298" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.0</span></span>
-<span id="cb10-299"><a href="#cb10-299" aria-hidden="true" tabindex="-1"></a>channel_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb10-300"><a href="#cb10-300" aria-hidden="true" tabindex="-1"></a>  <span class="at">comms_huddle =</span> <span class="st">"#90CDF4"</span>, <span class="at">one_on_one_chat =</span> <span class="st">"#F6AD55"</span>, <span class="at">side_huddle =</span> <span class="st">"#FBD38D"</span>,</span>
-<span id="cb10-301"><a href="#cb10-301" aria-hidden="true" tabindex="-1"></a>  <span class="at">official_post =</span> <span class="st">"#68D391"</span>, <span class="at">personal_post =</span> <span class="st">"#FC8181"</span>, <span class="at">anonymous_post =</span> <span class="st">"#742A2A"</span>)</span>
-<span id="cb10-302"><a href="#cb10-302" aria-hidden="true" tabindex="-1"></a>merger_pat <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">b(merger|civicloom|harborcrest|acquisition|deal)</span><span class="sc">\\</span><span class="st">b"</span></span>
-<span id="cb10-303"><a href="#cb10-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-304"><a href="#cb10-304" aria-hidden="true" tabindex="-1"></a>messages <span class="sc">|&gt;</span></span>
-<span id="cb10-305"><a href="#cb10-305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">tolower</span>(<span class="fu">coalesce</span>(content, <span class="st">""</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb10-306"><a href="#cb10-306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(text, merger_pat)) <span class="sc">|&gt;</span></span>
-<span id="cb10-307"><a href="#cb10-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">channel =</span> <span class="fu">factor</span>(channel, <span class="at">levels =</span> chan_levels)) <span class="sc">|&gt;</span></span>
-<span id="cb10-308"><a href="#cb10-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(round_idx, channel, <span class="at">name =</span> <span class="st">"mentions"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-309"><a href="#cb10-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(round_idx, mentions, <span class="at">fill =</span> channel)) <span class="sc">+</span></span>
-<span id="cb10-310"><a href="#cb10-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb10-311"><a href="#cb10-311" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> channel_palette, <span class="at">drop =</span> <span class="cn">FALSE</span>, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb10-312"><a href="#cb10-312" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">23</span>, <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb10-313"><a href="#cb10-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Round"</span>, <span class="at">y =</span> <span class="st">"Mentions"</span>, <span class="at">title =</span> <span class="st">"Merger-topic mentions by round and channel"</span>) <span class="sc">+</span></span>
-<span id="cb10-314"><a href="#cb10-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb10-315"><a href="#cb10-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb10-316"><a href="#cb10-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-317"><a href="#cb10-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-318"><a href="#cb10-318" aria-hidden="true" tabindex="-1"></a>The preparation stage produces the clean message, round and network tables together with the accountability ladder, the recipient lookup and the topic vocabulary. These feed the signal computation in <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Data Preparation"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Methodology · Phase 1 of 3"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 23, 2026"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>::: {.lead-drop}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>The methodology runs as the three-stage pipeline set out in the <span class="co">[</span><span class="ot">proposal</span><span class="co">](../proposal.qmd)</span>. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses and the signals are shown through the interactive application. This page covers the first stage. It follows the same preparation workflow as the Big Fish <span class="co">[</span><span class="ot">Data Preparation</span><span class="co">](https://isss608-202324g4.netlify.app/methodology/data_preparation)</span> reference, parsing the nested JSON with jsonlite, extracting it into tidy tibbles, deriving the analysis fields and saving a clean table for the app. The data shape differs, as the reference prepares a node-and-edge graph while this scenario is a per-round message log flattened to one row per message.</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## The three-stage pipeline</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>The diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline and those signals are presented through the application's tabs. This page covers the first stage, with the next two covered under <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span> and <span class="co">[</span><span class="ot">Interactive Presentation</span><span class="co">](interactive-presentation.qmd)</span>.</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="al">![The three-stage methodology pipeline, from the raw MC1 export to the A Study in Breach application.](../images/prep_pipeline.png)</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key context</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>The scenario is VAST Challenge 2026 Mini-Challenge 1. A property-technology company named TenantThread runs seven AI agents through a public-relations crisis while a merger with CivicLoom sits under embargo. A compliance agent named the Judge watches a subset of channels for violations. The analytical question is whether embargoed content reached the outside world through channels the Judge could not see, and if so, when and by whom.</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Element <span class="pp">|</span> Value <span class="pp">|</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Rounds in the timeline <span class="pp">|</span> 23, from 17 May to 5 June <span class="pp">|</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Agents <span class="pp">|</span> 7 (Legal, Platform Trust, PR, Social Media, PR Intern, Intern, Judge) <span class="pp">|</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Channels <span class="pp">|</span> 6, from monitored internal to unmonitored public <span class="pp">|</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Messages <span class="pp">|</span> 912 <span class="pp">|</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Embargo lift <span class="pp">|</span> 6:00 PM on 5 June, the final round <span class="pp">|</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setup</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>The preparation uses jsonlite to parse the export, the tidyverse for the reshaping, lubridate for the timestamps and knitr for the table displays.</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Loading the packages"</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(jsonlite, tidyverse, lubridate, knitr)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loading the raw data</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>The data arrives as a single nested JSON file. The top-level object holds a <span class="in">`rounds`</span> list of 23 entries. Each round carries an <span class="in">`hour`</span> timestamp, an <span class="in">`environment_context`</span> with the event narrative, a <span class="in">`participants`</span> list and a <span class="in">`communications`</span> list of that round's messages. Each message records its <span class="in">`message_id`</span>, <span class="in">`agent_id`</span>, <span class="in">`channel`</span>, <span class="in">`recipients`</span>, <span class="in">`message_type`</span>, <span class="in">`responding_to`</span>, <span class="in">`content`</span> and <span class="in">`timestamp`</span>, together with a nested <span class="in">`internal_state`</span> holding the agent's private reacting, rationalizing and deliberating fields.</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Reading the nested JSON"</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC1_final_00.json"</span>, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(raw<span class="sc">$</span>rounds)        <span class="co"># 23 timeline rounds</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(raw<span class="sc">$</span>rounds[[<span class="dv">1</span>]])    <span class="co"># "hour" "environment_context" "communications" "participants"</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Flattening the rounds to messages</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>The nested timeline is flattened into one row per message. Walking each round and then each message inside it pulls the message fields up to the top level, collapses the recipient list into a semicolon-separated string and lifts the three private reasoning fields out of <span class="in">`internal_state`</span>.</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Flattening every round's communications into a message table"</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>messages_raw <span class="ot">&lt;-</span> <span class="fu">imap_dfr</span>(raw<span class="sc">$</span>rounds, <span class="cf">function</span>(rd, i) {</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(rd<span class="sc">$</span>communications, <span class="cf">function</span>(m) {</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>      <span class="at">round_idx      =</span> i,</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>      <span class="at">round_hour     =</span> rd<span class="sc">$</span>hour,</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>      <span class="at">message_id     =</span> m<span class="sc">$</span>message_id,</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>      <span class="at">timestamp      =</span> m<span class="sc">$</span>timestamp <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>      <span class="at">agent_id       =</span> m<span class="sc">$</span>agent_id,</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>      <span class="at">channel        =</span> m<span class="sc">$</span>channel,</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>      <span class="at">message_type   =</span> m<span class="sc">$</span>message_type <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>      <span class="at">responding_to  =</span> m<span class="sc">$</span>responding_to <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>      <span class="at">recipients_csv =</span> <span class="fu">paste</span>(<span class="fu">unlist</span>(m<span class="sc">$</span>recipients), <span class="at">collapse =</span> <span class="st">";"</span>),</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>      <span class="at">content        =</span> m<span class="sc">$</span>content <span class="sc">%||%</span> <span class="st">""</span>,</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>      <span class="at">reacting       =</span> m<span class="sc">$</span>internal_state<span class="sc">$</span>reacting      <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>      <span class="at">rationalizing  =</span> m<span class="sc">$</span>internal_state<span class="sc">$</span>rationalizing <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>      <span class="at">deliberating   =</span> m<span class="sc">$</span>internal_state<span class="sc">$</span>deliberating  <span class="sc">%||%</span> <span class="cn">NA_character_</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Deriving the analysis fields</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>A handful of fields are derived from the flattened table. The ISO 8601 timestamps are parsed to datetimes. The recipient string yields a count and an all-recipients flag. The content gives a word count and an embargo-keyword count over the merger vocabulary. The round is labelled by period using the boundary the data itself carries, rounds 1 to 20 as the baseline and rounds 21 to 23 as the leak window.</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Deriving timestamps, counts, the embargo flag and the period"</span></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>embargo_pat <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">b(merger|civicloom|harborcrest|acquisition|deal|embargo|saltwind)</span><span class="sc">\\</span><span class="st">b"</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>messages_clean <span class="ot">&lt;-</span> messages_raw <span class="sc">|&gt;</span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_hour_dt         =</span> <span class="fu">ymd_hms</span>(round_hour),</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">timestamp_dt          =</span> <span class="fu">ymd_hms</span>(timestamp),</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipients_is_all     =</span> recipients_csv <span class="sc">==</span> <span class="st">"ALL"</span>,</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipients_n          =</span> <span class="fu">if_else</span>(recipients_csv <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"ALL"</span>), <span class="dv">0</span>L,</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">str_count</span>(recipients_csv, <span class="st">";"</span>) <span class="sc">+</span> <span class="dv">1</span>L),</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">word_count            =</span> <span class="fu">str_count</span>(content, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>),</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_keyword_count =</span> <span class="fu">str_count</span>(<span class="fu">str_to_lower</span>(content), embargo_pat),</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">embargo_hit           =</span> embargo_keyword_count <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_internal_state    =</span> <span class="sc">!</span>(<span class="fu">is.na</span>(reacting) <span class="sc">&amp;</span> <span class="fu">is.na</span>(rationalizing) <span class="sc">&amp;</span> <span class="fu">is.na</span>(deliberating)),</span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>    <span class="at">period                =</span> <span class="fu">if_else</span>(round_idx <span class="sc">&lt;=</span> <span class="dv">20</span>, <span class="st">"Baseline"</span>, <span class="st">"Leak window"</span>)</span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(messages_clean, <span class="st">"data/messages_clean.csv"</span>)</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>The baseline-share and deviance fields named <span class="in">`baseline_prop`</span> and <span class="in">`deviant`</span> are not set here. They depend on the baseline the analyst chooses, so they are computed at the next stage and are described under <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## The round and network tables</span></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>Two companion tables are saved alongside the messages. The round table keeps each round's hour, its event narrative and a message count, and the network table holds the directed agent-to-agent links built from the recipient lists and weighted by message count.</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Building the round and network tables"</span></span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>rounds_clean <span class="ot">&lt;-</span> <span class="fu">imap_dfr</span>(raw<span class="sc">$</span>rounds, <span class="cf">function</span>(rd, i) {</span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_idx       =</span> i,</span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_hour      =</span> rd<span class="sc">$</span>hour,</span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>    <span class="at">event_narrative =</span> rd<span class="sc">$</span>environment_context<span class="sc">$</span>event_narrative <span class="sc">%||%</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_messages      =</span> <span class="fu">length</span>(rd<span class="sc">$</span>communications)</span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(rounds_clean, <span class="st">"data/rounds_clean.csv"</span>)</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>recipient_to_agent <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>  <span class="at">legal =</span> <span class="st">"legal_agent"</span>, <span class="at">platform_trust =</span> <span class="st">"quality_agent"</span>, <span class="at">pr =</span> <span class="st">"pr_agent"</span>,</span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>  <span class="at">social_manager =</span> <span class="st">"social_media_agent"</span>, <span class="at">pr_intern =</span> <span class="st">"pr_intern_agent"</span>,</span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>  <span class="at">intern =</span> <span class="st">"intern_agent"</span>, <span class="at">judge =</span> <span class="st">"judge_agent"</span>)</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>network_clean <span class="ot">&lt;-</span> messages_clean <span class="sc">|&gt;</span></span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>recipients_csv <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"ALL"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_rows</span>(recipients_csv, <span class="at">sep =</span> <span class="st">";"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">from =</span> agent_id, <span class="at">to =</span> <span class="fu">unname</span>(recipient_to_agent[recipients_csv])) <span class="sc">|&gt;</span></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(to)) <span class="sc">|&gt;</span></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(round_idx, from, to, <span class="at">name =</span> <span class="st">"weight"</span>)</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(network_clean, <span class="st">"data/network_clean.csv"</span>)</span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>The same flattening is what the application performs on any uploaded file in its Case Intake tab, where each column is mapped to the field the analysis needs and each channel is marked as monitored, internal or public.</span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a><span class="al">![The Case Intake tab, where a dataset is loaded, its columns mapped and its channels classified before analysis.](../images/guide_intake.png)</span></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data dictionary</span></span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>The message table is the working unit of the analysis. Its main fields are below. Each row is one message.</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Field <span class="pp">|</span> Type <span class="pp">|</span> Meaning <span class="pp">|</span></span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`round_idx`</span> <span class="pp">|</span> integer <span class="pp">|</span> Round number, 1 to 23 <span class="pp">|</span></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`round_hour_dt`</span> <span class="pp">|</span> datetime <span class="pp">|</span> In-scenario hour the round represents <span class="pp">|</span></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`message_id`</span> <span class="pp">|</span> character <span class="pp">|</span> Unique identifier for the message <span class="pp">|</span></span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`agent_id`</span> <span class="pp">|</span> factor <span class="pp">|</span> The agent that sent the message <span class="pp">|</span></span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`channel`</span> <span class="pp">|</span> factor <span class="pp">|</span> Channel the message was sent on, from the accountability ladder <span class="pp">|</span></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`message_type`</span> <span class="pp">|</span> character <span class="pp">|</span> Broadcast or reply <span class="pp">|</span></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`responding_to`</span> <span class="pp">|</span> character <span class="pp">|</span> The <span class="in">`message_id`</span> this message replies to, if any <span class="pp">|</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`recipients_csv`</span> <span class="pp">|</span> character <span class="pp">|</span> Recipient short names separated by semicolons, or <span class="in">`ALL`</span> for a broadcast <span class="pp">|</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`recipients_is_all`</span> <span class="pp">|</span> logical <span class="pp">|</span> Whether the message went to everyone <span class="pp">|</span></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`content`</span> <span class="pp">|</span> character <span class="pp">|</span> The visible message text <span class="pp">|</span></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`reacting`</span> <span class="pp">|</span> character <span class="pp">|</span> The agent's private reaction to the moment <span class="pp">|</span></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`rationalizing`</span> <span class="pp">|</span> character <span class="pp">|</span> The agent's private justification of its choice <span class="pp">|</span></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`deliberating`</span> <span class="pp">|</span> character <span class="pp">|</span> The agent's private weighing of options <span class="pp">|</span></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`word_count`</span> <span class="pp">|</span> integer <span class="pp">|</span> Words in <span class="in">`content`</span> <span class="pp">|</span></span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`embargo_keyword_count`</span> <span class="pp">|</span> integer <span class="pp">|</span> Count of embargo-related keywords found in <span class="in">`content`</span> <span class="pp">|</span></span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`embargo_hit`</span> <span class="pp">|</span> logical <span class="pp">|</span> Whether the message carried embargo content <span class="pp">|</span></span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`period`</span> <span class="pp">|</span> character <span class="pp">|</span> Baseline for rounds 1 to 20, Leak window for rounds 21 to 23 <span class="pp">|</span></span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## The channel accountability ladder</span></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>The central reference structure is the channel accountability ladder. Every channel was ranked from most to least accountable and marked for whether the Judge can see it. A legitimate announcement should travel down this ladder, starting as internal discussion on a monitored channel and ending as an attributed public post. Content that reaches an unmonitored public channel without that accountable path is the signal the rest of the analysis looks for.</span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="al">![The six channels, ranked by accountability and marked for whether the Judge can see them.](../images/prep_ladder.png)</span></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other reference structures</span></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network links connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics a keyword pattern so that every message can be tagged by the topics its content matches, and the analyst can edit the vocabulary or search for their own words.</span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Topic <span class="pp">|</span> Keyword pattern <span class="pp">|</span></span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Legal <span class="pp">|</span> legal, counsel, consent, regulator, attorney, liability <span class="pp">|</span></span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Product trust <span class="pp">|</span> governance, audit, score, data, platform, algorithm <span class="pp">|</span></span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Merger <span class="pp">|</span> merger, civicloom, harborcrest, acquisition, deal <span class="pp">|</span></span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Media <span class="pp">|</span> saltwind, press, journalist, story, sentiment, denial <span class="pp">|</span></span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Market <span class="pp">|</span> market, stock, investor, residentiq, share <span class="pp">|</span></span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Compliance <span class="pp">|</span> embargo, monitoring, judge, compliance, oversight, policy <span class="pp">|</span></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a>The preparation stage produces the clean message, round and network tables together with the accountability ladder, the recipient lookup and the topic vocabulary. These feed the signal computation in <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -1,37 +1,160 @@
 ---
-title: "Shiny App — User Guide"
+title: "A Study in Breach, User Guide"
+subtitle: "How to use the CSM TraceForce investigation app"
 author: "CSM TraceForce"
-date: "June 10, 2026"
+date: "June 23, 2026"
+toc: true
+toc-depth: 3
+number-sections: true
+format:
+  html: default
+  pdf:
+    toc: true
+    number-sections: true
+    geometry: margin=2.5cm
 ---
 
-> *(placeholder)* A walkthrough of the application and how to use each tab. A link to the live app will be added here once it is deployed.
+[The Field Manual]{.kicker}
 
-## Getting started
+## Overview
 
-_How to open the app and what the landing tab shows._
+A Study in Breach turns a multi-agent communication log into an investigation you can run by eye. It scores every round of the scenario on four abnormality signals, lets you place the line between normal and suspect behaviour and then drills from a high-level pattern down to the individual messages that stand as evidence.
 
-## The four tabs
+![The five tabs and the dataset indicator.]( images/guide_navbar.png )
 
-### 1. Activity & Abnormality
-_What it shows and the controls (date range, baseline slider, agent filters, time)._
+The app has five tabs, meant to be read left to right, moving from the overview toward the evidence.
 
-![](images/prototype_activity.png)
+1. **The Case Board** is the overview. It scores each round on the four signals and is where you set the analysis settings that every other tab reads.
+2. **Behaviour** shows channel drift, where an agent uses a channel far more or far less than it normally does.
+3. **Connections** shows the agent-to-agent network and how it changes between rounds.
+4. **Evidence** is where you read the messages, with a bypass lens for posts that reached the outside world without oversight.
+5. **Case Intake** is where a new dataset is loaded.
 
-### 2. The Bypass
-_..._
+A single set of analysis settings, chosen on the Case Board, flows into every tab, so changing the baseline once updates the whole investigation. Clicking a result moves you toward the evidence rather than opening a separate screen.
 
-![](images/prototype_bypass.png)
+::: {.callout-note}
+Throughout the app, hovering any bar, cell or node shows a tooltip with the exact figures, and clicking moves you to the matching detail. A small "Dataset" indicator at the top right shows which file is loaded.
+:::
 
-### 3. Network
-_..._
+## Shared elements
 
-![](images/prototype_network.png)
+**The analysis highlight strip** is the band at the top of each tab that reports the key number for the current view, for example the most abnormal round or the count of bypassed chats.
 
-### 4. Topics & Evidence
-_..._
+**Click to investigate.** Hot cells, bars and nodes are clickable. A click carries the round and the current settings into the matching tab, so you never lose your place.
 
-![](images/prototype_evidence.png)
+## The Case Board
 
-## Tips
+The Case Board is the entry point and the control room. It scores every round on the four signals and holds the analysis settings that flow into every other tab. The numbers in the image match the descriptions below it.
 
-_The baseline slider on the Activity tab affects every tab; all other inputs are local._
+![The Case Board. Box 1 is the settings sidebar, box 2 the analysis highlight strip, box 3 the signals-over-time strips above the abnormality heatmap.]( images/guide_caseboard_annotated.png )
+
+**1. Settings sidebar.** Holds the analysis settings, grouped by the signal each one drives. Every control is covered in detail further below.
+
+**2. Analysis highlight strip.** Reports the most abnormal round and the signals that drive it, along with where the baseline currently ends.
+
+**3. Signals over time and the abnormality heatmap (how to read it).** The top strips plot each tunable signal per round, so you can see where activity builds. Click any bar to set the baseline there, and the shaded rounds are the baseline period. The heatmap below scores every round on each signal, and the darker a cell the more abnormal that round is. The Overall row blends the four. Click any hot cell to jump to the matching tab at that round.
+
+::: {.callout-tip}
+The four signals are Channel drift (an agent changing which channels it uses), Bypass (a public post the Judge could not have cleared), Network (new or dropped connections versus the baseline) and Topic (a spike in mentions of the tracked topic).
+:::
+
+### The settings in detail
+
+Every analysis threshold lives in the Case Board sidebar and flows into all the other tabs. The numbers in the close-up match the list below it, and each entry says exactly what changes when you move it.
+
+![The Case Board sidebar, with each control numbered.]( images/guide_settings_annotated.png ){width=62%}
+
+**1. Suggest settings (button).** Fills in a recommended baseline and signal settings in one click. The baseline is detected from the data and placed just before outside posting begins, the unusual-channel cutoff is set to five per cent, the spike size to two times and the minimum messages per link to one. Everything stays adjustable afterward.
+
+**2. Last baseline round (slider).** Sets the end of the baseline period, the early rounds treated as normal. Rounds up to and including this value are the baseline, and later rounds are the suspect period. Drag it right to treat more rounds as normal, left to treat fewer. You can also click a bar on the timeline to set it. Channel drift, Network and Topic are all measured against this period, so this is the single most important control. The default is the last round the data labels as baseline.
+
+**3. Unusual-Channel Activity (slider, per cent).** The cutoff for the Channel drift signal. A channel is flagged for an agent when that agent's share of its messages on that channel in a round differs from its baseline share by at least this many percentage points, in either direction, whether the agent used the channel much more or much less than usual. Move it right and only larger departures are flagged, so fewer cells light up and the baseline rounds quieten down. Move it left and smaller wobbles count, so more is flagged. The default is the lowest setting, which flags the most.
+
+**4. Topics to track (dropdown).** Chooses which topics the Topic signal counts. Pick one or several and their keyword patterns are combined. Leave it blank to track all topics at once. The default is Merger.
+
+**5. Or search words (text box).** Overrides the dropdown with your own words. Separate several words with commas to count messages mentioning any of them. Clear it to fall back to the dropdown.
+
+**6. Spike size (slider, times baseline).** The threshold for the Topic signal. A round counts as a spike when its topic mentions exceed this multiple of the baseline-period average. Move it right and only bigger surges count, move it left and smaller increases register. The default is the lowest setting.
+
+**7. Minimum messages per link (slider).** A noise filter for the Network signal. A connection between two agents is only counted once it carries at least this many messages, so one-off messages are ignored. Move it right to ignore weaker links. The default is one, which keeps every link.
+
+## Behaviour
+
+The Behaviour tab answers who is acting out of character. The numbers in the image match the descriptions below it.
+
+![The Behaviour tab. Box 1 the round picker, box 2 the highlight strip, box 3 the channel-drift grid, box 4 the drift summary.]( images/guide_behaviour_annotated.png )
+
+**1. Round to inspect (sidebar).** The slider chooses which round the grid shows. The marker strip beneath it flags the rounds with the most drift, so the darker marks point you to the rounds worth opening. What counts as drift is set by the baseline and the Unusual-Channel Activity cutoff, both chosen on the Case Board.
+
+**2. Analysis highlight strip.** Reports the headline for the chosen round, the number of channel drifts and the agent that drifted most.
+
+**3. Channel activity grid (how to read it).** Each row is a channel and each column an agent. A cell's colour is how far that agent's use of the channel this round departs from its baseline share, red for much more than usual and blue for much less, and the number inside is the message count. Pale or empty cells are normal, so the strongest reds and blues are the out-of-character behaviour. Click an agent to open the Connections tab focused on this round.
+
+**4. Drift summary.** The top chart, drifting channels per round, shows how many channels drifted in each round, so you can see when behaviour broke from the baseline. The list below ranks the agents that drifted most across the suspect period.
+
+## Connections
+
+The Connections tab answers who is talking to whom and how that changes between rounds. The numbers in the image match the descriptions below it.
+
+![The Connections tab. Box 1 the controls, box 2 the highlight strip, box 3 the network graph, box 4 the connections table, box 5 the link timeline.]( images/guide_connections_annotated.png )
+
+**1. View and comparison controls (sidebar).** View switches between the who-talks-to-whom graph and the agents-and-channels view. Compare two rounds is a two-handle slider, the left handle the earlier round and the right the later. The channel reference table below names each channel and whether the Judge monitors it.
+
+**2. Analysis highlight strip.** Reports the new and dropped links between the two compared rounds.
+
+**3. Network graph (how to read it).** Each node is an agent and its size is the number of connections it has. Each arrow is a directed link from sender to recipient, coloured by message volume, and a greyed arrow is a link that dropped since the earlier round. The two panels are the two rounds you are comparing, so the change between them is the story. Click a node to list that agent's connections.
+
+**4. Connections table.** Lists the selected agent's links with messages sent and received. The round toggle above the table switches it between the two compared rounds. Pick a row and click Read these messages in Evidence to read the chats on that link.
+
+**5. Link timeline (how to read it).** Each row is a pair of agents and each column a round, and a filled cell means the pair was connected that round, so a row of cells is a relationship over time and a gap is a break. Show links involving, above the timeline, keeps only links where both selected agents appear, so select at least two. The Total links row matches the Case Board.
+
+## Evidence
+
+The Evidence tab is where every trail ends, in the messages themselves. The Bypass only switch at the top decides what the page is about, and the two states are shown below. The numbers in each image match the descriptions below it.
+
+With **Bypass only on**, the page is about chats that reached the outside without oversight.
+
+![The Evidence tab with the bypass lens on. Box 1 the filters, box 2 the highlight strip, box 3 the bypassed-posts plot, box 4 the bypassed-chats table.]( images/guide_evidence_bypass_annotated.png )
+
+**1. Filters (sidebar).** Bypass only switches the page between bypassed chats and all chats. Topics narrows to chosen topics and is left blank to track all, while the search box overrides it and accepts comma-separated words. Agents and Time period narrow the view further, and Show all rounds clears a clicked-round focus.
+
+**2. Analysis highlight strip.** Reports how many chats bypassed oversight and the average bypass likelihood.
+
+**3. Bypassed posts plot (how to read it).** Each bar is a round and its height is the number of bypassed posts, with redder bars carrying higher bypass likelihood. Click a bar to focus the table on that round.
+
+**4. Bypassed chats table.** Every chat that reached the outside without oversight, scored by how likely it slipped past the Judge. When a round is focused, the table also shows the watched messages that would have cleared those posts, so you can compare what was said in the open against what was kept hidden.
+
+With **Bypass only off**, the page becomes every chat in the log.
+
+![The Evidence tab with the bypass lens off. Box 1 the toggle, box 2 the chats-by-round plot, box 3 the message table with private reasoning.]( images/guide_evidence_messages_annotated.png )
+
+**1. Bypass only toggle.** Turned off, the page shows every chat rather than only the bypassed ones.
+
+**2. Chats by round plot (how to read it).** Each bar is a round and its height is the number of chats, split by channel colour so you can see where the talk happened.
+
+**3. All chats table.** Every message with the agent's private reasoning shown alongside, in the Reacting, Rationalizing and Deliberating columns, so you can read intent next to the words that were sent.
+
+## Case Intake
+
+The Case Intake tab loads the data the rest of the app analyses. The numbers in the image match the descriptions below it.
+
+![The Case Intake tab. Box 1 upload, box 2 column mapping, box 3 channel classification, box 4 the load button, box 5 the guidance and preview panel.]( images/guide_intake_annotated.png )
+
+**1. Upload.** Upload a file, either the cleaned message CSV or the company JSON export. Download CSV template gives you the expected column layout.
+
+**2. Map your columns.** The dropdowns tell the app which column in your file holds each field it needs, round, sender, channel, recipients and message text, and they pre-guess from your headers.
+
+**3. Classify each channel.** Mark each channel as monitored, internal or public. This is what decides whether a public post counts as a bypass.
+
+**4. Confirm and load data.** Applies the mapping and runs every tab on the new dataset. The dataset indicator at the top right then updates.
+
+**5. Guidance and preview panel.** The right column explains the tab and checks your file. About this app and How to use this tab walk through the steps, Validation flags any problems with the mapping, and Preview shows the first rows mapped to the schema, so you can confirm everything before you load.
+
+## A recommended workflow
+
+A typical investigation runs the tabs in order.
+
+1. On the Case Board, click Suggest, then read the heatmap for the rounds and signals that stand out.
+2. Click the hottest cell to drill into the matching tab for the detail.
+3. From Behaviour or Connections, follow a suspicious agent or link into Evidence.
+4. In Evidence, read the messages and the private reasoning behind them to confirm what happened.

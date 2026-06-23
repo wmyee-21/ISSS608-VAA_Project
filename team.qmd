@@ -9,11 +9,16 @@ Three analysts, two cats and one embargo that did not stand a chance. We built t
 
 ::: {.team-grid}
 
+<!-- Animated avatars: replace the .jpg with an animated mark_avatar.gif or .webp
+     (the <img> plays it automatically), or swap the <img class="avatar" ...> for
+     <video class="avatar" src="images/mark_avatar.mp4" autoplay loop muted playsinline></video>
+     for a video clip. The video is styled to match in styles.css. -->
+
 ::: {.member-card}
 <img class="avatar" src="images/mark_avatar.jpg" alt="Mark Yee">
 <div class="member-name">Mark Yee</div>
 <div class="member-role">Lead Investigator</div>
-Keeper of the deerstalker and the master plan. Pins channels to the board, mutters "follow the messages" at the screen, and stops the cat from sitting on the keyboard mid-render.
+Keeper of the deerstalker and the master plan. Pins channels to the board, mutters "follow the messages" at the screen and stops the cat from sitting on the keyboard mid-render.
 :::
 
 ::: {.member-card}
@@ -34,8 +39,16 @@ Reads the evidence and the agents' private thoughts with equal delight. No keywo
 
 ## Project contributions
 
-| Member | Contribution |
-|---|---|
-| Mark Yee | Project direction, proposal and website, activity and breach views |
-| Serene Cheng | Topic selection and the network analysis |
-| Carina Faith Peh | Topic and evidence analysis, and user experience |
+Everyone had a hand in every part. The table marks who led each area and who supported it.
+
+| Area | Main | Support |
+|---|---|---|
+| Project direction | Mark | Serene, Carina |
+| Data preparation | Mark | Serene, Carina |
+| Network analysis | Serene | Mark, Carina |
+| Activity and bypass analysis | Serene | Mark, Carina |
+| Topic and evidence analysis | Carina | Mark, Serene |
+| Shiny app and website | Mark | Serene, Carina |
+| User experience and design | Carina | Mark, Serene |
+| Report and documentation | Carina | Mark, Serene |
+| Poster design | Serene | Mark, Carina |

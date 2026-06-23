@@ -1,9 +1,16 @@
 ---
 title: "Shiny App"
-subtitle: "Coming soon"
+subtitle: "A Study in Breach"
 toc: false
 ---
 
-The CSM TraceForce Shiny application is in active development and will be published here once it has been deployed.
+The CSM TraceForce application, A Study in Breach, is live. Open it in a new tab at [myvaa.shinyapps.io/VAA_ShinyApp](https://myvaa.shinyapps.io/VAA_ShinyApp/), or use it embedded below. The [User Guide](user-guide.qmd) walks through the five tabs and what each one does.
 
-In the meantime, the [User Guide](user-guide.qmd) walks through the four sections of the application and what each one does.
+[Launch the app in a new tab](https://myvaa.shinyapps.io/VAA_ShinyApp/){.btn .btn-primary target="_blank" rel="noopener"}
+
+<iframe src="https://myvaa.shinyapps.io/VAA_ShinyApp/"
+        width="100%" height="820"
+        style="border:1px solid #e8c4d4; border-radius:.6rem; margin-top:1rem;"
+        loading="lazy"
+        title="A Study in Breach Shiny application">
+</iframe>

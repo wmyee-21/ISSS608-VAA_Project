@@ -24,10 +24,10 @@ website:
             text: "Data Preparation"
           - href: methodology/analytical-computation.qmd
             text: "Analytical Computation"
-          - href: findings.qmd
-            text: "Findings"
           - href: methodology/interactive-presentation.qmd
             text: "Interactive Presentation"
+      - href: findings.qmd
+        text: Findings
       - href: poster.qmd
         text: Poster
       - href: minutes.qmd
@@ -39,7 +39,7 @@ website:
           - href: user-guide.qmd
             text: "User Guide"
           - href: shiny-app.qmd
-            text: "Launch App (coming soon)"
+            text: "Launch App"
     right:
       - text: GitHub
         icon: github
@@ -50,6 +50,14 @@ website:
           - text: "Shiny App Repo"
             href: "https://github.com/wmyee-21/ISSS608-VAA_ShinyApp"
             target: _blank
+  sidebar:
+    - title: "Meeting Minutes"
+      style: floating
+      contents:
+        - text: "Meeting 1 · Topic selection"
+          href: minutes.qmd
+        - text: "Meeting 2 · Dashboard refinement"
+          href: minutes-2.qmd
   page-footer:
     center: "CSM TraceForce · Cari-On, Be Serene, Mark it Done · ISSS608 Visual Analytics & Applications"
 

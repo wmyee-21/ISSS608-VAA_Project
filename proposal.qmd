@@ -18,7 +18,7 @@ execute:
 
 # Motivation
 
-::: {.lead-drop}
+::: lead-drop
 Companies are beginning to hand communication and decision work to teams of AI agents that message one another across shared channels. The speed and volume that makes these agents useful also makes misconduct hard to spot.
 :::
 
@@ -61,7 +61,7 @@ A legitimate announcement should travel from the most accountable channel down t
 
 ## Diagram
 
-The methodology runs as a three-stage pipeline. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections.
+The methodology runs as a three-stage pipeline. Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses and the signals are shown through four interactive sections.
 
 ```{r}
 #| label: methodology-diagram

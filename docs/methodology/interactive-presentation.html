@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="CSM TraceForce">
-<meta name="dcterms.date" content="2026-06-10">
+<meta name="dcterms.date" content="2026-06-23">
 
 <title>Interactive Presentation – CSM TraceForce</title>
 <style>
@@ -156,15 +156,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Analytical Computation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../findings.html">
- <span class="dropdown-text">Findings</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../methodology/interactive-presentation.html">
  <span class="dropdown-text">Interactive Presentation</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../findings.html"> 
+<span class="menu-text">Findings</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link" href="../poster.html"> 
 <span class="menu-text">Poster</span></a>
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../shiny-app.html">
- <span class="dropdown-text">Launch App (coming soon)</span></a>
+ <span class="dropdown-text">Launch App</span></a>
   </li>  
     </ul>
   </li>
@@ -227,11 +227,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-shared-interaction-pattern" id="toc-a-shared-interaction-pattern" class="nav-link active" data-scroll-target="#a-shared-interaction-pattern">A shared interaction pattern</a></li>
-  <li><a href="#section-a-activity-and-abnormality" id="toc-section-a-activity-and-abnormality" class="nav-link" data-scroll-target="#section-a-activity-and-abnormality">Section A, Activity and abnormality</a></li>
-  <li><a href="#section-b-the-bypass" id="toc-section-b-the-bypass" class="nav-link" data-scroll-target="#section-b-the-bypass">Section B, The bypass</a></li>
-  <li><a href="#section-c-network" id="toc-section-c-network" class="nav-link" data-scroll-target="#section-c-network">Section C, Network</a></li>
-  <li><a href="#section-d-topics-and-evidence" id="toc-section-d-topics-and-evidence" class="nav-link" data-scroll-target="#section-d-topics-and-evidence">Section D, Topics and evidence</a></li>
+  <li><a href="#one-set-of-settings-shared-across-the-app" id="toc-one-set-of-settings-shared-across-the-app" class="nav-link active" data-scroll-target="#one-set-of-settings-shared-across-the-app">One set of settings, shared across the app</a></li>
+  <li><a href="#the-case-board" id="toc-the-case-board" class="nav-link" data-scroll-target="#the-case-board">The Case Board</a></li>
+  <li><a href="#behaviour" id="toc-behaviour" class="nav-link" data-scroll-target="#behaviour">Behaviour</a></li>
+  <li><a href="#connections" id="toc-connections" class="nav-link" data-scroll-target="#connections">Connections</a></li>
+  <li><a href="#evidence" id="toc-evidence" class="nav-link" data-scroll-target="#evidence">Evidence</a></li>
+  <li><a href="#case-intake" id="toc-case-intake" class="nav-link" data-scroll-target="#case-intake">Case Intake</a></li>
   <li><a href="#from-the-application-to-the-findings" id="toc-from-the-application-to-the-findings" class="nav-link" data-scroll-target="#from-the-application-to-the-findings">From the application to the findings</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   </ul>
@@ -260,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 10, 2026</p>
+      <p class="date">June 23, 2026</p>
     </div>
   </div>
   
@@ -273,39 +274,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="lead-drop">
-<p>The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in <a href="../methodology/analytical-computation.html">Analytical Computation</a>.</p>
+<p>The final stage builds the Shiny application, A Study in Breach, around the signals. Its five tabs follow an investigation. The analyst first reads an overview and defines what is normal, then examines who acted out of character, then reads how the network changed and finally inspects the message evidence. A fifth tab loads new data. Each tab presents one of the signals computed in <a href="../methodology/analytical-computation.html">Analytical Computation</a>.</p>
 </div>
-<section id="a-shared-interaction-pattern" class="level2">
-<h2 class="anchored" data-anchor-id="a-shared-interaction-pattern">A shared interaction pattern</h2>
-<p>Across all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next.</p>
+<section id="one-set-of-settings-shared-across-the-app" class="level2">
+<h2 class="anchored" data-anchor-id="one-set-of-settings-shared-across-the-app">One set of settings, shared across the app</h2>
+<p>The largest change from the prototype is that the analysis settings now live in one place and flow into every tab. The Case Board owns the baseline and the signal thresholds, and the other tabs read them, so moving the baseline once re-scores the whole investigation rather than each section in isolation. A single agent palette and a single channel palette are reused everywhere, so an agent or a channel keeps its identity from one tab to the next. Results are clickable throughout. A click on a heatmap cell, a bar or a node carries the round and the current settings into the matching tab, so the analyst drills from a high-level pattern toward the evidence without losing their place.</p>
 </section>
-<section id="section-a-activity-and-abnormality" class="level2">
-<h2 class="anchored" data-anchor-id="section-a-activity-and-abnormality">Section A, Activity and abnormality</h2>
-<p>This is the entry point. It sets the baseline and shows where each agent is using channels it does not normally use. The main view is an abnormality grid placing agents against channels, with each cell shaded by how unusual that channel is for that agent. The axes are held fixed across rounds so that only colour and count change as the analyst steps through time, which keeps the round-to-round comparison stable. A round slider with a play control steps through time, and a second figure reports how many flagged messages survive under an earlier baseline so the analyst can judge whether the finding is robust.</p>
-<p><img src="../images/prototype_activity.png" class="img-fluid"></p>
+<section id="the-case-board" class="level2">
+<h2 class="anchored" data-anchor-id="the-case-board">The Case Board</h2>
+<p>The Case Board is the entry point and the control room. It scores every round on the four abnormality signals, channel drift, bypass, network change and topic, and lays them out as a heatmap of signals against rounds where a darker cell is a more abnormal round. Above the heatmap a set of strips plots each tunable signal per round on a shared time axis, so the analyst can see where activity builds before placing the baseline. Clicking a bar sets the baseline there, and clicking a hot cell opens the matching tab at that round. A Suggest button detects a sensible baseline from the data and fills in starting thresholds, which the analyst is free to adjust.</p>
+<p><img src="../images/guide_caseboard.png" class="img-fluid"></p>
 </section>
-<section id="section-b-the-bypass" class="level2">
-<h2 class="anchored" data-anchor-id="section-b-the-bypass">Section B, The bypass</h2>
-<p>This finds public posts that reached outside without oversight. Posts on unmonitored public channels are drawn as a time series coloured by agent, with the stronger and likely-explained distinction carried in opacity. A click on any round filters the evidence table beneath to that round’s posts, so the analyst moves from the aggregate pattern to the underlying content in one step.</p>
-<p><img src="../images/prototype_bypass.png" class="img-fluid"></p>
+<section id="behaviour" class="level2">
+<h2 class="anchored" data-anchor-id="behaviour">Behaviour</h2>
+<p>The Behaviour tab answers who acted out of character. It measures channel drift, how far an agent’s mix of channels in a round departs from its baseline mix, in either direction, so a channel an agent suddenly leans on and one it abandons both register. The main view is a grid of channels against agents for the selected round, each cell shaded from blue for much less than usual to red for much more, with the message count inside. A round picker steps through time and a summary ranks the agents that drifted most across the suspect period. Clicking an agent opens the Connections tab focused on that round.</p>
+<p><img src="../images/guide_behaviour.png" class="img-fluid"></p>
 </section>
-<section id="section-c-network" class="level2">
-<h2 class="anchored" data-anchor-id="section-c-network">Section C, Network</h2>
-<p>This shows how the communication structure changed. Two rounds are shown side by side on a fixed circular layout, with each link coloured green when new, red when dropped and grey when unchanged between them. A bipartite view shows which channels each agent used, which exposes drift toward the low-accountability channels as a change in structure. Holding the layout constant means a change in the wiring is read as a change in colour rather than position.</p>
-<p><img src="../images/prototype_network.png" class="img-fluid"></p>
+<section id="connections" class="level2">
+<h2 class="anchored" data-anchor-id="connections">Connections</h2>
+<p>The Connections tab shows how the communication structure changed. Two rounds are drawn side by side so a new or dropped link reads as a change between the panels, with each arrow coloured by message volume and greyed when it dropped since the earlier round. A link timeline below shows, for every pair of agents, which rounds they were connected, which exposes relationships forming and breaking across the whole scenario. Selecting an agent lists its connections, and a row opens those messages directly in the Evidence tab.</p>
+<p><img src="../images/guide_connections.png" class="img-fluid"></p>
 </section>
-<section id="section-d-topics-and-evidence" class="level2">
-<h2 class="anchored" data-anchor-id="section-d-topics-and-evidence">Section D, Topics and evidence</h2>
-<p>This connects the signals to the actual text. The analyst explores by round to see what each agent talked about, or by topic to see every round and channel where it appeared. An evidence table beneath the chart exposes each message’s content alongside the agent’s private reasoning fields, which closes the path from an aggregate pattern down to the specific evidence behind it.</p>
-<p><img src="../images/prototype_evidence.png" class="img-fluid"></p>
+<section id="evidence" class="level2">
+<h2 class="anchored" data-anchor-id="evidence">Evidence</h2>
+<p>The Evidence tab connects the signals to the actual text. A bypass lens, on by default, lists the public posts that reached outside without a monitored trace, scored by how likely each one slipped past the Judge. The score is a probability rather than a yes or no, computed from how closely the post matches what the agent already said on a watched channel. When a round is selected the table also shows those supporting watched messages, so the open statement and the hidden context can be read together. Turning the lens off opens every chat with the agent’s private reasoning shown alongside, which closes the path from an aggregate pattern down to the specific evidence behind it.</p>
+<p><img src="../images/guide_evidence_bypass.png" class="img-fluid"></p>
+</section>
+<section id="case-intake" class="level2">
+<h2 class="anchored" data-anchor-id="case-intake">Case Intake</h2>
+<p>The Case Intake tab loads the data the rest of the app analyses. It accepts the cleaned message log or the company export, maps each column the analysis needs and lets the analyst mark each channel as monitored, internal or public, which is what decides whether a public post counts as a bypass. A validation and preview panel confirms the mapping before the dataset is loaded, after which every tab re-computes on the new data.</p>
+<p><img src="../images/guide_intake.png" class="img-fluid"></p>
 </section>
 <section id="from-the-application-to-the-findings" class="level2">
 <h2 class="anchored" data-anchor-id="from-the-application-to-the-findings">From the application to the findings</h2>
-<p>Working through the four sections in order produces the results reported on the <a href="../findings.html">Findings</a> page. A guided walkthrough of the live application is on the <a href="../user-guide.html">Shiny App user guide</a>.</p>
+<p>Working through the tabs in order produces the results reported on the <a href="../findings.html">Findings</a> page. A guided walkthrough of the live application is in the <a href="../user-guide.html">user guide</a>.</p>
 </section>
 <section id="limitations" class="level2">
 <h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
-<p>The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on the length of the look-back window and on where the baseline boundary is drawn, which is why the application exposes both controls rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. Finally, the application reports what each agent did and where its content appeared, and it stops short of asserting intent.</p>
+<p>The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on where the baseline boundary is drawn and on how closely an outside post matches what the agent already said on a watched channel, which is why the application exposes the baseline control and the supporting messages rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. The application runs entirely on the machine that hosts it and stores no API keys and depends on no paid or external services, so the bypass measures meaning through latent semantic analysis computed on the data at hand rather than a hosted language model, which keeps the tool free, self-contained and private but makes its sense of meaning narrower than a large pretrained model would give. Finally, the four signals report what each agent did and where its content appeared, and they stop short of asserting intent on their own. The Evidence tab surfaces the messages and the private reasoning behind them, so a reader can weigh intent from the evidence, which is the reading the Findings page sets out.</p>
 
 
 <!-- -->
@@ -768,48 +774,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Interactive Presentation"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Methodology · Phase 3 of 3"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "CSM TraceForce"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 10, 2026"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "June 23, 2026"</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>::: {.lead-drop}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>The final stage builds the Shiny application around the signals. The four sections follow an investigation. The analyst first defines what is normal, then detects the bypass, then reads the network change and finally inspects the message evidence. Each section presents one of the signals computed in <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>The final stage builds the Shiny application, A Study in Breach, around the signals. Its five tabs follow an investigation. The analyst first reads an overview and defines what is normal, then examines who acted out of character, then reads how the network changed and finally inspects the message evidence. A fifth tab loads new data. Each tab presents one of the signals computed in <span class="co">[</span><span class="ot">Analytical Computation</span><span class="co">](analytical-computation.qmd)</span>.</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## A shared interaction pattern</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## One set of settings, shared across the app</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Across all four sections the same pattern holds. The analyst gains an overview, filters or steps through time, and opens a row for the message text on demand. The baseline slider in the first section is the one shared control, recomputing the abnormality, bypass and network views together, while every other input acts only on its own section. A single agent palette and a single channel palette are reused everywhere so that an agent or a channel keeps its identity from one section to the next.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>The largest change from the prototype is that the analysis settings now live in one place and flow into every tab. The Case Board owns the baseline and the signal thresholds, and the other tabs read them, so moving the baseline once re-scores the whole investigation rather than each section in isolation. A single agent palette and a single channel palette are reused everywhere, so an agent or a channel keeps its identity from one tab to the next. Results are clickable throughout. A click on a heatmap cell, a bar or a node carries the round and the current settings into the matching tab, so the analyst drills from a high-level pattern toward the evidence without losing their place.</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section A, Activity and abnormality</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Case Board</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>This is the entry point. It sets the baseline and shows where each agent is using channels it does not normally use. The main view is an abnormality grid placing agents against channels, with each cell shaded by how unusual that channel is for that agent. The axes are held fixed across rounds so that only colour and count change as the analyst steps through time, which keeps the round-to-round comparison stable. A round slider with a play control steps through time, and a second figure reports how many flagged messages survive under an earlier baseline so the analyst can judge whether the finding is robust.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>The Case Board is the entry point and the control room. It scores every round on the four abnormality signals, channel drift, bypass, network change and topic, and lays them out as a heatmap of signals against rounds where a darker cell is a more abnormal round. Above the heatmap a set of strips plots each tunable signal per round on a shared time axis, so the analyst can see where activity builds before placing the baseline. Clicking a bar sets the baseline there, and clicking a hot cell opens the matching tab at that round. A Suggest button detects a sensible baseline from the data and fills in starting thresholds, which the analyst is free to adjust.</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_activity.png)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/guide_caseboard.png)</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section B, The bypass</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Behaviour</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>This finds public posts that reached outside without oversight. Posts on unmonitored public channels are drawn as a time series coloured by agent, with the stronger and likely-explained distinction carried in opacity. A click on any round filters the evidence table beneath to that round's posts, so the analyst moves from the aggregate pattern to the underlying content in one step.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>The Behaviour tab answers who acted out of character. It measures channel drift, how far an agent's mix of channels in a round departs from its baseline mix, in either direction, so a channel an agent suddenly leans on and one it abandons both register. The main view is a grid of channels against agents for the selected round, each cell shaded from blue for much less than usual to red for much more, with the message count inside. A round picker steps through time and a summary ranks the agents that drifted most across the suspect period. Clicking an agent opens the Connections tab focused on that round.</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_bypass.png)</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/guide_behaviour.png)</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section C, Network</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Connections</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>This shows how the communication structure changed. Two rounds are shown side by side on a fixed circular layout, with each link coloured green when new, red when dropped and grey when unchanged between them. A bipartite view shows which channels each agent used, which exposes drift toward the low-accountability channels as a change in structure. Holding the layout constant means a change in the wiring is read as a change in colour rather than position.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>The Connections tab shows how the communication structure changed. Two rounds are drawn side by side so a new or dropped link reads as a change between the panels, with each arrow coloured by message volume and greyed when it dropped since the earlier round. A link timeline below shows, for every pair of agents, which rounds they were connected, which exposes relationships forming and breaking across the whole scenario. Selecting an agent lists its connections, and a row opens those messages directly in the Evidence tab.</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_network.png)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/guide_connections.png)</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section D, Topics and evidence</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evidence</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>This connects the signals to the actual text. The analyst explores by round to see what each agent talked about, or by topic to see every round and channel where it appeared. An evidence table beneath the chart exposes each message's content alongside the agent's private reasoning fields, which closes the path from an aggregate pattern down to the specific evidence behind it.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>The Evidence tab connects the signals to the actual text. A bypass lens, on by default, lists the public posts that reached outside without a monitored trace, scored by how likely each one slipped past the Judge. The score is a probability rather than a yes or no, computed from how closely the post matches what the agent already said on a watched channel. When a round is selected the table also shows those supporting watched messages, so the open statement and the hidden context can be read together. Turning the lens off opens every chat with the agent's private reasoning shown alongside, which closes the path from an aggregate pattern down to the specific evidence behind it.</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/prototype_evidence.png)</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/guide_evidence_bypass.png)</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## From the application to the findings</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Case Intake</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Working through the four sections in order produces the results reported on the <span class="co">[</span><span class="ot">Findings</span><span class="co">](../findings.qmd)</span> page. A guided walkthrough of the live application is on the <span class="co">[</span><span class="ot">Shiny App user guide</span><span class="co">](../user-guide.qmd)</span>.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>The Case Intake tab loads the data the rest of the app analyses. It accepts the cleaned message log or the company export, maps each column the analysis needs and lets the analyst mark each channel as monitored, internal or public, which is what decides whether a public post counts as a bypass. A validation and preview panel confirms the mapping before the dataset is loaded, after which every tab re-computes on the new data.</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![](../images/guide_intake.png)</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on the length of the look-back window and on where the baseline boundary is drawn, which is why the application exposes both controls rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. Finally, the application reports what each agent did and where its content appeared, and it stops short of asserting intent.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## From the application to the findings</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>Working through the tabs in order produces the results reported on the <span class="co">[</span><span class="ot">Findings</span><span class="co">](../findings.qmd)</span> page. A guided walkthrough of the live application is in the <span class="co">[</span><span class="ot">user guide</span><span class="co">](../user-guide.qmd)</span>.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>The findings expose the bounds of the application itself. It rests on a single fictional scenario of 23 rounds, so the thresholds that work here would need re-tuning before the tool is pointed at other data. The bypass result depends on where the baseline boundary is drawn and on how closely an outside post matches what the agent already said on a watched channel, which is why the application exposes the baseline control and the supporting messages rather than fixing a single answer, leaving a reader to test how far a conclusion holds as those choices change. The topic tagging relies on a keyword vocabulary rather than a learned model, which keeps the tool transparent and editable but means it will miss content phrased outside its patterns. The application runs entirely on the machine that hosts it and stores no API keys and depends on no paid or external services, so the bypass measures meaning through latent semantic analysis computed on the data at hand rather than a hosted language model, which keeps the tool free, self-contained and private but makes its sense of meaning narrower than a large pretrained model would give. Finally, the four signals report what each agent did and where its content appeared, and they stop short of asserting intent on their own. The Evidence tab surfaces the messages and the private reasoning behind them, so a reader can weigh intent from the evidence, which is the reading the Findings page sets out.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -2,76 +2,18 @@
 title: "Data Preparation"
 subtitle: "Methodology · Phase 1 of 3"
 author: "CSM TraceForce"
-date: "June 10, 2026"
+date: "June 23, 2026"
 ---
 
 ::: {.lead-drop}
-The methodology runs as the three-stage pipeline set out in the [proposal](../proposal.qmd). Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses, and the signals are shown through four interactive sections. This page covers the first stage.
+The methodology runs as the three-stage pipeline set out in the [proposal](../proposal.qmd). Raw data is prepared, behavioural signals are computed against a baseline the analyst chooses and the signals are shown through the interactive application. This page covers the first stage. It follows the same preparation workflow as the Big Fish [Data Preparation](https://isss608-202324g4.netlify.app/methodology/data_preparation) reference, parsing the nested JSON with jsonlite, extracting it into tidy tibbles, deriving the analysis fields and saving a clean table for the app. The data shape differs, as the reference prepares a node-and-edge graph while this scenario is a per-round message log flattened to one row per message.
 :::
 
 ## The three-stage pipeline
 
-The diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline, and those signals are presented through the four interactive sections. This page covers the first stage, with the next two covered under [Analytical Computation](analytical-computation.qmd) and [Interactive Presentation](interactive-presentation.qmd).
+The diagram below maps the whole methodology. Raw data is prepared into tidy tables and reference structures, behavioural signals are computed against the chosen baseline and those signals are presented through the application's tabs. This page covers the first stage, with the next two covered under [Analytical Computation](analytical-computation.qmd) and [Interactive Presentation](interactive-presentation.qmd).
 
-```{r}
-#| label: methodology-pipeline
-#| fig-width: 9
-#| fig-height: 3.6
-#| code-summary: "Pipeline diagram"
-pacman::p_load(DiagrammeR)
-
-grViz("
-digraph methodology {
-  rankdir = LR;
-  graph [fontname = 'Helvetica', nodesep = 0.3, ranksep = 0.7];
-  node  [fontname = 'Helvetica', shape = box, style = 'filled,rounded',
-         fontsize = 11, color = '#2C5282', fillcolor = '#EBF4FF',
-         fontcolor = '#1A202C', margin = '0.12,0.08'];
-  edge  [color = '#4A5568', arrowsize = 0.7];
-
-  raw [label = 'MC1 nested JSON', fillcolor = '#FEFCBF', color = '#B7791F'];
-  app [label = 'Shiny app', fillcolor = '#FEFCBF', color = '#B7791F'];
-
-  subgraph cluster_1 {
-    label = '1  Data Preparation';
-    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';
-    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';
-    prep   [label = 'Flatten and clean'];
-    tables [label = 'Three tables'];
-    derive [label = 'Hierarchy and topics'];
-    prep -> tables -> derive;
-  }
-
-  subgraph cluster_2 {
-    label = '2  Analytical Computation';
-    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';
-    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';
-    base [label = 'Baseline split'];
-    abn  [label = 'Abnormality'];
-    byp  [label = 'Bypass'];
-    net  [label = 'Network difference'];
-    base -> abn;
-    base -> byp;
-    base -> net;
-  }
-
-  subgraph cluster_3 {
-    label = '3  Interactive Presentation';
-    fontname = 'Helvetica'; fontsize = 12; fontcolor = '#1A202C';
-    style = 'filled,rounded'; fillcolor = '#F7FAFC'; color = '#CBD5E0';
-    secA [label = 'A Activity'];
-    secB [label = 'B Bypass'];
-    secC [label = 'C Network'];
-    secD [label = 'D Evidence'];
-  }
-
-  raw    -> prep;
-  derive -> base;
-  net    -> secA;
-  secD   -> app;
-}
-")
-```
+![The three-stage methodology pipeline, from the raw MC1 export to the A Study in Breach application.](../images/prep_pipeline.png)
 
 ## Key context
 
@@ -85,41 +27,118 @@ The scenario is VAST Challenge 2026 Mini-Challenge 1. A property-technology comp
 | Messages | 912 |
 | Embargo lift | 6:00 PM on 5 June, the final round |
 
-## Source data
+## Setup
 
-The data arrives as a nested JSON file holding 23 timeline rounds. Each round records an event headline, a short narrative and the messages exchanged in that round. The seven agents communicate over six channels of decreasing accountability, and the Judge was assigned to the communications huddle partway through the timeline as the compliance monitor.
-
-## Flattening to three tables
-
-The nested timeline was flattened into three working tables. A message table of 912 rows holds one row per message with its sender, channel, recipients, content and the agent's three private reasoning fields named reacting, rationalizing and deliberating. A round table of 23 rows holds each round's headline and narrative. A network table holds the directed links between agents derived from the recipient lists.
-
-Types were fixed during the read so that every downstream axis orders correctly and every logical flag stays logical. Agent identity and channel were read as factors with explicit level orders, round and word counts as integers, and the embargo and recipient flags as logicals.
+The preparation uses jsonlite to parse the export, the tidyverse for the reshaping, lubridate for the timestamps and knitr for the table displays.
 
 ```{r}
-#| label: load-data
 #| eval: false
-#| code-summary: "Reading the cleaned message table with fixed column types"
-
-library(tidyverse)
-
-messages_tbl <- readr::read_csv(
-  "data/messages_clean.csv",
-  col_types = readr::cols(
-    round_idx        = readr::col_integer(),
-    round_hour_dt    = readr::col_datetime(),
-    agent_id         = readr::col_factor(levels = c(
-      "legal_agent","quality_agent","pr_agent","social_media_agent",
-      "pr_intern_agent","intern_agent","judge_agent")),
-    channel          = readr::col_factor(levels = c(
-      "comms_huddle","one_on_one_chat","side_huddle",
-      "official_post","personal_post","anonymous_post")),
-    embargo_keyword_count = readr::col_integer(),
-    recipients_is_all     = readr::col_logical(),
-    embargo_hit           = readr::col_logical(),
-    .default              = readr::col_character()
-  )
-)
+#| code-summary: "Loading the packages"
+pacman::p_load(jsonlite, tidyverse, lubridate, knitr)
 ```
+
+## Loading the raw data
+
+The data arrives as a single nested JSON file. The top-level object holds a `rounds` list of 23 entries. Each round carries an `hour` timestamp, an `environment_context` with the event narrative, a `participants` list and a `communications` list of that round's messages. Each message records its `message_id`, `agent_id`, `channel`, `recipients`, `message_type`, `responding_to`, `content` and `timestamp`, together with a nested `internal_state` holding the agent's private reacting, rationalizing and deliberating fields.
+
+```{r}
+#| eval: false
+#| code-summary: "Reading the nested JSON"
+raw <- fromJSON("data/MC1_final_00.json", simplifyVector = FALSE)
+length(raw$rounds)        # 23 timeline rounds
+names(raw$rounds[[1]])    # "hour" "environment_context" "communications" "participants"
+```
+
+## Flattening the rounds to messages
+
+The nested timeline is flattened into one row per message. Walking each round and then each message inside it pulls the message fields up to the top level, collapses the recipient list into a semicolon-separated string and lifts the three private reasoning fields out of `internal_state`.
+
+```{r}
+#| eval: false
+#| code-summary: "Flattening every round's communications into a message table"
+messages_raw <- imap_dfr(raw$rounds, function(rd, i) {
+  map_dfr(rd$communications, function(m) {
+    tibble(
+      round_idx      = i,
+      round_hour     = rd$hour,
+      message_id     = m$message_id,
+      timestamp      = m$timestamp %||% NA_character_,
+      agent_id       = m$agent_id,
+      channel        = m$channel,
+      message_type   = m$message_type %||% NA_character_,
+      responding_to  = m$responding_to %||% NA_character_,
+      recipients_csv = paste(unlist(m$recipients), collapse = ";"),
+      content        = m$content %||% "",
+      reacting       = m$internal_state$reacting      %||% NA_character_,
+      rationalizing  = m$internal_state$rationalizing %||% NA_character_,
+      deliberating   = m$internal_state$deliberating  %||% NA_character_
+    )
+  })
+})
+```
+
+## Deriving the analysis fields
+
+A handful of fields are derived from the flattened table. The ISO 8601 timestamps are parsed to datetimes. The recipient string yields a count and an all-recipients flag. The content gives a word count and an embargo-keyword count over the merger vocabulary. The round is labelled by period using the boundary the data itself carries, rounds 1 to 20 as the baseline and rounds 21 to 23 as the leak window.
+
+```{r}
+#| eval: false
+#| code-summary: "Deriving timestamps, counts, the embargo flag and the period"
+embargo_pat <- "\\b(merger|civicloom|harborcrest|acquisition|deal|embargo|saltwind)\\b"
+
+messages_clean <- messages_raw |>
+  mutate(
+    round_hour_dt         = ymd_hms(round_hour),
+    timestamp_dt          = ymd_hms(timestamp),
+    recipients_is_all     = recipients_csv == "ALL",
+    recipients_n          = if_else(recipients_csv %in% c("", "ALL"), 0L,
+                                    str_count(recipients_csv, ";") + 1L),
+    word_count            = str_count(content, "\\S+"),
+    embargo_keyword_count = str_count(str_to_lower(content), embargo_pat),
+    embargo_hit           = embargo_keyword_count > 0,
+    has_internal_state    = !(is.na(reacting) & is.na(rationalizing) & is.na(deliberating)),
+    period                = if_else(round_idx <= 20, "Baseline", "Leak window")
+  )
+
+write_csv(messages_clean, "data/messages_clean.csv")
+```
+
+The baseline-share and deviance fields named `baseline_prop` and `deviant` are not set here. They depend on the baseline the analyst chooses, so they are computed at the next stage and are described under [Analytical Computation](analytical-computation.qmd).
+
+## The round and network tables
+
+Two companion tables are saved alongside the messages. The round table keeps each round's hour, its event narrative and a message count, and the network table holds the directed agent-to-agent links built from the recipient lists and weighted by message count.
+
+```{r}
+#| eval: false
+#| code-summary: "Building the round and network tables"
+rounds_clean <- imap_dfr(raw$rounds, function(rd, i) {
+  tibble(
+    round_idx       = i,
+    round_hour      = rd$hour,
+    event_narrative = rd$environment_context$event_narrative %||% NA_character_,
+    n_messages      = length(rd$communications)
+  )
+})
+write_csv(rounds_clean, "data/rounds_clean.csv")
+
+recipient_to_agent <- c(
+  legal = "legal_agent", platform_trust = "quality_agent", pr = "pr_agent",
+  social_manager = "social_media_agent", pr_intern = "pr_intern_agent",
+  intern = "intern_agent", judge = "judge_agent")
+
+network_clean <- messages_clean |>
+  filter(!recipients_csv %in% c("", "ALL")) |>
+  separate_rows(recipients_csv, sep = ";") |>
+  mutate(from = agent_id, to = unname(recipient_to_agent[recipients_csv])) |>
+  filter(!is.na(to)) |>
+  count(round_idx, from, to, name = "weight")
+write_csv(network_clean, "data/network_clean.csv")
+```
+
+The same flattening is what the application performs on any uploaded file in its Case Intake tab, where each column is mapped to the field the analysis needs and each channel is marked as monitored, internal or public.
+
+![The Case Intake tab, where a dataset is loaded, its columns mapped and its channels classified before analysis.](../images/guide_intake.png)
 
 ## Data dictionary
 
@@ -143,158 +162,25 @@ The message table is the working unit of the analysis. Its main fields are below
 | `word_count` | integer | Words in `content` |
 | `embargo_keyword_count` | integer | Count of embargo-related keywords found in `content` |
 | `embargo_hit` | logical | Whether the message carried embargo content |
-
-The round table holds one row per round with its `event_headline` and `event_narrative`, and the network table holds the directed `from` and `to` agent links with a message-count `weight`. Several analysis fields, such as the calm-period channel share and a deviance flag, were added to the message table during the computation stage and are described under [Analytical Computation](analytical-computation.qmd).
+| `period` | character | Baseline for rounds 1 to 20, Leak window for rounds 21 to 23 |
 
 ## The channel accountability ladder
 
 The central reference structure is the channel accountability ladder. Every channel was ranked from most to least accountable and marked for whether the Judge can see it. A legitimate announcement should travel down this ladder, starting as internal discussion on a monitored channel and ending as an attributed public post. Content that reaches an unmonitored public channel without that accountable path is the signal the rest of the analysis looks for.
 
-```{r}
-#| label: channel-ladder
-#| fig-height: 2.8
-#| code-summary: "Building and drawing the accountability ladder"
-library(tidyverse)
-
-ladder <- tibble(
-  channel   = c("Communications huddle","One-on-one chat","Side huddle",
-                "Official post","Personal post","Anonymous post"),
-  rank      = 1:6,
-  layer     = c("Internal","Internal","Internal","Public","Public","Public"),
-  monitored = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)
-)
-
-ggplot(ladder, aes(x = 7 - rank, y = reorder(channel, 7 - rank), fill = monitored)) +
-  geom_col(width = 0.7) +
-  geom_text(aes(label = layer), hjust = 1.1, colour = "white", size = 3.2) +
-  scale_fill_manual(values = c(`TRUE` = "#2F855A", `FALSE` = "#9B2C2C"),
-                    labels = c(`TRUE` = "Monitored by the Judge", `FALSE` = "Unmonitored"),
-                    name = NULL) +
-  labs(x = "Accountability (longer bar means more visible to the Judge)",
-       y = NULL, title = "The six channels, ranked by accountability") +
-  theme_minimal(base_size = 12) +
-  theme(axis.text.x = element_blank(), panel.grid = element_blank(),
-        legend.position = "top")
-```
+![The six channels, ranked by accountability and marked for whether the Judge can see them.](../images/prep_ladder.png)
 
 ## Other reference structures
 
-Two further structures were prepared. A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network edges connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics, covering legal, product trust, merger, media, market and compliance language, a keyword pattern so that every message can be tagged by the topics its content matches.
+A recipient lookup maps the short recipient names such as legal or pr to the full agent identities such as legal_agent or pr_agent, so that network links connect to real nodes rather than dropping out. A topic vocabulary gives each of six topics a keyword pattern so that every message can be tagged by the topics its content matches, and the analyst can edit the vocabulary or search for their own words.
 
-```{r}
-#| label: reference-structures
-#| eval: false
-#| code-summary: "The recipient lookup and the topic vocabulary"
-
-recipient_to_agent <- c(
-  legal = "legal_agent", platform_trust = "quality_agent", pr = "pr_agent",
-  social_manager = "social_media_agent", pr_intern = "pr_intern_agent",
-  intern = "intern_agent", judge = "judge_agent")
-
-topic_patterns <- tibble::tribble(
-  ~topic,           ~pattern,
-  "Legal",          "\\b(legal|counsel|consent|regulator|attorney|liability)\\b",
-  "Product trust",  "\\b(governance|audit|score|data|platform|algorithm)\\b",
-  "Merger",         "\\b(merger|civicloom|harborcrest|acquisition|deal)\\b",
-  "Media",          "\\b(saltwind|press|journalist|story|sentiment|denial)\\b",
-  "Market",         "\\b(market|stock|investor|residentiq|share)\\b",
-  "Compliance",     "\\b(embargo|monitoring|judge|compliance|oversight|policy)\\b")
-```
-
-## Data overview
-
-With the tables in place, a first look confirms the shape of the data before any signal is computed. The three views below report the spread of messages across agents, across channels, and over the timeline.
-
-```{r}
-#| label: overview-setup
-#| message: false
-#| code-summary: "Reading the cleaned tables for the overview"
-messages <- read_csv("data/messages_clean.csv", show_col_types = FALSE)
-rounds   <- read_csv("data/rounds_clean.csv",   show_col_types = FALSE)
-
-agent_labels <- c(
-  legal_agent = "Legal", quality_agent = "Platform Trust", pr_agent = "PR",
-  social_media_agent = "Social Media", pr_intern_agent = "PR Intern",
-  intern_agent = "Intern", judge_agent = "Judge")
-chan_levels <- c("comms_huddle","one_on_one_chat","side_huddle",
-                 "official_post","personal_post","anonymous_post")
-```
-
-The seven agents are far from equal contributors. The Judge, as a monitor rather than a participant, speaks rarely, while the Legal and Social Media agents carry the most traffic.
-
-```{r}
-#| label: messages-per-agent
-#| fig-height: 3.0
-messages |>
-  count(agent_id) |>
-  mutate(agent = recode(agent_id, !!!agent_labels)) |>
-  ggplot(aes(x = n, y = reorder(agent, n))) +
-  geom_col(fill = "#2C5282") +
-  geom_text(aes(label = n), hjust = -0.2, size = 3.5) +
-  expand_limits(x = max(table(messages$agent_id)) * 1.1) +
-  labs(x = "Messages", y = NULL, title = "Message volume by agent") +
-  theme_minimal(base_size = 12) +
-  theme(panel.grid.major.y = element_blank())
-```
-
-Most traffic sits on the two monitored internal channels. The unmonitored public channels carry far less volume overall, which is why a small burst of activity on them late in the timeline stands out.
-
-```{r}
-#| label: messages-per-channel
-#| fig-height: 3.0
-messages |>
-  mutate(channel = factor(channel, levels = chan_levels)) |>
-  count(channel) |>
-  ggplot(aes(x = channel, y = n,
-             fill = channel %in% c("comms_huddle","one_on_one_chat"))) +
-  geom_col() +
-  scale_fill_manual(values = c(`TRUE` = "#2F855A", `FALSE` = "#9B2C2C"),
-                    labels = c(`TRUE` = "Monitored", `FALSE` = "Unmonitored"),
-                    name = NULL) +
-  labs(x = NULL, y = "Messages", title = "Message volume by channel") +
-  theme_minimal(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1), legend.position = "top")
-```
-
-Messages per round separate the two regimes in the data. The pre-crisis rounds carry a steady, moderate load. From round 14 onward, the crisis day on 5 June, the rounds advance hour by hour and volume climbs as the story breaks publicly.
-
-```{r}
-#| label: activity-over-time
-#| fig-height: 3.0
-rounds |>
-  ggplot(aes(x = round_idx, y = n_messages)) +
-  geom_col(fill = "#4A5568", width = 0.8) +
-  geom_vline(xintercept = 13.5, linetype = "dashed", colour = "#C05621") +
-  annotate("text", x = 13.5, y = max(rounds$n_messages),
-           label = " crisis day begins", hjust = 0, size = 3.2, colour = "#C05621") +
-  scale_x_continuous(breaks = seq(1, 23, 2)) +
-  labs(x = "Round", y = "Messages", title = "Messages per round across the timeline") +
-  theme_minimal(base_size = 12) +
-  theme(panel.grid.minor = element_blank())
-```
-
-Tagging messages with the merger keyword pattern shows the topic vocabulary in action. The merger is discussed on the monitored internal channels through the build-up, and the dark red bars, the anonymous channel, appear only in the closing rounds.
-
-```{r}
-#| label: merger-topic
-#| fig-height: 3.0
-channel_palette <- c(
-  comms_huddle = "#90CDF4", one_on_one_chat = "#F6AD55", side_huddle = "#FBD38D",
-  official_post = "#68D391", personal_post = "#FC8181", anonymous_post = "#742A2A")
-merger_pat <- "\\b(merger|civicloom|harborcrest|acquisition|deal)\\b"
-
-messages |>
-  mutate(text = tolower(coalesce(content, ""))) |>
-  filter(str_detect(text, merger_pat)) |>
-  mutate(channel = factor(channel, levels = chan_levels)) |>
-  count(round_idx, channel, name = "mentions") |>
-  ggplot(aes(round_idx, mentions, fill = channel)) +
-  geom_col(width = 0.8) +
-  scale_fill_manual(values = channel_palette, drop = FALSE, name = NULL) +
-  scale_x_continuous(breaks = seq(1, 23, 2)) +
-  labs(x = "Round", y = "Mentions", title = "Merger-topic mentions by round and channel") +
-  theme_minimal(base_size = 12) +
-  theme(panel.grid.minor = element_blank(), legend.position = "bottom")
-```
+| Topic | Keyword pattern |
+|---|---|
+| Legal | legal, counsel, consent, regulator, attorney, liability |
+| Product trust | governance, audit, score, data, platform, algorithm |
+| Merger | merger, civicloom, harborcrest, acquisition, deal |
+| Media | saltwind, press, journalist, story, sentiment, denial |
+| Market | market, stock, investor, residentiq, share |
+| Compliance | embargo, monitoring, judge, compliance, oversight, policy |
 
 The preparation stage produces the clean message, round and network tables together with the accountability ladder, the recipient lookup and the topic vocabulary. These feed the signal computation in [Analytical Computation](analytical-computation.qmd).

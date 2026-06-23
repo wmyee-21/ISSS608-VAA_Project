@@ -155,15 +155,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Analytical Computation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./findings.html">
- <span class="dropdown-text">Findings</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="./methodology/interactive-presentation.html">
  <span class="dropdown-text">Interactive Presentation</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./findings.html"> 
+<span class="menu-text">Findings</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./poster.html"> 
 <span class="menu-text">Poster</span></a>
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./shiny-app.html">
- <span class="dropdown-text">Launch App (coming soon)</span></a>
+ <span class="dropdown-text">Launch App</span></a>
   </li>  
     </ul>
   </li>
@@ -253,6 +253,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Three analysts, two cats and one embargo that did not stand a chance. We built the visual analytics tool that follows the signals back to the messages that prove them.</p>
 <div class="team-grid">
+<!-- Animated avatars: replace the .jpg with an animated mark_avatar.gif or .webp
+     (the <img> plays it automatically), or swap the <img class="avatar" ...> for
+     <video class="avatar" src="images/mark_avatar.mp4" autoplay loop muted playsinline></video>
+     for a video clip. The video is styled to match in styles.css. -->
 <div class="member-card">
 <img class="avatar" src="images/mark_avatar.jpg" alt="Mark Yee">
 <div class="member-name">
@@ -261,7 +265,7 @@ Mark Yee
 <div class="member-role">
 Lead Investigator
 </div>
-<p>Keeper of the deerstalker and the master plan. Pins channels to the board, mutters “follow the messages” at the screen, and stops the cat from sitting on the keyboard mid-render.</p>
+<p>Keeper of the deerstalker and the master plan. Pins channels to the board, mutters “follow the messages” at the screen and stops the cat from sitting on the keyboard mid-render.</p>
 </div>
 <div class="member-card">
 <img class="avatar" src="images/serene_avatar.jpg" alt="Serene Cheng">
@@ -286,29 +290,60 @@ Forensic Analyst
 </div>
 <section id="project-contributions" class="level2">
 <h2 class="anchored" data-anchor-id="project-contributions">Project contributions</h2>
+<p>Everyone had a hand in every part. The table marks who led each area and who supported it.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Member</th>
-<th>Contribution</th>
+<th>Area</th>
+<th>Main</th>
+<th>Support</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Mark Yee</td>
-<td>Project direction, proposal and website, activity and breach views</td>
+<td>Project direction</td>
+<td>Mark</td>
+<td>Serene, Carina</td>
 </tr>
 <tr class="even">
-<td>Serene Cheng</td>
-<td>Topic selection and the network analysis</td>
+<td>Data preparation</td>
+<td>Mark</td>
+<td>Serene, Carina</td>
 </tr>
 <tr class="odd">
-<td>Carina Faith Peh</td>
-<td>Topic and evidence analysis, and user experience</td>
+<td>Network analysis</td>
+<td>Serene</td>
+<td>Mark, Carina</td>
+</tr>
+<tr class="even">
+<td>Activity and bypass analysis</td>
+<td>Serene</td>
+<td>Mark, Carina</td>
+</tr>
+<tr class="odd">
+<td>Topic and evidence analysis</td>
+<td>Carina</td>
+<td>Mark, Serene</td>
+</tr>
+<tr class="even">
+<td>Shiny app and website</td>
+<td>Mark</td>
+<td>Serene, Carina</td>
+</tr>
+<tr class="odd">
+<td>User experience and design</td>
+<td>Carina</td>
+<td>Mark, Serene</td>
+</tr>
+<tr class="even">
+<td>Report and documentation</td>
+<td>Carina</td>
+<td>Mark, Serene</td>
+</tr>
+<tr class="odd">
+<td>Poster design</td>
+<td>Serene</td>
+<td>Mark, Carina</td>
 </tr>
 </tbody>
 </table>
@@ -781,36 +816,49 @@ Forensic Analyst
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>::: {.team-grid}</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>::: {.member-card}</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> class</span><span class="op">=</span><span class="st">"avatar"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"images/mark_avatar.jpg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Mark Yee"</span><span class="dt">&gt;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-name"</span><span class="dt">&gt;</span>Mark Yee<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-role"</span><span class="dt">&gt;</span>Lead Investigator<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Keeper of the deerstalker and the master plan. Pins channels to the board, mutters "follow the messages" at the screen, and stops the cat from sitting on the keyboard mid-render.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>::: {.member-card}</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> class</span><span class="op">=</span><span class="st">"avatar"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"images/serene_avatar.jpg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Serene Cheng"</span><span class="dt">&gt;</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-name"</span><span class="dt">&gt;</span>Serene Cheng<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-role"</span><span class="dt">&gt;</span>The Judge<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>The calm at the centre of the storm. While the embargo leaks and the agents lose their heads, she quietly decides what actually counts as a breach. The gavel is mostly decorative.</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>::: {.member-card}</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> class</span><span class="op">=</span><span class="st">"avatar"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"images/carina_avatar.jpg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Carina Faith Peh"</span><span class="dt">&gt;</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-name"</span><span class="dt">&gt;</span>Carina Faith Peh<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-role"</span><span class="dt">&gt;</span>Forensic Analyst<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Reads the evidence and the agents' private thoughts with equal delight. No keyword slips past her across the rounds, and she insists the whole thing stays tidy while she is at it.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project contributions</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Member <span class="pp">|</span> Contribution <span class="pp">|</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mark Yee <span class="pp">|</span> Project direction, proposal and website, activity and breach views <span class="pp">|</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Serene Cheng <span class="pp">|</span> Topic selection and the network analysis <span class="pp">|</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Carina Faith Peh <span class="pp">|</span> Topic and evidence analysis, and user experience <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Animated avatars: replace the .jpg with an animated mark_avatar.gif or .webp</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">     (the &lt;img&gt; plays it automatically), or swap the &lt;img class="avatar" ...&gt; for</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">     &lt;video class="avatar" src="images/mark_avatar.mp4" autoplay loop muted playsinline&gt;&lt;/video&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">     for a video clip. The video is styled to match in styles.css. --&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>::: {.member-card}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> class</span><span class="op">=</span><span class="st">"avatar"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"images/mark_avatar.jpg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Mark Yee"</span><span class="dt">&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-name"</span><span class="dt">&gt;</span>Mark Yee<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-role"</span><span class="dt">&gt;</span>Lead Investigator<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Keeper of the deerstalker and the master plan. Pins channels to the board, mutters "follow the messages" at the screen and stops the cat from sitting on the keyboard mid-render.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>::: {.member-card}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> class</span><span class="op">=</span><span class="st">"avatar"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"images/serene_avatar.jpg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Serene Cheng"</span><span class="dt">&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-name"</span><span class="dt">&gt;</span>Serene Cheng<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-role"</span><span class="dt">&gt;</span>The Judge<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>The calm at the centre of the storm. While the embargo leaks and the agents lose their heads, she quietly decides what actually counts as a breach. The gavel is mostly decorative.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>::: {.member-card}</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> class</span><span class="op">=</span><span class="st">"avatar"</span><span class="ot"> src</span><span class="op">=</span><span class="st">"images/carina_avatar.jpg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"Carina Faith Peh"</span><span class="dt">&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-name"</span><span class="dt">&gt;</span>Carina Faith Peh<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"member-role"</span><span class="dt">&gt;</span>Forensic Analyst<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Reads the evidence and the agents' private thoughts with equal delight. No keyword slips past her across the rounds, and she insists the whole thing stays tidy while she is at it.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project contributions</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Everyone had a hand in every part. The table marks who led each area and who supported it.</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Area <span class="pp">|</span> Main <span class="pp">|</span> Support <span class="pp">|</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Project direction <span class="pp">|</span> Mark <span class="pp">|</span> Serene, Carina <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Data preparation <span class="pp">|</span> Mark <span class="pp">|</span> Serene, Carina <span class="pp">|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Network analysis <span class="pp">|</span> Serene <span class="pp">|</span> Mark, Carina <span class="pp">|</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Activity and bypass analysis <span class="pp">|</span> Serene <span class="pp">|</span> Mark, Carina <span class="pp">|</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Topic and evidence analysis <span class="pp">|</span> Carina <span class="pp">|</span> Mark, Serene <span class="pp">|</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Shiny app and website <span class="pp">|</span> Mark <span class="pp">|</span> Serene, Carina <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> User experience and design <span class="pp">|</span> Carina <span class="pp">|</span> Mark, Serene <span class="pp">|</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Report and documentation <span class="pp">|</span> Carina <span class="pp">|</span> Mark, Serene <span class="pp">|</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Poster design <span class="pp">|</span> Serene <span class="pp">|</span> Mark, Carina <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
