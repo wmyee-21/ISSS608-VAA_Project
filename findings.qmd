@@ -70,7 +70,7 @@ The communication structure reorganises around the crisis. Through the calm peri
 
 ![Agent-to-agent communication, round 18 versus round 22. Arrow colour is message volume, greyed arrows are links dropped since round 18 and node size is the number of connections.](images/find_network.png)
 
-In the application this is the Connections tab with the two-round slider set to compare round 18 and round 22 and the minimum messages per link left at one. The rounds are not found by stepping through one at a time. The Network row on the Case Board scores every round's structural change at once, and the link timeline at the foot of the Connections tab shows which pairs were connected in each round, so the rounds where the wiring shifts stand out. A calm round before the breach and the flagged breach round are then placed on the slider, where the highlight strip reports the new and dropped link counts.
+In the application this is the Connections tab with the two-round slider set to compare round 18 and round 22 and the minimum messages per link left at one. The rounds are not found by stepping through one at a time. The Network row on the Case Board scores every round's structural change at once, and the link timeline at the foot of the Connections tab shows which pairs were connected in each round, so the rounds where the wiring shifts stand out. The round just before the network shifts and the breach round are then placed on the slider, where the highlight strip reports the new and dropped link counts.
 
 ## Finding 4 - the breach was framed as a contract acceleration
 
