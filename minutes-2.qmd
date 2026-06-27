@@ -67,7 +67,7 @@ The team agreed to refine the Shiny app around a clearer investigation flow. The
 | Team | Suggest clearer or more engaging names for the merged dashboard sections | Ongoing |
 | Mark | Review the linking logic between bypass, overview and network views | Ongoing |
 | Mark | Verify that clicking into a specific round brings users to the correct detailed view | Ongoing |
-| Team | Refine the overview heat map settings and agree on how abnormality indicators should be displayed | Before next meeting |
+| Team | Refine the overview heat map settings and agree on how abnormality indicators should be displayed | Ongoing |
 | Team | Follow the agreed editing process: pull latest, edit, push, update group chat | Ongoing |
 
 ---
