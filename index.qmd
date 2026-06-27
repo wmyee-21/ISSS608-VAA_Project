@@ -21,10 +21,6 @@ This is the project website for **CSM TraceForce**. The project builds a web-ena
 
 The challenge centres on TenantThread, a property-technology company that runs seven AI agents during a public-relations response while a merger sits under embargo. A compliance agent called the Judge is meant to watch for violations, yet embargoed information still reaches the outside world. Our application brings analytics and visualisation together so an analyst can surface the abnormal behaviour, see how the communication network changed and trace each signal back to the messages that prove it.
 
-::: {.callout-note}
-This site is a work in progress. Pages marked *(placeholder)* will be filled in as the project develops.
-:::
-
 ---
 
 [Explore]{.kicker}
@@ -34,7 +30,8 @@ This site is a work in progress. Pages marked *(placeholder)* will be filled in 
 | Section | What you'll find |
 |---|---|
 | [Proposal](proposal.qmd) | Motivation, problem, approach and prototype design |
-| [Methodology](methodology/data-prep.qmd) | How the app was built, from data preparation through analytical computation, findings and the interactive presentation |
+| [Methodology](methodology/data-prep.qmd) | How the app was built, from data preparation through analytical computation to the interactive presentation |
+| [Findings](findings.qmd) | What the analysis found, with the evidence behind each finding |
 | [Poster](poster.qmd) | Conference poster summarising the work |
 | [Meeting Minutes](minutes.qmd) | Record of team meetings and decisions |
 | [The Team](team.qmd) | Who we are and what we each did |
