@@ -61,9 +61,3 @@ The team selected **Mini-Challenge 1 (MC1)** as the topic for the Visual Analyti
 The next meeting will be held on **13 June** to refine and finalise the application modules and to split the division of work.
 
 ---
-
-**Sources**
-
-- [Carina Peh, Take-Home Exercise 2 (MC2)](https://isss-608-vaa-carinapeh.vercel.app/Take%20Home%20Exercise%202/Take_Home_Ex02.html)
-- [Serene Cheng, Take-Home Exercise 2](https://isss-608-vaa-serenechengjj.vercel.app/Take-Home_Ex/Take-Home_Ex2/Take-Home_Ex02.html)
-- [Mark Yee, Take-home Exercise 2, TenantThread Embargo Leak (MC1)](https://isss-608-vaa-my.vercel.app/TH_EX02.html)

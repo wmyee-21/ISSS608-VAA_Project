@@ -143,17 +143,6 @@
     ]
   },
   {
-    "objectID": "minutes-2.html#next-meeting",
-    "href": "minutes-2.html#next-meeting",
-    "title": "Meeting Minutes",
-    "section": "5. Next meeting",
-    "text": "5. Next meeting\nThe next meeting will be used to review the updated dashboard flow, confirm whether the merged tabs work well together and assess whether the overview page successfully guides users from abnormality detection through to detailed evidence.",
-    "crumbs": [
-      "Meeting Minutes",
-      "Meeting 2 · Dashboard refinement"
-    ]
-  },
-  {
     "objectID": "methodology/data-prep.html",
     "href": "methodology/data-prep.html",
     "title": "Data Preparation",
@@ -546,7 +535,7 @@
     "href": "minutes.html#next-meeting",
     "title": "Meeting Minutes",
     "section": "5. Next meeting",
-    "text": "5. Next meeting\nThe next meeting will be held on 13 June to refine and finalise the application modules and to split the division of work.\n\nSources\n\nCarina Peh, Take-Home Exercise 2 (MC2)\nSerene Cheng, Take-Home Exercise 2\nMark Yee, Take-home Exercise 2, TenantThread Embargo Leak (MC1)",
+    "text": "5. Next meeting\nThe next meeting will be held on 13 June to refine and finalise the application modules and to split the division of work.",
     "crumbs": [
       "Meeting Minutes",
       "Meeting 1 · Topic selection"

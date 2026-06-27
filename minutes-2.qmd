@@ -70,6 +70,4 @@ The team agreed to refine the Shiny app around a clearer investigation flow. The
 | Team | Refine the overview heat map settings and agree on how abnormality indicators should be displayed | Before next meeting |
 | Team | Follow the agreed editing process: pull latest, edit, push, update group chat | Ongoing |
 
-## 5. Next meeting
-
-The next meeting will be used to review the updated dashboard flow, confirm whether the merged tabs work well together and assess whether the overview page successfully guides users from abnormality detection through to detailed evidence.
+---
