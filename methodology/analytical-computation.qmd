@@ -237,6 +237,8 @@ In the app a chosen topic, several topics or a free-text search are resolved int
 
 To be exact, the baseline rate is the average mentions per baseline round, the total tracked mentions across the baseline rounds divided by the number of baseline rounds. A later round scores its own mention count minus the spike setting times this average, floored at zero, so with a spike of two a round only shades once its mentions pass twice the baseline rate. A topic that never appeared in the baseline has a rate of zero, so any later mention counts in full.
 
+Tracing this breach took more than one search. No single keyword surfaces the whole story, so the full picture was assembled from several terms such as CivicLoom for the merger subject that first appears at round 9, Section 4.3 for the legal override argument at round 16 and SaltWind for the journalist's exposé. Each term surfaces a different thread, and reading them together reconstructs a sequence that any one search on its own would miss.
+
 ```{r}
 #| eval: false
 #| code-summary: "Resolving the topic pattern and scoring the per-round spike"
