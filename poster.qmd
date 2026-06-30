@@ -5,6 +5,8 @@ date: "June 10, 2026"
 toc: false
 ---
 
-> *(placeholder)* The project poster will be added here.
+Our ISO A1 conference poster summarises the investigation end to end, from the problem and motivation through the approach, the Shiny application, the findings and future work.
 
-The poster will be produced in ISO A1 format and cover the issues and problems, motivation, approach, results and future work.
+[![CSM TraceForce conference poster, A1 format](images/poster.jpg){fig-align="center" width="68%"}](images/poster_full.jpg)
+
+Click the poster to open it full size, or [download the full-resolution image](images/poster_full.jpg).
